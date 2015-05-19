@@ -1,0 +1,107 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: lti-sitemap\n"
+"POT-Creation-Date: 2015-05-19 15:34+0100\n"
+"PO-Revision-Date: 2015-05-19 15:34+0100\n"
+"Last-Translator: \n"
+"Language-Team: LTI <linguisticteam@gmail.com>\n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.7.3\n"
+"X-Poedit-Basepath: .\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_x:1,2c;_ex:1,2c;_n:1,2;_nx:1,2,4c;_n_noop:1,2;"
+"_nx_noop:1,2,3c;esc_attr__;esc_html__;esc_attr_e;esc_html_e;esc_attr_x:1,2c;"
+"esc_html_x:1,2c;lsmint;lsmint_po\n"
+"X-Poedit-SearchPath-0: ../src\n"
+
+#: ../src/admin/admin.php:101
+msgid "admin.menu_title"
+msgstr ""
+
+#: ../src/admin/admin.php:101
+msgid "admin.menu_item"
+msgstr ""
+
+#: ../src/admin/admin.php:118
+msgid "general_hlp_welcome"
+msgstr ""
+
+#: ../src/admin/admin.php:123
+msgid "general_hlp_general"
+msgstr ""
+
+#: ../src/admin/admin.php:142
+msgid "general.settings"
+msgstr ""
+
+#: ../src/admin/admin.php:172
+msgid "opt.msg.updated"
+msgstr ""
+
+#: ../src/admin/admin.php:176
+msgid "opt.msg.error_token"
+msgstr ""
+
+#: ../src/admin/admin.php:184
+msgid "opt.msg.reset"
+msgstr ""
+
+#: ../src/admin/admin.php:197
+msgid "admin.help"
+msgstr ""
+
+#: ../src/admin/admin.php:198
+msgid "admin.contribute"
+msgstr ""
+
+#: ../src/admin/partials/help_menu.php:16
+msgid "general_hlp_welcome_1"
+msgstr ""
+
+#: ../src/admin/partials/help_menu.php:20
+msgid "general_hlp_general_1"
+msgstr ""
+
+#: ../src/admin/partials/help_menu.php:24
+msgid "general_hlp_frontpage_1"
+msgstr ""
+
+#: ../src/admin/partials/help_menu.php:28
+msgid "general_hlp_social_1"
+msgstr ""
+
+#: ../src/admin/partials/help_menu.php:32
+msgid "general_hlp_about_us"
+msgstr ""
+
+#: ../src/admin/partials/help_menu.php:33
+msgid "general_hlp_dev_blog"
+msgstr ""
+
+#: ../src/admin/partials/help_menu.php:34
+msgid "general_hlp_contribute"
+msgstr ""
+
+#: ../src/admin/partials/help_menu.php:35
+msgid "general_hlp_github"
+msgstr ""
+
+#: ../src/admin/partials/options-page.php:14
+msgid "opt.title"
+msgstr ""
+
+#: ../src/admin/partials/options-page.php:22
+msgid "opt.tab.general"
+msgstr ""
+
+#: ../src/admin/partials/options-page.php:39
+msgid "opt.e"
+msgstr ""
+
+#: ../src/extra-strings.php:2
+msgid "Sitemap generator"
+msgstr ""

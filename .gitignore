@@ -1,0 +1,5 @@
+/.idea
+/node_modules
+composer.lock
+/vendor
+src/extra-strings.php

@@ -1,0 +1,11 @@
+{
+    "name": "lti/lti-wp-sitemap",
+    "require-dev": {
+        "google/apiclient": "~1.1"
+    },
+  "scripts": {
+    "post-install-cmd": [
+      "composer dump-autoload --optimize"
+    ]
+  }
+}
