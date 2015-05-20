@@ -5,7 +5,7 @@
 
 @media (min-width: 300px) {
     .lti-sitemap-header {
-        background-color: #FFA500;
+        background-color: #97D397;
         padding: 10px 25px;
         border: 1px solid transparent;
         margin-left: -20px;
@@ -15,7 +15,7 @@
     }
 
     .lti-sitemap-header.lti_update {
-        background-color: #007725;
+        background-color: #9d6600;
     }
 
     .lti-sitemap-header.lti_update h2, .lti-sitemap-header.lti_error h2 {
@@ -132,7 +132,7 @@
         width: 95%;
         border-radius: 3px;
         margin: 25px 0;
-        border-left: 3px solid #FFA500;
+        border-left: 3px solid #97D397;
         padding: 10px;
     }
 
@@ -242,6 +242,38 @@
         padding:3px 0;
     }
 
+    #flsm .table th button{
+        border: none;
+        background: none;
+        color: #000000;
+    }
+
+    #flsm .table td button{
+        color: #FF0000;
+        border: none;
+        background: none;
+        cursor: pointer;
+    }
+
+    #flsm .table button#btn_extra_pages_add{
+        color: #008000;
+        border: none;
+        background: none;
+    }
+
+    #flsm .table button#btn_extra_pages_add:hover{
+        color: #005400;
+    }
+
+    #flsm .table td button:hover{
+        color: #ae0000;
+        cursor: hand;
+    }
+
+    #flsm .table td input{
+        border:none;
+    }
+
     #flsm .table tbody tr:last-child td{
         padding-bottom:10px;
     }
@@ -277,7 +309,7 @@
     #lti_sitemap_wrapper .nav > li > a:hover,
     #lti_sitemap_wrapper .nav > li > a:focus {
         text-decoration: none;
-        background-color: #ffd414;
+        background-color: #b7ffb7;
     }
     #lti_sitemap_wrapper .nav > li.disabled > a {
         color: #777777;
@@ -292,7 +324,7 @@
     #lti_sitemap_wrapper .nav .open > a,
     #lti_sitemap_wrapper .nav .open > a:hover,
     #lti_sitemap_wrapper .nav .open > a:focus {
-        background-color: #ffa500;
+        background-color: #97D397;
         border-color: #337ab7;
     }
     #lti_sitemap_wrapper .nav .nav-divider {
@@ -319,7 +351,7 @@
         border-radius: 0 0 6px 6px;
         text-decoration: none;
         color: #000001;
-        background-color: #FFA500;
+        background-color: #97D397;
 
     }
     #lti_sitemap_wrapper .nav-tabs > li > a:hover {
@@ -329,7 +361,7 @@
     #lti_sitemap_wrapper .nav-tabs > li.active > a:hover,
     #lti_sitemap_wrapper .nav-tabs > li.active > a:focus {
         color: #fff;
-        background-color: #774d00;
+        background-color: #435e43;
         /*border: 1px solid #dddddd;*/
         border-top-color: transparent;
         cursor: default;

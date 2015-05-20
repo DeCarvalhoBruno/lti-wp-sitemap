@@ -66,3 +66,14 @@ class Field_Url extends Fields {
 	}
 
 }
+
+class Field_Array extends Fields {
+	public function __construct( $value, $default = array(), $isTracked = false ) {
+		$this->isTracked = $isTracked;
+		if ( !empty($value) ) {
+			$this->value = $value;
+		} else {
+			$this->value = $default;
+		}
+	}
+}

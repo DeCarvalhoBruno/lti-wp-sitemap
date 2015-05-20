@@ -126,6 +126,8 @@ class LTI_Sitemap {
 		$this->admin = new Admin( $this->name, $this->basename, $this->version, $this->settings, $this->plugin_path,
 			$this->helper );
 
+		$this->loader->add_filter('query_vars', $this, 'query_vars', 1, 1);
+
 		$this->loader->add_action( 'admin_init', $this->admin, 'register_setting' );
 		$this->loader->add_filter( 'plugin_row_meta', $this->admin, 'plugin_row_meta', 10, 2 );
 		$this->loader->add_action( 'admin_enqueue_scripts', $this->admin, 'enqueue_styles' );
@@ -146,6 +148,11 @@ class LTI_Sitemap {
 
 	public function get_frontend() {
 		return $this->frontend;
+	}
+
+	public function query_vars($vars){
+		array_push($vars, 'lti_sitemap');
+		return $vars;
 	}
 
 	/**

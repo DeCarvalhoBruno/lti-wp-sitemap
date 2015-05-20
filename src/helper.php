@@ -43,7 +43,7 @@ function lsmopt( $value ) {
  * @return null|string
  */
 function lsmchk( $value ) {
-	$val = ltiopt( $value );
+	$val = lsmopt( $value );
 	if ( $val == true ) {
 		return 'checked="checked"';
 	} else {
@@ -60,7 +60,7 @@ function lsmchk( $value ) {
  * @return null|string
  */
 function lsmrad( $key, $currentValue ) {
-	$storedValue = ltiopt( $key );
+	$storedValue = lsmopt( $key );
 	if ( $storedValue == $currentValue ) {
 		return 'checked="checked"';
 	} else {

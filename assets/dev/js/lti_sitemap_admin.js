@@ -36,63 +36,19 @@
             sitemap_header.evalClass('lti_error');
         }
 
-        /**
-         * Allows to enable/disable groups of input fields
-         * when the user activates/deactivates certain features
-         *
-         * Targets a div through its id and disables/enables any input, textarea or select inside it.
-         */
-        var input = function () {
-            this.objectToLookIntoID = null;
-            this.optionID = null;
-        };
-
-        input.prototype.init = function (optionID, objectToLookIntoID) {
-            this.optionID = $(optionID);
-            this.objectToLookIntoID = $(objectToLookIntoID);
-        };
-
-        input.prototype.disable = function () {
-            this.objectToLookIntoID.find('input').attr("disabled", "disabled");
-            this.objectToLookIntoID.find('textarea').attr("disabled", "disabled");
-            this.objectToLookIntoID.find('select').attr("disabled", "disabled");
-        };
-        input.prototype.enable = function () {
-            this.objectToLookIntoID.find('input').removeAttr("disabled");
-            this.objectToLookIntoID.find('textarea').removeAttr("disabled");
-            this.objectToLookIntoID.find('select').removeAttr("disabled");
-        };
-
-        input.prototype.toggleDisabled = function () {
-            if (this.optionID.length) {
-                if (typeof this.optionID.attr('checked') === "undefined") {
-                    this.disable();
-                }
-                var option = this.optionID;
-                var $this = this;
-                this.optionID.click(function () {
-                    if (this.checked) {
-                        $this.enable();
-                    } else {
-                        $this.disable();
-                    }
-                });
-
-            }
-        };
-
-        /**
-         * When we initialize the page, we need to make sure groups of fields are disabled
-         * if the parent option is not ticked
-         */
-        $('[data-toggle="sitemap-options"]').each(function () {
-            var targetToDisable = $(this).attr('data-target');
-            if (typeof targetToDisable != "undefined") {
-                var element = new input();
-                element.init("#" + $(this).attr('id'), targetToDisable);
-                element.toggleDisabled();
-            }
+        $('.btn-del-row').click(function(){
+            $(this).parent().parent().empty();
+            console.log('click remove');
         });
+
+        $('#btn_extra_pages_add').click(function(){
+           $(this).parent().parent().before('<tr><td><input type="text" required="required" name="extra_pages_url[]" placeholder="http://www.example.com"/></td><td><input type="text" name="extra_pages_date[]" placeholder="yyyy-mm-dd"/></td><td><button type="button" class="btn-del-row dashicons dashicons-no"></button></td></tr>');
+            $('.btn-del-row').click(function(){
+                $(this).parent().parent().empty();
+                console.log('click remove');
+            });
+        });
+
 
         /**
          * Handles tabbing feature

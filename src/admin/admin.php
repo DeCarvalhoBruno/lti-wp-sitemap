@@ -152,7 +152,6 @@ class Admin {
 	 */
 	public function validate_input( $data ) {
 		unset( $data['_wpnonce'], $data['option_page'], $data['_wp_http_referer'] );
-
 		$this->settings = $this->settings->save( $data );
 		update_option( 'lti_sitemap_options', $this->settings);
 	}
