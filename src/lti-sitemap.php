@@ -42,6 +42,9 @@ class LTI_Sitemap {
 	 * @var \Lti\Sitemap\Admin
 	 */
 	public $admin;
+	/**
+	 * @var \Lti\Sitemap\Frontend
+	 */
 	public $frontend;
 	private $helper;
 
@@ -93,7 +96,7 @@ class LTI_Sitemap {
 		require_once $this->file_path . 'loader.php';
 		require_once $this->file_path . 'i18n.php';
 		require_once $this->file_path . 'admin/admin.php';
-		//require_once $this->file_path . 'frontend/frontend.php';
+		require_once $this->file_path . 'frontend/frontend.php';
 		require_once $this->file_path . 'helpers/wordpress_helper.php';
 		require_once $this->file_path . 'activator.php';
 		$this->loader = new Loader();
@@ -126,17 +129,13 @@ class LTI_Sitemap {
 		$this->admin = new Admin( $this->name, $this->basename, $this->version, $this->settings, $this->plugin_path,
 			$this->helper );
 
-		$this->loader->add_filter('query_vars', $this, 'query_vars', 1, 1);
-
+		$this->loader->add_filter('query_vars', $this, 'http_request_query_string', 1, 1);
 		$this->loader->add_action( 'admin_init', $this->admin, 'register_setting' );
 		$this->loader->add_filter( 'plugin_row_meta', $this->admin, 'plugin_row_meta', 10, 2 );
 		$this->loader->add_action( 'admin_enqueue_scripts', $this->admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $this->admin, 'enqueue_scripts' );
 		$this->loader->add_action( 'admin_menu', $this->admin, 'admin_menu' );
 		$this->loader->add_filter( 'plugin_action_links', $this->admin, 'plugin_actions', 10, 2 );
-		//$this->loader->add_action( 'add_meta_boxes', $this->admin, 'add_meta_boxes' );
-		//$this->loader->add_action( 'save_post', $this->admin, 'save_post', 10, 3 );
-
 	}
 
 	/**
@@ -150,9 +149,23 @@ class LTI_Sitemap {
 		return $this->frontend;
 	}
 
-	public function query_vars($vars){
+	public function http_request_query_string($vars){
 		array_push($vars, 'lti_sitemap');
 		return $vars;
+	}
+
+	public function http_request_handler(){
+		/**
+		 * @var \WP_Query $wp_query
+		 */
+		global $wp_query;
+		if(!empty($wp_query->query_vars["lti_sitemap"])) {
+			$wp_query->is_404 = false;
+			header('Content-Type: text/xml; charset=utf-8');
+			//print_r($this);
+			echo $this->frontend->build_sitemap();
+			exit;
+		}
 	}
 
 	/**
@@ -161,8 +174,10 @@ class LTI_Sitemap {
 	 *
 	 * @access   private
 	 */
-	private function define_public_hooks() {
-
+	private function define_frontend_hooks() {
+		$this->frontend = new Frontend( $this->name, $this->plugin_path,$this->version, $this->settings, $this->helper );
+		$this->loader->add_filter('template_redirect', $this, 'http_request_handler', 1);
+		//$this->loader->add_action( 'admin_init', $this->frontend, 'register_setting' );
 	}
 
 	/**
@@ -171,7 +186,7 @@ class LTI_Sitemap {
 	 */
 	public function run() {
 		$this->define_admin_hooks();
-		$this->define_public_hooks();
+		$this->define_frontend_hooks();
 		$this->loader->run();
 	}
 

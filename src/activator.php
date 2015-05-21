@@ -29,7 +29,7 @@ class Activator {
 	 */
 	public static function rewrite_rules_array($rewriteRules) {
 		return array_merge(array(
-			'sitemap(-+([a-zA-Z0-9_-]+))?\.xml$' => 'index.php?xml_sitemap=params=$matches[2]',
+			'sitemap(-+([a-zA-Z0-9_-]+))?\.xml$' => 'index.php?lti_sitemap=params=$matches[2]',
 		),$rewriteRules);
 	}
 
