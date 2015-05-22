@@ -14,17 +14,19 @@ class Defaults {
 
 	public function __construct() {
 		$this->values = array(
-			new def( 'content_frontpage', 'Checkbox', true ),
-			new def( 'content_posts', 'Checkbox' ),
-			new def( 'content_pages', 'Checkbox' ),
-			new def( 'content_authors', 'Checkbox' ),
-			new def( 'content_user_defined', 'Checkbox' ),
-			new def( 'change_frequency_homepage', 'Text', 'Daily' ),
+			new def( 'content_frontpage', 'Checkbox',true ),
+			new def( 'content_posts', 'Checkbox',false ),
+			new def( 'content_posts_display', 'Radio',
+				array( 'default' => 'normal', 'choice' => array( 'normal', 'year', 'month' ) ) ),
+			new def( 'content_pages', 'Checkbox',false ),
+			new def( 'content_authors', 'Checkbox',false ),
+			new def( 'content_user_defined', 'Checkbox' ,false),
+			new def( 'change_frequency_frontpage', 'Text', 'Daily' ),
 			new def( 'change_frequency_posts', 'Text', 'Weekly' ),
 			new def( 'change_frequency_pages', 'Text', 'Monthly' ),
 			new def( 'change_frequency_authors', 'Text', 'Monthly' ),
 			new def( 'change_frequency_user_defined', 'Text', 'Monthly' ),
-			new def( 'priority_homepage', 'Text', 1 ),
+			new def( 'priority_frontpage', 'Text', 1 ),
 			new def( 'priority_posts', 'Text', 0.9 ),
 			new def( 'priority_pages', 'Text', 0.7 ),
 			new def( 'priority_authors', 'Text', 0.3 ),
@@ -92,17 +94,22 @@ class Plugin_Settings {
 		 * @var def $value
 		 */
 		foreach ( $defaults->values as $value ) {
-			$storedValue = null;
+			$storedValue = false;
 			if ( isset( $settings->{$value->name} ) ) {
 				$storedValue = $settings->{$value->name};
 			}
 			$className = $value->type;
 
-			if ( ! is_null( $value->default_value ) ) {
+			//Settings is null when we reset to defaults
+			//In that case, we need to set the value to null so that checkboxes pick up their default values instead
+			//of being initialized to false
+			if($settings == null){
+				$this->{$value->name} = new $className( null, $value->default_value,
+					$value->impacts_user_settings );
+			}else{
 				$this->{$value->name} = new $className( $storedValue, $value->default_value,
 					$value->impacts_user_settings );
-			} else {
-				$this->{$value->name} = new $className( $storedValue, null, $value->impacts_user_settings );
+
 			}
 		}
 	}

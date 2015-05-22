@@ -32,4 +32,17 @@ class Wordpress_Helper implements ICanHelp {
 		return filter_var_array($data, $filter);
 	}
 
+	public function home_url(){
+		return home_url('/');
+	}
+
+	public static function get_supported_post_types() {
+		/**
+		 * Allow filtering of supported post types
+		 *
+		 * @api array the list of supported types
+		 */
+		return apply_filters('lti_supported_post_types',get_post_types( array( 'public' => true, 'show_ui' => true ) ));
+	}
+
 }

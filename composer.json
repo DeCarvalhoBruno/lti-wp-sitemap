@@ -1,11 +1,17 @@
 {
     "name": "lti/lti-wp-sitemap",
     "require-dev": {
-        "google/apiclient": "~1.1"
+        "google/apiclient": "~1.1",
+        "lti/xml-sitemap": "dev-master"
     },
   "scripts": {
     "post-install-cmd": [
       "composer dump-autoload --optimize"
     ]
+  },
+  "autoload": {
+    "psr-4": {
+      "Lti\\Sitemap\\": "src/"
+    }
   }
 }

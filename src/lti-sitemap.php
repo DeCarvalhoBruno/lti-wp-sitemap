@@ -62,7 +62,7 @@ class LTI_Sitemap {
 		require_once $this->file_path . 'plugin/plugin.php';
 		$this->name        = LTI_SITEMAP_NAME;
 		$this->plugin_path = LTI_SITEMAP_PLUGIN_DIR;
-		$this->basename = LTI_SITEMAP_PLUGIN_BASENAME;
+		$this->basename    = LTI_SITEMAP_PLUGIN_BASENAME;
 		$this->settings    = get_option( "lti_sitemap_options" );
 
 		if ( $this->settings === false || empty( $this->settings ) ) {
@@ -92,13 +92,8 @@ class LTI_Sitemap {
 
 	private function load_dependencies() {
 		require_once $this->plugin_path . 'vendor/autoload.php';
-		require_once $this->file_path . 'helper.php';
-		require_once $this->file_path . 'loader.php';
-		require_once $this->file_path . 'i18n.php';
-		require_once $this->file_path . 'admin/admin.php';
-		require_once $this->file_path . 'frontend/frontend.php';
-		require_once $this->file_path . 'helpers/wordpress_helper.php';
-		require_once $this->file_path . 'activator.php';
+		require_once $this->plugin_path . 'src/helper.php';
+
 		$this->loader = new Loader();
 		$this->helper = new Wordpress_Helper( $this->settings );
 	}
@@ -129,7 +124,7 @@ class LTI_Sitemap {
 		$this->admin = new Admin( $this->name, $this->basename, $this->version, $this->settings, $this->plugin_path,
 			$this->helper );
 
-		$this->loader->add_filter('query_vars', $this, 'http_request_query_string', 1, 1);
+		$this->loader->add_filter( 'query_vars', $this, 'http_request_query_string', 1, 1 );
 		$this->loader->add_action( 'admin_init', $this->admin, 'register_setting' );
 		$this->loader->add_filter( 'plugin_row_meta', $this->admin, 'plugin_row_meta', 10, 2 );
 		$this->loader->add_action( 'admin_enqueue_scripts', $this->admin, 'enqueue_styles' );
@@ -149,21 +144,49 @@ class LTI_Sitemap {
 		return $this->frontend;
 	}
 
-	public function http_request_query_string($vars){
-		array_push($vars, 'lti_sitemap');
+	public function http_request_query_string( $vars ) {
+		array_push( $vars, 'lti_sitemap' );
+
 		return $vars;
 	}
 
-	public function http_request_handler(){
+	/**
+	 * Handles sitemap.xml related http queries
+	 *
+	 * The url sitemap.xml generates a sitemap index
+	 *
+	 * Anything else generates a regular sitemap. For example:
+	 * sitemap-main.xml, sitemap-posts-yyyy-mm.xml, sitemap-pages.xml, sitemap-authors.xml
+	 *
+	 */
+	public function http_request_handler() {
 		/**
 		 * @var \WP_Query $wp_query
 		 */
 		global $wp_query;
-		if(!empty($wp_query->query_vars["lti_sitemap"])) {
-			$wp_query->is_404 = false;
-			header('Content-Type: text/xml; charset=utf-8');
-			//print_r($this);
-			echo $this->frontend->build_sitemap();
+		if ( ! empty( $wp_query->query_vars["lti_sitemap"] ) ) {
+			$parsedOptions = array();
+			$options       = explode( ";", $wp_query->query_vars["lti_sitemap"] );
+			foreach ( $options AS $option ) {
+				$keyValue                      = explode( "=", $option );
+				$parsedOptions[ $keyValue[0] ] = @$keyValue[1];
+			}
+			$type = "index";
+			$year = $month = null;
+			if ( isset( $parsedOptions["params"] ) ) {
+				$sitemapFileNameSuffix = $parsedOptions["params"];
+
+				if ( preg_match( '#([\w-_]+)\-([0-9]{4})\-([0-9]{2})$#', $sitemapFileNameSuffix, $matches ) ) {
+					$type  = $matches[1];
+					$year  = $matches[2];
+					$month = $matches[3];
+				} else {
+					$type = $sitemapFileNameSuffix;
+				}
+			}
+			header( 'Content-Type: text/xml; charset=utf-8' );
+
+			echo $this->frontend->build_sitemap( $type, $month, $year );
 			exit;
 		}
 	}
@@ -175,9 +198,8 @@ class LTI_Sitemap {
 	 * @access   private
 	 */
 	private function define_frontend_hooks() {
-		$this->frontend = new Frontend( $this->name, $this->plugin_path,$this->version, $this->settings, $this->helper );
-		$this->loader->add_filter('template_redirect', $this, 'http_request_handler', 1);
-		//$this->loader->add_action( 'admin_init', $this->frontend, 'register_setting' );
+		$this->frontend = new Frontend( $this->name, $this->version, $this->settings, $this->helper );
+		$this->loader->add_filter( 'template_redirect', $this, 'http_request_handler', 1 );
 	}
 
 	/**

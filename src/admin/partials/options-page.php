@@ -23,8 +23,11 @@ class htmlSelect {
 		$this->html .= "</select>";
 	}
 }
+//echo "<pre>";
+//print_r($this->settings);
+//echo "</pre>";
 
-$changeFrequencies        = array(
+$changeFrequencies = array(
 	"Always"  => lsmint( 'opt.change_frequency.always' ),
 	"Hourly"  => lsmint( 'opt.change_frequency.hourly' ),
 	"Daily"   => lsmint( 'opt.change_frequency.daily' ),
@@ -34,8 +37,8 @@ $changeFrequencies        = array(
 	"Never"   => lsmint( 'opt.change_frequency.never' )
 );
 
-$priorities = array (
-	"1" => "1",
+$priorities                 = array(
+	"1"   => "1",
 	"0.9" => "0.9",
 	"0.8" => "0.8",
 	"0.7" => "0.7",
@@ -46,23 +49,33 @@ $priorities = array (
 	"0.2" => "0.2",
 	"0.1" => "0.1",
 );
-$changeFrequencyHomepage   = new htmlSelect( $changeFrequencies, 'change_frequency_homepage',lsmopt('change_frequency_homepage'), 'change_frequency_homepage' );
-$changeFrequencyPosts   = new htmlSelect( $changeFrequencies, 'change_frequency_posts',lsmopt('change_frequency_posts'), 'change_frequency_posts' );
-$changeFrequencyPages   = new htmlSelect( $changeFrequencies, 'change_frequency_pages',lsmopt('change_frequency_pages'), 'change_frequency_pages' );
-$changeFrequencyAuthors = new htmlSelect( $changeFrequencies, 'change_frequency_authors',lsmopt('change_frequency_authors'), 'change_frequency_authors' );
-$changeFrequencyUserDefined = new htmlSelect( $changeFrequencies, 'change_frequency_user_defined',lsmopt('change_frequency_user_defined'), 'change_frequency_user_defined' );
-$priorityHomepage   = new htmlSelect( $priorities, 'priority_homepage',lsmopt('priority_homepage'), 'priority_homepage' );
-$priorityPosts   = new htmlSelect( $priorities, 'priority_posts',lsmopt('priority_posts'), 'priority_posts' );
-$priorityPages   = new htmlSelect( $priorities, 'priority_pages',lsmopt('priority_pages'), 'priority_pages' );
-$priorityAuthors = new htmlSelect( $priorities, 'priority_authors',lsmopt('priority_authors'), 'priority_authors' );
-$priorityUserDefined = new htmlSelect( $priorities, 'priority_user_defined',lsmopt('priority_user_defined'), 'priority_user_defined' );
+$changeFrequencyFrontpage   = new htmlSelect( $changeFrequencies, 'change_frequency_frontpage',
+	lsmopt( 'change_frequency_frontpage' ), 'change_frequency_frontpage' );
+$changeFrequencyPosts       = new htmlSelect( $changeFrequencies, 'change_frequency_posts',
+	lsmopt( 'change_frequency_posts' ), 'change_frequency_posts' );
+$changeFrequencyPages       = new htmlSelect( $changeFrequencies, 'change_frequency_pages',
+	lsmopt( 'change_frequency_pages' ), 'change_frequency_pages' );
+$changeFrequencyAuthors     = new htmlSelect( $changeFrequencies, 'change_frequency_authors',
+	lsmopt( 'change_frequency_authors' ), 'change_frequency_authors' );
+$changeFrequencyUserDefined = new htmlSelect( $changeFrequencies, 'change_frequency_user_defined',
+	lsmopt( 'change_frequency_user_defined' ), 'change_frequency_user_defined' );
+$priorityFrontpage          = new htmlSelect( $priorities, 'priority_frontpage', lsmopt( 'priority_frontpage' ),
+	'priority_frontpage' );
+$priorityPosts              = new htmlSelect( $priorities, 'priority_posts', lsmopt( 'priority_posts' ),
+	'priority_posts' );
+$priorityPages              = new htmlSelect( $priorities, 'priority_pages', lsmopt( 'priority_pages' ),
+	'priority_pages' );
+$priorityAuthors            = new htmlSelect( $priorities, 'priority_authors', lsmopt( 'priority_authors' ),
+	'priority_authors' );
+$priorityUserDefined        = new htmlSelect( $priorities, 'priority_user_defined', lsmopt( 'priority_user_defined' ),
+	'priority_user_defined' );
 
 $extraPages = "";
-$extra_urls = $this->settings->get("extra_pages_url");
-if(!empty($extra_urls)){
-	$extra_dates = $this->settings->get("extra_pages_date");
-	foreach($extra_urls as $key=>$page){
-		$extraPages .=sprintf('
+$extra_urls = $this->settings->get( "extra_pages_url" );
+if ( ! empty( $extra_urls ) ) {
+	$extra_dates = $this->settings->get( "extra_pages_date" );
+	foreach ( $extra_urls as $key => $page ) {
+		$extraPages .= sprintf( '
 			<tr>
 				<td>
 					<input type="text" name="extra_pages_url[]" value="%s"/>
@@ -74,7 +87,7 @@ if(!empty($extra_urls)){
 					<button type="button" class="btn-del-row dashicons dashicons-no"></button>
 				</td>
 			</tr>',
-			$page,$extra_dates[$key],$key
+			$page, $extra_dates[ $key ], $key
 		);
 	}
 }
@@ -129,8 +142,40 @@ if(!empty($extra_urls)){
 									</label>
 									<label for="content_posts"><?php echo lsmint( 'opt.content_posts' ); ?>
 										<input type="checkbox" name="content_posts"
-										       id="content_posts" <?php echo lsmchk( 'content_posts' ); ?>/>
+										       id="content_posts" <?php echo lsmchk( 'content_posts' ); ?>
+										       data-toggle="sitemap-options"
+										       data-target="#content_posts_group"/>
 									</label>
+										<div id="content_posts_group">
+											<div class="input-group">
+												<label><?php echo lsmint( 'opt.group.content_categorize' ); ?></label>
+												<label>
+													<input name="content_posts_display"
+													       type="radio" <?php echo lsmrad( 'content_posts_display',
+														'normal' ); ?>
+													       value="normal"
+													       id="content_posts_normal"
+														/><?php echo lsmint( 'opt.content_posts_normal' ); ?>
+												</label>
+												<label>
+													<input name="content_posts_display"
+													       type="radio" <?php echo lsmrad( 'content_posts_display',
+														'year' ); ?>
+													       value="year"
+													       id="content_posts_year"
+														/><?php echo lsmint( 'opt.content_posts_year' ); ?>
+												</label>
+												<label>
+													<input name="content_posts_display"
+													       type="radio" <?php echo lsmrad( 'content_posts_display',
+														'month' ); ?>
+													       value="month"
+													       id="content_posts_month"
+														/><?php echo lsmint( 'opt.content_posts_month' ); ?>
+												</label>
+											</div>
+										</div>
+
 									<label for="content_pages"><?php echo lsmint( 'opt.content_pages' ); ?>
 										<input type="checkbox" name="content_pages"
 										       id="content_pages" <?php echo lsmchk( 'content_pages' ); ?>/>
@@ -139,7 +184,8 @@ if(!empty($extra_urls)){
 										<input type="checkbox" name="content_authors"
 										       id="content_authors" <?php echo lsmchk( 'content_authors' ); ?>/>
 									</label>
-									<label for="content_user_defined"><?php echo lsmint( 'opt.content_user_defined' ); ?>
+									<label
+										for="content_user_defined"><?php echo lsmint( 'opt.content_user_defined' ); ?>
 										<input type="checkbox" name="content_user_defined"
 										       id="content_user_defined" <?php echo lsmchk( 'content_user_defined' ); ?>/>
 									</label>
@@ -157,19 +203,24 @@ if(!empty($extra_urls)){
 							<label><?php echo lsmint( 'opt.group.change_frequency' ); ?></label>
 
 							<div class="checkbox-group">
-								<label for="change_frequency_homepage"><?php echo lsmint( 'opt.change_frequency_homepage' ); ?>
+								<label
+									for="change_frequency_frontpage"><?php echo lsmint( 'opt.change_frequency_frontpage' ); ?>
 								</label>
-								<?php echo $changeFrequencyHomepage->html; ?>
-								<label for="change_frequency_posts"><?php echo lsmint( 'opt.change_frequency_posts' ); ?>
+								<?php echo $changeFrequencyFrontpage->html; ?>
+								<label
+									for="change_frequency_posts"><?php echo lsmint( 'opt.change_frequency_posts' ); ?>
 								</label>
 								<?php echo $changeFrequencyPosts->html; ?>
-								<label for="change_frequency_pages"><?php echo lsmint( 'opt.change_frequency_pages' ); ?>
+								<label
+									for="change_frequency_pages"><?php echo lsmint( 'opt.change_frequency_pages' ); ?>
 								</label>
 								<?php echo $changeFrequencyPages->html; ?>
-								<label for="change_frequency_authors"><?php echo lsmint( 'opt.change_frequency_authors' ); ?>
+								<label
+									for="change_frequency_authors"><?php echo lsmint( 'opt.change_frequency_authors' ); ?>
 								</label>
 								<?php echo $changeFrequencyAuthors->html; ?>
-								<label for="change_frequency_user_defined"><?php echo lsmint( 'opt.change_frequency_user_defined' ); ?>
+								<label
+									for="change_frequency_user_defined"><?php echo lsmint( 'opt.change_frequency_user_defined' ); ?>
 								</label>
 								<?php echo $changeFrequencyUserDefined->html; ?>
 							</div>
@@ -185,9 +236,9 @@ if(!empty($extra_urls)){
 							<label><?php echo lsmint( 'opt.group.priorities' ); ?></label>
 
 							<div class="checkbox-group">
-								<label for="priority_homepage"><?php echo lsmint( 'opt.change_frequency_homepage' ); ?>
+								<label for="priority_frontpage"><?php echo lsmint( 'opt.priority_frontpage' ); ?>
 								</label>
-								<?php echo $priorityHomepage->html; ?>
+								<?php echo $priorityFrontpage->html; ?>
 								<label for="priority_posts"><?php echo lsmint( 'opt.priority_posts' ); ?>
 								</label>
 								<?php echo $priorityPosts->html; ?>
@@ -219,15 +270,22 @@ if(!empty($extra_urls)){
 										<tr>
 											<th width="70%"><?php echo lsmint( 'opt.extra_pages.url' ); ?></th>
 											<th width="27%"><?php echo lsmint( 'opt.extra_pages.date' ); ?></th>
-											<th width="3%"><button type="button" class="dashicons dashicons-no"></button></th>
+											<th width="3%">
+												<button type="button" class="dashicons dashicons-no"></button>
+											</th>
 										</tr>
 										</thead>
 										<tbody>
-											<?php echo $extraPages ?>
-										<tr><td colspan="3"><button type="button" class="dashicons dashicons-plus" id="btn_extra_pages_add"></button></td></tr>
+										<?php echo $extraPages ?>
+										<tr>
+											<td colspan="3">
+												<button type="button" class="dashicons dashicons-plus"
+												        id="btn_extra_pages_add"></button>
+											</td>
+										</tr>
 										</tbody>
 									</table>
-									</div>
+								</div>
 							</div>
 						</div>
 						<div class="form-help-container">
