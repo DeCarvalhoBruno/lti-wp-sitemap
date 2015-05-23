@@ -145,7 +145,7 @@
     }
 
     #flsm label {
-        margin: 0 0 25px 10px;
+        margin: 0 0 15px 10px;
         display: block;
         font-weight: bold;
         font-size: 1.2em;
@@ -166,8 +166,23 @@
         max-width: 100%;
     }
 
+    #flsm .input-group select {
+        margin-left: 10%;
+        width: 60%;
+    }
+
+    /* Avoid collapsing of those big ass radio & checboxes styles */
+    #flsm .input-group label {
+        min-height:30px;
+    }
+
     #flsm .input-group .checkbox-group input[type="checkbox"] {
         margin:0.4em 15% 0 2%;
+    }
+
+    #flsm .input-group .checkbox-group input[type="radio"] {
+        float:right;
+        margin:0.4em 25% 0 2%;
     }
 
     #flsm .input-group input[type="checkbox"] {
@@ -513,6 +528,10 @@
 }
 
 @media (min-width: 768px) {
+    #flsm .input-group label {
+        min-height:1em;
+    }
+
     #lti_sitemap_wrapper .nav-tabs-justified > li > a {
         border-bottom: 1px solid #dddddd;
         border-radius: 4px 4px 0 0;

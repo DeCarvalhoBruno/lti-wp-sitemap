@@ -48,6 +48,8 @@ class LTI_Sitemap {
 	public $frontend;
 	private $helper;
 
+	private $sitemap_types = array('main','posts','pages','authors');
+
 	/**
 	 * Define the core functionality of the plugin.
 	 *
@@ -176,18 +178,25 @@ class LTI_Sitemap {
 			if ( isset( $parsedOptions["params"] ) ) {
 				$sitemapFileNameSuffix = $parsedOptions["params"];
 
-				if ( preg_match( '#([\w-_]+)\-([0-9]{4})\-([0-9]{2})$#', $sitemapFileNameSuffix, $matches ) ) {
-					$type  = $matches[1];
-					$year  = $matches[2];
-					$month = $matches[3];
+				if ( preg_match( '#([\w-_]+)\-([0-9]{4})\-?([0-9]{2})?$#', $sitemapFileNameSuffix, $matches ) ) {
+					$type = $matches[1];
+					$this->settings->set( 'year', $matches[2] );
+					if ( isset( $matches[3] ) ) {
+						$this->settings->set( 'month', $matches[3] );
+					}
 				} else {
 					$type = $sitemapFileNameSuffix;
 				}
 			}
-			header( 'Content-Type: text/xml; charset=utf-8' );
 
-			echo $this->frontend->build_sitemap( $type, $month, $year );
-			exit;
+			header( 'Content-Type: text/xml; charset=utf-8' );
+			if ( empty( $type ) || in_array( $type, $this->sitemap_types ) ) {
+
+				echo $this->frontend->build_sitemap( $type );
+				exit;
+			} else {
+				$wp_query->is_404 = true;
+			}
 		}
 	}
 

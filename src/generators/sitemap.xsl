@@ -23,12 +23,8 @@
                     }
 
                     #header {
-                        /*color: #FFF;*/
                         background-color: #a8b4ec;
                         border-bottom: 5px #4F5B93 solid;
-                        /*padding: 5px 13px 5px 13px;*/
-                        /*margin: 10px;*/
-
                     }
 
                     #header h1 {

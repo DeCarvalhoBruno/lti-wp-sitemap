@@ -28,13 +28,13 @@ class htmlSelect {
 //echo "</pre>";
 
 $changeFrequencies = array(
-	"Always"  => lsmint( 'opt.change_frequency.always' ),
-	"Hourly"  => lsmint( 'opt.change_frequency.hourly' ),
-	"Daily"   => lsmint( 'opt.change_frequency.daily' ),
-	"Weekly"  => lsmint( 'opt.change_frequency.weekly' ),
-	"Monthly" => lsmint( 'opt.change_frequency.monthly' ),
-	"Yearly"  => lsmint( 'opt.change_frequency.yearly' ),
-	"Never"   => lsmint( 'opt.change_frequency.never' )
+	"always"  => lsmint( 'opt.change_frequency.always' ),
+	"hourly"  => lsmint( 'opt.change_frequency.hourly' ),
+	"daily"   => lsmint( 'opt.change_frequency.daily' ),
+	"weekly"  => lsmint( 'opt.change_frequency.weekly' ),
+	"monthly" => lsmint( 'opt.change_frequency.monthly' ),
+	"yearly"  => lsmint( 'opt.change_frequency.yearly' ),
+	"never"   => lsmint( 'opt.change_frequency.never' )
 );
 
 $priorities                 = array(
@@ -148,7 +148,6 @@ if ( ! empty( $extra_urls ) ) {
 									</label>
 										<div id="content_posts_group">
 											<div class="input-group">
-												<label><?php echo lsmint( 'opt.group.content_categorize' ); ?></label>
 												<label>
 													<input name="content_posts_display"
 													       type="radio" <?php echo lsmrad( 'content_posts_display',
@@ -195,6 +194,33 @@ if ( ! empty( $extra_urls ) ) {
 						<div class="form-help-container">
 							<div class="form-help">
 								<p><?php echo lsmint( 'opt.hlp.content' ); ?></p>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="input-group">
+							<label><?php echo lsmint( 'opt.content_images' ); ?>
+								<input type="checkbox" name="content_images" data-toggle="sitemap-options"
+								       data-target="#images_chk_group"
+								       id="content_images" <?php echo lsmchk( 'content_images' ); ?>/>
+							</label>
+
+							<div id="images_chk_group">
+								<div class="checkbox-group">
+									<label for="content_images_attachments"><?php echo lsmint( 'opt.content_images_attachments' ); ?>
+										<input type="checkbox" name="content_images_attachments"
+										       id="content_images_attachments" <?php echo lsmchk( 'content_images_attachments' ); ?>/>
+									</label>
+									<label for="content_images_featured"><?php echo lsmint( 'opt.content_images_featured' ); ?>
+										<input type="checkbox" name="content_images_featured"
+										       id="content_images_featured" <?php echo lsmchk( 'content_images_featured' ); ?>/>
+									</label>
+								</div>
+							</div>
+						</div>
+						<div class="form-help-container">
+							<div class="form-help">
+								<p><?php echo lsmint( 'opt.hlp.images' ); ?></p>
 							</div>
 						</div>
 					</div>

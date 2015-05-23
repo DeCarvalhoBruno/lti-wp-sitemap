@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: lti-sitemap\n"
-"POT-Creation-Date: 2015-05-22 20:45+0100\n"
-"PO-Revision-Date: 2015-05-22 20:46+0100\n"
+"POT-Creation-Date: 2015-05-23 21:07+0100\n"
+"PO-Revision-Date: 2015-05-23 21:07+0100\n"
 "Last-Translator: \n"
 "Language-Team: LTI <linguisticteam@gmail.com>\n"
 "Language: en_US\n"
@@ -90,173 +90,188 @@ msgstr ""
 msgid "general_hlp_github"
 msgstr ""
 
-#: ../src/admin/partials/options-page.php:28
+#: ../src/admin/partials/options-page.php:31
 msgid "opt.change_frequency.always"
 msgstr "Always"
 
-#: ../src/admin/partials/options-page.php:29
+#: ../src/admin/partials/options-page.php:32
 msgid "opt.change_frequency.hourly"
 msgstr "Hourly"
 
-#: ../src/admin/partials/options-page.php:30
+#: ../src/admin/partials/options-page.php:33
 msgid "opt.change_frequency.daily"
 msgstr "Daily"
 
-#: ../src/admin/partials/options-page.php:31
+#: ../src/admin/partials/options-page.php:34
 msgid "opt.change_frequency.weekly"
 msgstr "Weekly"
 
-#: ../src/admin/partials/options-page.php:32
+#: ../src/admin/partials/options-page.php:35
 msgid "opt.change_frequency.monthly"
 msgstr "Monthly"
 
-#: ../src/admin/partials/options-page.php:33
+#: ../src/admin/partials/options-page.php:36
 msgid "opt.change_frequency.yearly"
 msgstr "Yearly"
 
-#: ../src/admin/partials/options-page.php:34
+#: ../src/admin/partials/options-page.php:37
 msgid "opt.change_frequency.never"
 msgstr "Never"
 
-#: ../src/admin/partials/options-page.php:94
+#: ../src/admin/partials/options-page.php:107
 msgid "opt.title"
 msgstr "LTI Sitemap Settings"
 
-#: ../src/admin/partials/options-page.php:102
+#: ../src/admin/partials/options-page.php:115
 msgid "opt.tab.general"
 msgstr "General"
 
-#: ../src/admin/partials/options-page.php:106
+#: ../src/admin/partials/options-page.php:119
 msgid "opt.tab.google"
 msgstr "Google"
 
-#: ../src/admin/partials/options-page.php:123
+#: ../src/admin/partials/options-page.php:136
 msgid "opt.group.content"
 msgstr "Content"
 
-#: ../src/admin/partials/options-page.php:126
+#: ../src/admin/partials/options-page.php:139
 msgid "opt.content_frontpage"
 msgstr "Front page"
 
-#: ../src/admin/partials/options-page.php:130
+#: ../src/admin/partials/options-page.php:143
 msgid "opt.content_posts"
 msgstr "Posts"
 
-#: ../src/admin/partials/options-page.php:134
-msgid "opt.group.content_categorize"
-msgstr "Categorize by:"
-
-#: ../src/admin/partials/options-page.php:141
+#: ../src/admin/partials/options-page.php:157
 msgid "opt.content_posts_normal"
 msgstr "No categorization"
 
-#: ../src/admin/partials/options-page.php:149
+#: ../src/admin/partials/options-page.php:165
 msgid "opt.content_posts_year"
 msgstr "By year"
 
-#: ../src/admin/partials/options-page.php:157
+#: ../src/admin/partials/options-page.php:173
 msgid "opt.content_posts_month"
 msgstr "By month and year"
 
-#: ../src/admin/partials/options-page.php:161
+#: ../src/admin/partials/options-page.php:178
 msgid "opt.content_pages"
 msgstr "Pages"
 
-#: ../src/admin/partials/options-page.php:165
+#: ../src/admin/partials/options-page.php:182
 msgid "opt.content_authors"
 msgstr "Authors"
 
-#: ../src/admin/partials/options-page.php:169
+#: ../src/admin/partials/options-page.php:187
 msgid "opt.content_user_defined"
 msgstr "User defined"
 
-#: ../src/admin/partials/options-page.php:178
+#: ../src/admin/partials/options-page.php:196
 msgid "opt.hlp.content"
 msgstr "Determine the types of content featured in the sitemap."
 
-#: ../src/admin/partials/options-page.php:184
+#: ../src/admin/partials/options-page.php:202
+msgid "opt.content_images"
+msgstr "Images"
+
+#: ../src/admin/partials/options-page.php:210
+msgid "opt.content_images_attachments"
+msgstr "Attachments"
+
+#: ../src/admin/partials/options-page.php:214
+msgid "opt.content_images_featured"
+msgstr "Featured"
+
+#: ../src/admin/partials/options-page.php:223
+msgid "opt.hlp.images"
+msgstr "Images help"
+
+#: ../src/admin/partials/options-page.php:229
 msgid "opt.group.change_frequency"
 msgstr "Change frequency"
 
-#: ../src/admin/partials/options-page.php:187
+#: ../src/admin/partials/options-page.php:233
 msgid "opt.change_frequency_frontpage"
 msgstr "Front page"
 
-#: ../src/admin/partials/options-page.php:190
+#: ../src/admin/partials/options-page.php:237
 msgid "opt.change_frequency_posts"
 msgstr "Posts"
 
-#: ../src/admin/partials/options-page.php:193
+#: ../src/admin/partials/options-page.php:241
 msgid "opt.change_frequency_pages"
 msgstr "Pages"
 
-#: ../src/admin/partials/options-page.php:196
+#: ../src/admin/partials/options-page.php:245
 msgid "opt.change_frequency_authors"
 msgstr "Authors"
 
-#: ../src/admin/partials/options-page.php:199
+#: ../src/admin/partials/options-page.php:249
 msgid "opt.change_frequency_user_defined"
 msgstr "User defined"
 
-#: ../src/admin/partials/options-page.php:206
+#: ../src/admin/partials/options-page.php:256
 msgid "opt.hlp.change_frequency"
 msgstr "Change frequencies"
 
-#: ../src/admin/partials/options-page.php:212
+#: ../src/admin/partials/options-page.php:262
 msgid "opt.group.priorities"
 msgstr "Priorities"
 
-#: ../src/admin/partials/options-page.php:215
+#: ../src/admin/partials/options-page.php:265
 msgid "opt.priority_frontpage"
 msgstr "Front page"
 
-#: ../src/admin/partials/options-page.php:218
+#: ../src/admin/partials/options-page.php:268
 msgid "opt.priority_posts"
 msgstr "Posts"
 
-#: ../src/admin/partials/options-page.php:221
+#: ../src/admin/partials/options-page.php:271
 msgid "opt.priority_pages"
 msgstr "Pages"
 
-#: ../src/admin/partials/options-page.php:224
+#: ../src/admin/partials/options-page.php:274
 msgid "opt.priority_authors"
 msgstr "Authors"
 
-#: ../src/admin/partials/options-page.php:227
+#: ../src/admin/partials/options-page.php:277
 msgid "opt.priority_user_defined"
 msgstr "User defined"
 
-#: ../src/admin/partials/options-page.php:234
+#: ../src/admin/partials/options-page.php:284
 msgid "opt.hlp.priority"
 msgstr "Priorities"
 
-#: ../src/admin/partials/options-page.php:240
+#: ../src/admin/partials/options-page.php:290
 msgid "opt.group.extra_pages"
 msgstr "User defined pages"
 
-#: ../src/admin/partials/options-page.php:247
+#: ../src/admin/partials/options-page.php:297
 msgid "opt.extra_pages.url"
 msgstr "URL"
 
-#: ../src/admin/partials/options-page.php:248
+#: ../src/admin/partials/options-page.php:298
 msgid "opt.extra_pages.date"
 msgstr "Change date"
 
-#: ../src/admin/partials/options-page.php:262
+#: ../src/admin/partials/options-page.php:319
 msgid "opt.hlp.extra_pages"
 msgstr "Extra pages"
 
-#: ../src/admin/partials/options-page.php:296
+#: ../src/admin/partials/options-page.php:353
 msgid "general.save_changes"
 msgstr "Save changes"
 
-#: ../src/admin/partials/options-page.php:298
+#: ../src/admin/partials/options-page.php:355
 msgid "general.reset_defaults"
 msgstr "Reset to defaults"
 
 #: ../src/extra-strings.php:2
 msgid "Sitemap generator"
 msgstr ""
+
+#~ msgid "opt.group.content_categorize"
+#~ msgstr "Categorize by:"
 
 #~ msgid "opt.change_frequency_homepage"
 #~ msgstr "Front page"

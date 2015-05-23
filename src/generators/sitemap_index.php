@@ -43,17 +43,19 @@ class Sitemap_Generator_Authors extends Sitemap_Generator {
 	public function get() {
 		$sitemap_pages = new SiteMapUrlSet();
 		$sitemap_pages->addStylesheet( plugin_dir_url( __FILE__ ) . 'sitemap.xsl' );
-		$result = $this->query->get_authors($this->helper->get_supported_post_types() );
+		$result = $this->query->get_authors( $this->helper->get_supported_post_types() );
 
 		$changeFrequency = $this->settings->get( 'change_frequency_authors' );
 		$priority        = $this->settings->get( 'priority_authors' );
 
 		if ( ! empty( $result ) ) {
 			foreach ( $result as $entry ) {
-				$sitemap_pages->add( new SitemapUrl( get_author_posts_url( $entry->ID ), lti_iso8601_date( $entry->lastmod ),
+				$sitemap_pages->add( new SitemapUrl( get_author_posts_url( $entry->ID ),
+					lti_iso8601_date( $entry->lastmod ),
 					$changeFrequency, $priority ) );
 			}
 		}
+
 		return $sitemap_pages->output();
 	}
 }
@@ -84,9 +86,9 @@ class Sitemap_Generator_Main extends Sitemap_Generator {
 		$sitemap_main->addStylesheet( plugin_dir_url( __FILE__ ) . 'sitemap.xsl' );
 
 		if ( $this->settings->get( 'content_frontpage' ) == true ) {
-		$sitemap_main->add( new SitemapUrl( $this->helper->home_url(),
-			lti_iso8601_date( get_lastpostmodified( 'gmt' ) ), $this->settings->get( 'change_frequency_frontpage' ),
-			$this->settings->get( 'priority_frontpage' ) ) );
+			$sitemap_main->add( new SitemapUrl( $this->helper->home_url(),
+				lti_iso8601_date( get_lastpostmodified( 'gmt' ) ), $this->settings->get( 'change_frequency_frontpage' ),
+				$this->settings->get( 'priority_frontpage' ) ) );
 		}
 
 		if ( $this->settings->get( 'content_user_defined' ) == true ) {
@@ -119,12 +121,34 @@ class Sitemap_Generator_Index extends Sitemap_Generator {
 		}
 
 		if ( $this->settings->get( 'content_posts' ) == true ) {
-			$result = $this->query->get_dates_with_posts();
-			if ( ! empty( $result ) ) {
-				foreach ( $result as $entry ) {
-					$sitemap_index->add( new Sitemap( $this->filename . sprintf( 'posts-%s-%s.xml',
-							$entry->year, str_pad( $entry->month, 2, '0', STR_PAD_LEFT ) ),
-						lti_iso8601_date( $entry->lastmod ) ) );
+			$filterByMonthParam = ( $this->settings->get( 'content_posts_display' ) == 'month' );
+			$filterNormalParam  = ( $this->settings->get( 'content_posts_display' ) == 'normal' );
+			if ( $filterNormalParam === false ) {
+				if ( $filterByMonthParam === true ) {
+					$result = $this->query->get_posts_info_month();
+					if ( ! empty( $result ) ) {
+						foreach ( $result as $entry ) {
+							$sitemap_index->add( new Sitemap( sprintf( '%sposts-%s-%s.xml',
+								$this->filename, $entry->year, str_pad( $entry->month, 2, '0', STR_PAD_LEFT ) ),
+								lti_iso8601_date( $entry->lastmod ) ) );
+						}
+					}
+				} else {
+					$result = $this->query->get_posts_info_year();
+					if ( ! empty( $result ) ) {
+						foreach ( $result as $entry ) {
+							$sitemap_index->add( new Sitemap( sprintf( '%sposts-%s.xml',
+								$this->filename, $entry->year ),
+								lti_iso8601_date( $entry->lastmod ) ) );
+						}
+					}
+				}
+
+			} else {
+				$result = $this->query->get_posts_info();
+				if ( ! empty( $result ) ) {
+					$sitemap_index->add( new Sitemap( sprintf( "%s%s.xml", $this->filename, 'posts' ),
+						lti_iso8601_date( $result[0]->lastmod ) ) );
 				}
 			}
 		}
@@ -154,26 +178,68 @@ class Sitemap_Generator_Index extends Sitemap_Generator {
 
 class Sitemap_Generator_Posts extends Sitemap_Generator {
 
+	private $added_images = array();
+
 	public function get() {
 		$sitemap_posts = new SiteMapUrlSet();
 		$sitemap_posts->addStylesheet( plugin_dir_url( __FILE__ ) . 'sitemap.xsl' );
 
 		$month           = $this->settings->get( 'month' );
 		$year            = $this->settings->get( 'year' );
-		$result          = $this->query->get_posts( $month, $year );
 		$changeFrequency = $this->settings->get( 'change_frequency_posts' );
 		$priority        = $this->settings->get( 'priority_posts' );
-
+		$result          = $this->query->get_posts( $month, $year );
 
 		if ( ! empty( $result ) ) {
+			$postsIndex = array();
 			foreach ( $result as $entry ) {
-				$sitemap_posts->add( new SitemapUrl( get_permalink( $entry->ID ), lti_iso8601_date( $entry->lastmod ),
+				$postsIndex[ $entry->ID ] = $sitemap_posts->add( new SitemapUrl( get_permalink( $entry->ID ),
+					lti_iso8601_date( $entry->lastmod ),
 					$changeFrequency, $priority ) );
+			}
+
+			if ( $this->settings->get( 'content_images' ) ) {
+				if ( $this->settings->get( 'content_images_attachments' ) ) {
+					$this->add_images( $this->query->get_posts_attachment_images(), $sitemap_posts, $postsIndex );
+				}
+				if ( $this->settings->get( 'content_images_featured' ) ) {
+					$this->add_images( $this->query->get_posts_thumbnail_images(), $sitemap_posts, $postsIndex );
+				}
 			}
 		}
 
 		return $sitemap_posts->output();
 
+	}
+
+	/**
+	 * @param array $image_data
+	 * @param \Lti\Sitemap\SiteMapUrlSet $xml
+	 * @param $postsIndex
+	 */
+	private function add_images( Array $image_data, SiteMapUrlSet $xml, Array $postsIndex ) {
+
+		if ( ! empty( $image_data ) ) {
+			foreach ( $image_data as $image ) {
+				if ( isset( $postsIndex[ $image->post_id ] ) ) {
+					$license_url = $image_url = '';
+					if ( preg_match( '#^http\://[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(?:/\S*)?$#',
+						$image->license,
+						$matches ) ) {
+						$license_url = $matches[0];
+					}
+					$sitemap_url_index = $postsIndex[ $image->post_id ];
+
+					if ( ! isset( $this->added_images[ $image->url ] ) ) {
+						$this->added_images[ $image->url ] = true;
+						$xml->addImage( $sitemap_url_index, $image->url, $image->caption, '',
+							$image->title,
+							$license_url );
+					}
+				}
+			}
+
+		}
 	}
 
 

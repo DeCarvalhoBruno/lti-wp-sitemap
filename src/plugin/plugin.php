@@ -21,11 +21,14 @@ class Defaults {
 			new def( 'content_pages', 'Checkbox',false ),
 			new def( 'content_authors', 'Checkbox',false ),
 			new def( 'content_user_defined', 'Checkbox' ,false),
-			new def( 'change_frequency_frontpage', 'Text', 'Daily' ),
-			new def( 'change_frequency_posts', 'Text', 'Weekly' ),
-			new def( 'change_frequency_pages', 'Text', 'Monthly' ),
-			new def( 'change_frequency_authors', 'Text', 'Monthly' ),
-			new def( 'change_frequency_user_defined', 'Text', 'Monthly' ),
+			new def( 'content_images', 'Checkbox' ,false),
+			new def( 'content_images_attachments', 'Checkbox' ,false),
+			new def( 'content_images_featured', 'Checkbox' ,false),
+			new def( 'change_frequency_frontpage', 'Text', 'daily' ),
+			new def( 'change_frequency_posts', 'Text', 'weekly' ),
+			new def( 'change_frequency_pages', 'Text', 'monthly' ),
+			new def( 'change_frequency_authors', 'Text', 'monthly' ),
+			new def( 'change_frequency_user_defined', 'Text', 'monthly' ),
 			new def( 'priority_frontpage', 'Text', 1 ),
 			new def( 'priority_posts', 'Text', 0.9 ),
 			new def( 'priority_pages', 'Text', 0.7 ),
@@ -131,8 +134,10 @@ class Plugin_Settings {
 	}
 
 	public function set( $key, $value, $type = "Text" ) {
-		$className    = __NAMESPACE__ . "\\Field_" . $type;
-		$this->{$key} = new $className( $value );
+		if ( ! is_null( $value ) ) {
+			$className    = __NAMESPACE__ . "\\Field_" . $type;
+			$this->{$key} = new $className( $value );
+		}
 	}
 
 	/**

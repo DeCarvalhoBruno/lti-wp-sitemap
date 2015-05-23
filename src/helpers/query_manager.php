@@ -19,11 +19,19 @@ class Query_Manager {
 	}
 
 	public function where( $column, $comparator, $value ) {
-		$this->where[] = array( " AND", $column, $comparator, sprintf( "'%s'", esc_sql( $value ) ) );
+		if ( is_string( $value ) ) {
+			$value = sprintf( "'%s'", esc_sql( $value ) );
+		}
+		$this->where[] = array( " AND", $column, $comparator, $value );
 	}
 
 	public function whereIn( $column, $comparator, Array $values ) {
-		$this->where[] = array( " AND", $column, "IN", "('" . implode("','", array_map('esc_sql', $values)) . "')" );
+		$this->where[] = array(
+			" AND",
+			$column,
+			"IN",
+			"('" . implode( "','", array_map( 'esc_sql', $values ) ) . "')"
+		);
 	}
 
 	public function groupBy( Array $columns ) {
@@ -35,7 +43,7 @@ class Query_Manager {
 	}
 
 	public function join( $table, $column, $comparator, $value ) {
-		$this->join[] = array($table, $column, $comparator, $value );
+		$this->join[] = array( $table, $column, $comparator, $value );
 	}
 
 
@@ -54,7 +62,7 @@ class Query_Manager {
 					$query .= implode( ' ', $where );
 				}
 			}
-		}else if ( ! empty( $this->where ) ) {
+		} else if ( ! empty( $this->where ) ) {
 			$first = array_shift( $this->where );
 			$query .= " WHERE " . $first[1] . $first[2] . $first[3];
 			if ( ! empty( $this->where ) ) {
@@ -78,11 +86,11 @@ class Query_Manager {
 
 	}
 
-	public function printQuery($sql_query)
-	{
-		$sql_query = preg_replace_callback("#( FROM | WHERE | AND | OR | SET | VALUES\s?| (LEFT|RIGHT|OUTER|INNER|FULL) JOIN | JOIN | HAVING | ORDER BY | GROUP BY )#i",
-			create_function('$matches', "return \"<br/>\".\$matches[0];"), $sql_query);
-		return str_repeat("=",40)."<br/>".$sql_query . "<br/>".str_repeat("=",40)."<br/>";
+	public function printQuery( $sql_query ) {
+		$sql_query = preg_replace_callback( "#( FROM | WHERE | AND | OR | SET | VALUES\s?| (LEFT|RIGHT|OUTER|INNER|FULL) JOIN | JOIN | HAVING | ORDER BY | GROUP BY )#i",
+			create_function( '$matches', "return \"<br/>\".\$matches[0];" ), $sql_query );
+
+		return str_repeat( "=", 40 ) . "<br/>" . $sql_query . "<br/>" . str_repeat( "=", 40 ) . "<br/>";
 	}
 }
 
@@ -118,19 +126,21 @@ class Plugin_Queries {
 		self::$instance = $this->q = new Query_Manager();
 	}
 
-	public function get_results($debug=false) {
+	public function get_results( $debug = false ) {
 
 		$query = $this->q->build();
 		$this->flush();
 
-		if($debug===true){
-			print_r($this->q->printQuery($query));
+		if ( $debug === true ) {
+			print_r( $this->q->printQuery( $query ) );
+
 			return false;
 		}
+
 		return $this->wpdb->get_results( $query );
 	}
 
-	public function get_dates_with_posts() {
+	public function get_posts_info_month() {
 		$this->q->select( array(
 			'YEAR(p.post_date_gmt)    AS `year`',
 			'MONTH(p.post_date_gmt)   AS `month`',
@@ -142,6 +152,34 @@ class Plugin_Queries {
 		$this->q->where( 'p.post_status', '=', 'publish' );
 		$this->q->groupBy( array( 'YEAR(p.post_date_gmt)', 'MONTH(p.post_date_gmt)' ) );
 		$this->q->orderBy( array( 'p.post_date_gmt DESC' ) );
+
+		return $this->get_results();
+	}
+
+	public function get_posts_info_year() {
+		$this->q->select( array(
+			'YEAR(p.post_date_gmt)    AS `year`',
+			'MAX(p.post_modified_gmt) as `lastmod`'
+		) );
+		$this->q->from( array( $this->wpdb->posts . ' p' ) );
+		$this->q->where( 'p.post_password', '=', '' );
+		$this->q->where( 'p.post_type', '=', 'post' );
+		$this->q->where( 'p.post_status', '=', 'publish' );
+		$this->q->groupBy( array( 'YEAR(p.post_date_gmt)' ) );
+		$this->q->orderBy( array( 'p.post_date_gmt DESC' ) );
+
+		return $this->get_results();
+	}
+
+	public function get_posts_info() {
+		$this->q->select( array(
+			'MAX(p.post_modified_gmt) as `lastmod`'
+		) );
+		$this->q->from( array( $this->wpdb->posts . ' p' ) );
+		$this->q->where( 'p.post_password', '=', '' );
+		$this->q->where( 'p.post_type', '=', 'post' );
+		$this->q->where( 'p.post_status', '=', 'publish' );
+		$this->q->groupBy( array( 'p.post_date_gmt' ) );
 
 		return $this->get_results();
 	}
@@ -163,6 +201,43 @@ class Plugin_Queries {
 
 		return $this->get_results();
 	}
+
+	public function get_posts_attachment_images() {
+		$this->q->select( array(
+			'p2.id as post_id',
+			'p1.post_content as license',
+			'p1.post_title as title',
+			'p1.post_excerpt as caption',
+			'p1.guid as url'
+		) );
+		$this->q->from( array( $this->wpdb->posts . ' p1' ) );
+		$this->q->join( $this->wpdb->posts . ' p2', 'p1.post_parent', '=', 'p2.ID' );
+		$this->q->where( 'p2.post_type', '=', 'post' );
+		$this->q->where( 'p2.post_status', '=', 'publish' );
+		$this->q->where( 'p1.post_type', '=', 'attachment' );
+		$this->q->orderBy( array( 'p2.post_date_gmt DESC' ) );
+
+		return $this->get_results();
+	}
+
+	public function get_posts_thumbnail_images() {
+		$this->q->select( array(
+			'post_id',
+			'p.guid as url',
+			'p.post_content as license',
+			'p.post_title as title',
+			'p.post_excerpt as caption'
+		) );
+		$this->q->from( array( $this->wpdb->postmeta . ' pm' ) );
+		$this->q->join( $this->wpdb->posts . ' p', 'pm.meta_value', '=', 'p.ID' );
+		$this->q->where( 'pm.meta_key', '=', '_thumbnail_id' );
+		$this->q->where( 'meta_value', '>', 0 );
+		$this->q->where( 'post_parent', '>', 0 );
+		$this->q->orderBy( array( 'p.post_date_gmt DESC' ) );
+
+		return $this->get_results();
+	}
+
 
 	public function get_pages() {
 		$this->q->select( array( 'p.ID', 'p.post_modified_gmt as `lastmod`' ) );
@@ -188,12 +263,11 @@ class Plugin_Queries {
 
 	public function get_authors_info( $supported_post_types ) {
 
-
 		$this->q->select( array( 'COUNT(u.ID)', 'MAX(p.post_modified_gmt) as `lastmod`' ) );
 		$this->q->from( array( $this->wpdb->posts . ' p' ) );
-		$this->q->join( $this->wpdb->users . ' u','u.ID','=','post_author');
+		$this->q->join( $this->wpdb->users . ' u', 'u.ID', '=', 'post_author' );
 		$this->q->where( 'p.post_password', '=', '' );
-		$this->q->whereIn( 'p.post_type', 'IN', $supported_post_types  );
+		$this->q->whereIn( 'p.post_type', 'IN', $supported_post_types );
 		$this->q->where( 'p.post_status', '=', 'publish' );
 		$this->q->groupBy( array( 'u.ID' ) );
 
@@ -202,43 +276,14 @@ class Plugin_Queries {
 
 	public function get_authors( $supported_post_types ) {
 
-		$post_types = implode( ',', $supported_post_types );
-
 		$this->q->select( array( 'u.ID', 'MAX(p.post_modified_gmt) as `lastmod`' ) );
 		$this->q->from( array( $this->wpdb->posts . ' p' ) );
-		$this->q->join( $this->wpdb->users . ' u','u.ID','=','post_author');
+		$this->q->join( $this->wpdb->users . ' u', 'u.ID', '=', 'post_author' );
 		$this->q->where( 'p.post_password', '=', '' );
-		$this->q->whereIn( 'p.post_type', 'IN', $supported_post_types  );
+		$this->q->whereIn( 'p.post_type', 'IN', $supported_post_types );
 		$this->q->where( 'p.post_status', '=', 'publish' );
 		$this->q->groupBy( array( 'u.ID' ) );
 
-//		$this->q->select( array( 'u.ID', 'MAX(p.post_modified_gmt) as `lastmod`' ) );
-//		$this->q->from( array( $this->wpdb->posts . ' p', $this->wpdb->users . ' u' ) );
-//		$this->q->where( 'p.post_author', '=', 'u.ID' );
-//		$this->q->where( 'p.post_password', '=', '' );
-//		$this->q->where( 'p.post_type', 'IN', sprintf( '(%s)', $post_types ) );
-//		$this->q->where( 'p.post_status', '=', 'publish' );
-//		$this->q->groupBy( array( 'p.ID' ) );
-
 		return $this->get_results();
 	}
-
-	/*
-			 $sql = "SELECT DISTINCT
-				u.ID,
-				u.user_nicename,
-				MAX(p.post_modified_gmt) AS last_post
-			FROM
-				{$wpdb->users} u,
-				{$wpdb->posts} p
-			WHERE
-				p.post_author = u.ID
-				AND p.post_status = 'publish'
-				AND p.post_type IN('" . implode("','", array_map('esc_sql', $enabledPostTypes)) . "')
-				AND p.post_password = ''
-			GROUP BY
-				u.ID,
-				u.user_nicename";
-	 */
-
 }

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: lti-sitemap\n"
-"POT-Creation-Date: 2015-05-19 15:34+0100\n"
-"PO-Revision-Date: 2015-05-19 15:34+0100\n"
+"POT-Creation-Date: 2015-05-23 21:07+0100\n"
+"PO-Revision-Date: 2015-05-23 21:07+0100\n"
 "Last-Translator: \n"
 "Language-Team: LTI <linguisticteam@gmail.com>\n"
 "Language: fr_FR\n"
@@ -38,23 +38,23 @@ msgstr ""
 msgid "general.settings"
 msgstr ""
 
-#: ../src/admin/admin.php:172
+#: ../src/admin/admin.php:171
 msgid "opt.msg.updated"
 msgstr ""
 
-#: ../src/admin/admin.php:176
+#: ../src/admin/admin.php:175
 msgid "opt.msg.error_token"
 msgstr ""
 
-#: ../src/admin/admin.php:184
+#: ../src/admin/admin.php:183
 msgid "opt.msg.reset"
 msgstr ""
 
-#: ../src/admin/admin.php:197
+#: ../src/admin/admin.php:196
 msgid "admin.help"
 msgstr ""
 
-#: ../src/admin/admin.php:198
+#: ../src/admin/admin.php:197
 msgid "admin.contribute"
 msgstr ""
 
@@ -90,16 +90,180 @@ msgstr ""
 msgid "general_hlp_github"
 msgstr ""
 
-#: ../src/admin/partials/options-page.php:14
+#: ../src/admin/partials/options-page.php:31
+msgid "opt.change_frequency.always"
+msgstr ""
+
+#: ../src/admin/partials/options-page.php:32
+msgid "opt.change_frequency.hourly"
+msgstr ""
+
+#: ../src/admin/partials/options-page.php:33
+msgid "opt.change_frequency.daily"
+msgstr ""
+
+#: ../src/admin/partials/options-page.php:34
+msgid "opt.change_frequency.weekly"
+msgstr ""
+
+#: ../src/admin/partials/options-page.php:35
+msgid "opt.change_frequency.monthly"
+msgstr ""
+
+#: ../src/admin/partials/options-page.php:36
+msgid "opt.change_frequency.yearly"
+msgstr ""
+
+#: ../src/admin/partials/options-page.php:37
+msgid "opt.change_frequency.never"
+msgstr ""
+
+#: ../src/admin/partials/options-page.php:107
 msgid "opt.title"
 msgstr ""
 
-#: ../src/admin/partials/options-page.php:22
+#: ../src/admin/partials/options-page.php:115
 msgid "opt.tab.general"
 msgstr ""
 
-#: ../src/admin/partials/options-page.php:39
-msgid "opt.e"
+#: ../src/admin/partials/options-page.php:119
+msgid "opt.tab.google"
+msgstr ""
+
+#: ../src/admin/partials/options-page.php:136
+msgid "opt.group.content"
+msgstr ""
+
+#: ../src/admin/partials/options-page.php:139
+msgid "opt.content_frontpage"
+msgstr ""
+
+#: ../src/admin/partials/options-page.php:143
+msgid "opt.content_posts"
+msgstr ""
+
+#: ../src/admin/partials/options-page.php:157
+msgid "opt.content_posts_normal"
+msgstr ""
+
+#: ../src/admin/partials/options-page.php:165
+msgid "opt.content_posts_year"
+msgstr ""
+
+#: ../src/admin/partials/options-page.php:173
+msgid "opt.content_posts_month"
+msgstr ""
+
+#: ../src/admin/partials/options-page.php:178
+msgid "opt.content_pages"
+msgstr ""
+
+#: ../src/admin/partials/options-page.php:182
+msgid "opt.content_authors"
+msgstr ""
+
+#: ../src/admin/partials/options-page.php:187
+msgid "opt.content_user_defined"
+msgstr ""
+
+#: ../src/admin/partials/options-page.php:196
+msgid "opt.hlp.content"
+msgstr ""
+
+#: ../src/admin/partials/options-page.php:202
+msgid "opt.content_images"
+msgstr ""
+
+#: ../src/admin/partials/options-page.php:210
+msgid "opt.content_images_attachments"
+msgstr ""
+
+#: ../src/admin/partials/options-page.php:214
+msgid "opt.content_images_featured"
+msgstr ""
+
+#: ../src/admin/partials/options-page.php:223
+msgid "opt.hlp.images"
+msgstr ""
+
+#: ../src/admin/partials/options-page.php:229
+msgid "opt.group.change_frequency"
+msgstr ""
+
+#: ../src/admin/partials/options-page.php:233
+msgid "opt.change_frequency_frontpage"
+msgstr ""
+
+#: ../src/admin/partials/options-page.php:237
+msgid "opt.change_frequency_posts"
+msgstr ""
+
+#: ../src/admin/partials/options-page.php:241
+msgid "opt.change_frequency_pages"
+msgstr ""
+
+#: ../src/admin/partials/options-page.php:245
+msgid "opt.change_frequency_authors"
+msgstr ""
+
+#: ../src/admin/partials/options-page.php:249
+msgid "opt.change_frequency_user_defined"
+msgstr ""
+
+#: ../src/admin/partials/options-page.php:256
+msgid "opt.hlp.change_frequency"
+msgstr ""
+
+#: ../src/admin/partials/options-page.php:262
+msgid "opt.group.priorities"
+msgstr ""
+
+#: ../src/admin/partials/options-page.php:265
+msgid "opt.priority_frontpage"
+msgstr ""
+
+#: ../src/admin/partials/options-page.php:268
+msgid "opt.priority_posts"
+msgstr ""
+
+#: ../src/admin/partials/options-page.php:271
+msgid "opt.priority_pages"
+msgstr ""
+
+#: ../src/admin/partials/options-page.php:274
+msgid "opt.priority_authors"
+msgstr ""
+
+#: ../src/admin/partials/options-page.php:277
+msgid "opt.priority_user_defined"
+msgstr ""
+
+#: ../src/admin/partials/options-page.php:284
+msgid "opt.hlp.priority"
+msgstr ""
+
+#: ../src/admin/partials/options-page.php:290
+msgid "opt.group.extra_pages"
+msgstr ""
+
+#: ../src/admin/partials/options-page.php:297
+msgid "opt.extra_pages.url"
+msgstr ""
+
+#: ../src/admin/partials/options-page.php:298
+msgid "opt.extra_pages.date"
+msgstr ""
+
+#: ../src/admin/partials/options-page.php:319
+msgid "opt.hlp.extra_pages"
+msgstr ""
+
+#: ../src/admin/partials/options-page.php:353
+msgid "general.save_changes"
+msgstr ""
+
+#: ../src/admin/partials/options-page.php:355
+msgid "general.reset_defaults"
 msgstr ""
 
 #: ../src/extra-strings.php:2
