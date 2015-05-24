@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: lti-sitemap\n"
-"POT-Creation-Date: 2015-05-23 21:07+0100\n"
-"PO-Revision-Date: 2015-05-23 21:07+0100\n"
+"POT-Creation-Date: 2015-05-24 20:23+0100\n"
+"PO-Revision-Date: 2015-05-24 20:38+0100\n"
 "Last-Translator: \n"
 "Language-Team: LTI <linguisticteam@gmail.com>\n"
 "Language: en_US\n"
@@ -18,45 +18,66 @@ msgstr ""
 "esc_html_x:1,2c;lsmint;lsmint_po\n"
 "X-Poedit-SearchPath-0: ../src\n"
 
-#: ../src/admin/admin.php:101
+#: ../src/admin/admin.php:138
 msgid "admin.menu_title"
 msgstr "LTI Sitemap settings"
 
-#: ../src/admin/admin.php:101
+#: ../src/admin/admin.php:138
 msgid "admin.menu_item"
 msgstr "LTI Sitemap"
 
-#: ../src/admin/admin.php:118
+#: ../src/admin/admin.php:155
 msgid "general_hlp_welcome"
 msgstr "Welcome!"
 
-#: ../src/admin/admin.php:123
+#: ../src/admin/admin.php:160
 msgid "general_hlp_general"
 msgstr "General tab"
 
-#: ../src/admin/admin.php:142
+#: ../src/admin/admin.php:179
 msgid "general.settings"
 msgstr "Settings"
 
-#: ../src/admin/admin.php:171
+#: ../src/admin/admin.php:221
+msgid "opt.err.google_auth_failure"
+msgstr "Authentication failed, google returned the following error:"
+
+#: ../src/admin/admin.php:226
 msgid "opt.msg.updated"
 msgstr "Plugin options have been updated."
 
-#: ../src/admin/admin.php:175
+#: ../src/admin/admin.php:232
 msgid "opt.msg.error_token"
 msgstr "Plugin options could not be saved (session error)."
 
-#: ../src/admin/admin.php:183
+#: ../src/admin/admin.php:240
 msgid "opt.msg.reset"
 msgstr "Plugin options have been reset."
 
-#: ../src/admin/admin.php:196
+#: ../src/admin/admin.php:253
 msgid "admin.help"
 msgstr "Help page"
 
-#: ../src/admin/admin.php:197
+#: ../src/admin/admin.php:254
 msgid "admin.contribute"
 msgstr "Contribute"
+
+#: ../src/admin/partials/bing_sitemap_submission.php:92
+msgid "msg.bing.sending"
+msgstr "Sending sitemap to Bing..."
+
+#: ../src/admin/partials/bing_sitemap_submission.php:104
+msgid "err.bing.popup"
+msgstr ""
+"The popup didn't receive proper data, please close this window and try again."
+
+#: ../src/admin/partials/bing_sitemap_submission.php:133
+msgid "err.bing.not_sent"
+msgstr "The request failed. Bing did not send acknolewdge reception."
+
+#: ../src/admin/partials/bing_sitemap_submission.php:135
+msgid "msg.bing.sent"
+msgstr "The XML sitemap was sent successfully."
 
 #: ../src/admin/partials/help_menu.php:16
 msgid "general_hlp_welcome_1"
@@ -90,185 +111,203 @@ msgstr ""
 msgid "general_hlp_github"
 msgstr ""
 
-#: ../src/admin/partials/options-page.php:31
+#: ../src/admin/partials/options-page.php:33
 msgid "opt.change_frequency.always"
 msgstr "Always"
 
-#: ../src/admin/partials/options-page.php:32
+#: ../src/admin/partials/options-page.php:34
 msgid "opt.change_frequency.hourly"
 msgstr "Hourly"
 
-#: ../src/admin/partials/options-page.php:33
+#: ../src/admin/partials/options-page.php:35
 msgid "opt.change_frequency.daily"
 msgstr "Daily"
 
-#: ../src/admin/partials/options-page.php:34
+#: ../src/admin/partials/options-page.php:36
 msgid "opt.change_frequency.weekly"
 msgstr "Weekly"
 
-#: ../src/admin/partials/options-page.php:35
+#: ../src/admin/partials/options-page.php:37
 msgid "opt.change_frequency.monthly"
 msgstr "Monthly"
 
-#: ../src/admin/partials/options-page.php:36
+#: ../src/admin/partials/options-page.php:38
 msgid "opt.change_frequency.yearly"
 msgstr "Yearly"
 
-#: ../src/admin/partials/options-page.php:37
+#: ../src/admin/partials/options-page.php:39
 msgid "opt.change_frequency.never"
 msgstr "Never"
 
-#: ../src/admin/partials/options-page.php:107
+#: ../src/admin/partials/options-page.php:111
 msgid "opt.title"
 msgstr "LTI Sitemap Settings"
 
-#: ../src/admin/partials/options-page.php:115
+#: ../src/admin/partials/options-page.php:119
 msgid "opt.tab.general"
 msgstr "General"
 
-#: ../src/admin/partials/options-page.php:119
+#: ../src/admin/partials/options-page.php:123
 msgid "opt.tab.google"
 msgstr "Google"
 
-#: ../src/admin/partials/options-page.php:136
+#: ../src/admin/partials/options-page.php:127
+msgid "opt.tab.bing"
+msgstr "Bing"
+
+#: ../src/admin/partials/options-page.php:144
 msgid "opt.group.content"
 msgstr "Content"
 
-#: ../src/admin/partials/options-page.php:139
+#: ../src/admin/partials/options-page.php:147
 msgid "opt.content_frontpage"
 msgstr "Front page"
 
-#: ../src/admin/partials/options-page.php:143
+#: ../src/admin/partials/options-page.php:151
 msgid "opt.content_posts"
 msgstr "Posts"
 
-#: ../src/admin/partials/options-page.php:157
+#: ../src/admin/partials/options-page.php:166
 msgid "opt.content_posts_normal"
 msgstr "No categorization"
 
-#: ../src/admin/partials/options-page.php:165
+#: ../src/admin/partials/options-page.php:174
 msgid "opt.content_posts_year"
 msgstr "By year"
 
-#: ../src/admin/partials/options-page.php:173
+#: ../src/admin/partials/options-page.php:182
 msgid "opt.content_posts_month"
 msgstr "By month and year"
 
-#: ../src/admin/partials/options-page.php:178
+#: ../src/admin/partials/options-page.php:187
 msgid "opt.content_pages"
 msgstr "Pages"
 
-#: ../src/admin/partials/options-page.php:182
+#: ../src/admin/partials/options-page.php:191
 msgid "opt.content_authors"
 msgstr "Authors"
 
-#: ../src/admin/partials/options-page.php:187
+#: ../src/admin/partials/options-page.php:196
 msgid "opt.content_user_defined"
 msgstr "User defined"
 
-#: ../src/admin/partials/options-page.php:196
+#: ../src/admin/partials/options-page.php:205
 msgid "opt.hlp.content"
 msgstr "Determine the types of content featured in the sitemap."
 
-#: ../src/admin/partials/options-page.php:202
+#: ../src/admin/partials/options-page.php:211
 msgid "opt.content_images"
 msgstr "Images"
 
-#: ../src/admin/partials/options-page.php:210
-msgid "opt.content_images_attachments"
-msgstr "Attachments"
-
-#: ../src/admin/partials/options-page.php:214
-msgid "opt.content_images_featured"
-msgstr "Featured"
-
-#: ../src/admin/partials/options-page.php:223
+#: ../src/admin/partials/options-page.php:219
 msgid "opt.hlp.images"
 msgstr "Images help"
 
-#: ../src/admin/partials/options-page.php:229
+#: ../src/admin/partials/options-page.php:225
 msgid "opt.group.change_frequency"
 msgstr "Change frequency"
 
-#: ../src/admin/partials/options-page.php:233
+#: ../src/admin/partials/options-page.php:229
 msgid "opt.change_frequency_frontpage"
 msgstr "Front page"
 
-#: ../src/admin/partials/options-page.php:237
+#: ../src/admin/partials/options-page.php:233
 msgid "opt.change_frequency_posts"
 msgstr "Posts"
 
-#: ../src/admin/partials/options-page.php:241
+#: ../src/admin/partials/options-page.php:237
 msgid "opt.change_frequency_pages"
 msgstr "Pages"
 
-#: ../src/admin/partials/options-page.php:245
+#: ../src/admin/partials/options-page.php:241
 msgid "opt.change_frequency_authors"
 msgstr "Authors"
 
-#: ../src/admin/partials/options-page.php:249
+#: ../src/admin/partials/options-page.php:245
 msgid "opt.change_frequency_user_defined"
 msgstr "User defined"
 
-#: ../src/admin/partials/options-page.php:256
+#: ../src/admin/partials/options-page.php:252
 msgid "opt.hlp.change_frequency"
 msgstr "Change frequencies"
 
-#: ../src/admin/partials/options-page.php:262
+#: ../src/admin/partials/options-page.php:258
 msgid "opt.group.priorities"
 msgstr "Priorities"
 
-#: ../src/admin/partials/options-page.php:265
+#: ../src/admin/partials/options-page.php:261
 msgid "opt.priority_frontpage"
 msgstr "Front page"
 
-#: ../src/admin/partials/options-page.php:268
+#: ../src/admin/partials/options-page.php:264
 msgid "opt.priority_posts"
 msgstr "Posts"
 
-#: ../src/admin/partials/options-page.php:271
+#: ../src/admin/partials/options-page.php:267
 msgid "opt.priority_pages"
 msgstr "Pages"
 
-#: ../src/admin/partials/options-page.php:274
+#: ../src/admin/partials/options-page.php:270
 msgid "opt.priority_authors"
 msgstr "Authors"
 
-#: ../src/admin/partials/options-page.php:277
+#: ../src/admin/partials/options-page.php:273
 msgid "opt.priority_user_defined"
 msgstr "User defined"
 
-#: ../src/admin/partials/options-page.php:284
+#: ../src/admin/partials/options-page.php:280
 msgid "opt.hlp.priority"
 msgstr "Priorities"
 
-#: ../src/admin/partials/options-page.php:290
+#: ../src/admin/partials/options-page.php:286
 msgid "opt.group.extra_pages"
 msgstr "User defined pages"
 
-#: ../src/admin/partials/options-page.php:297
+#: ../src/admin/partials/options-page.php:293
 msgid "opt.extra_pages.url"
 msgstr "URL"
 
-#: ../src/admin/partials/options-page.php:298
+#: ../src/admin/partials/options-page.php:294
 msgid "opt.extra_pages.date"
 msgstr "Change date"
 
-#: ../src/admin/partials/options-page.php:319
+#: ../src/admin/partials/options-page.php:315
 msgid "opt.hlp.extra_pages"
 msgstr "Extra pages"
 
-#: ../src/admin/partials/options-page.php:353
+#: ../src/admin/partials/options-page.php:334
+msgid "btn.google.get_auth"
+msgstr "Get authentication code"
+
+#: ../src/admin/partials/options-page.php:341
+msgid "btn.google.log_in"
+msgstr "Log in"
+
+#: ../src/admin/partials/options-page.php:364
+msgid "btn.google.log-out"
+msgstr "Log out"
+
+#: ../src/admin/partials/options-page.php:377
+msgid "btn.bing.sitemap_submit"
+msgstr "Send sitemap"
+
+#: ../src/admin/partials/options-page.php:387
 msgid "general.save_changes"
 msgstr "Save changes"
 
-#: ../src/admin/partials/options-page.php:355
+#: ../src/admin/partials/options-page.php:389
 msgid "general.reset_defaults"
 msgstr "Reset to defaults"
 
 #: ../src/extra-strings.php:2
 msgid "Sitemap generator"
 msgstr ""
+
+#~ msgid "opt.content_images_attachments"
+#~ msgstr "Attachments"
+
+#~ msgid "opt.content_images_featured"
+#~ msgstr "Featured"
 
 #~ msgid "opt.group.content_categorize"
 #~ msgstr "Categorize by:"

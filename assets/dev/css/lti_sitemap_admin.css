@@ -26,8 +26,13 @@
         background-color: #e7e7e7;
     }
 
-    .lti-sitemap-header.lti_error {
+    .lti-sitemap-header.lti_error{
         background-color: #c90000;
+    }
+
+    p.error_msg {
+        background-color: #c90000;
+        font-weight: bold;
     }
 
     .lti-sitemap-message {
@@ -101,26 +106,45 @@
         margin-left: 10px;
     }
 
-    #flsm .input-group .input-group.file-selector .btn-group input[type="button"] {
-        display: inline;
-        width: 40%;
-        margin: 10px 0;
+    #flsm .input-group input[type="button"] {
+        margin: 10px auto;
         background-color: #1aa55f;
         border: 1px solid #16894f;
         color: #ffffff;
         box-shadow: none;
         white-space: pre-wrap;
+        text-align:center;
     }
 
-    #flsm .input-group .input-group.file-selector .btn-group {
+    .btn-group {
+        text-align: center;
+    }
+
+    #flsm .input-group .btn-group input[type="text"]{
+        display:inline;
+        width:60%;
+    }
+
+    #flsm .input-group input[type="button"]:hover {
+        background-color: #16864d;
+        border: 1px solid #16894f;
+        box-shadow: none;
+    }
+
+    #flsm .input-group input[type="submit"] {
+        display: inline;
+        margin: 10px 0;
+        background-color: #E34429;
+        border: 1px solid #cd3d25;
+        color: #ffffff;
+        box-shadow: none;
+        white-space: pre-wrap;
         text-align:center
     }
 
-    #flsm .input-group .input-group.file-selector input[type="button"]:hover {
-        margin: 10px auto 0;
-        background-color: #16864d;
-        border: 1px solid #16894f;
-        color: #ffffff;
+    #flsm .input-group input[type="submit"]:hover {
+        background-color: #b03520;
+        border: 1px solid #8a2919;
         box-shadow: none;
     }
 
@@ -324,7 +348,7 @@
     #lti_sitemap_wrapper .nav > li > a:hover,
     #lti_sitemap_wrapper .nav > li > a:focus {
         text-decoration: none;
-        background-color: #b7ffb7;
+        background-color: #aaedaa;
     }
     #lti_sitemap_wrapper .nav > li.disabled > a {
         color: #777777;

@@ -23,6 +23,8 @@ class htmlSelect {
 		$this->html .= "</select>";
 	}
 }
+
+
 //echo "<pre>";
 //print_r($this->settings);
 //echo "</pre>";
@@ -71,6 +73,9 @@ $priorityUserDefined        = new htmlSelect( $priorities, 'priority_user_define
 	'priority_user_defined' );
 
 $extraPages = "";
+/**
+ * @var $this \Lti\Sitemap\Admin
+ */
 $extra_urls = $this->settings->get( "extra_pages_url" );
 if ( ! empty( $extra_urls ) ) {
 	$extra_dates = $this->settings->get( "extra_pages_date" );
@@ -91,7 +96,6 @@ if ( ! empty( $extra_urls ) ) {
 		);
 	}
 }
-
 /**
  * LTI Sitemap plugin
  *
@@ -118,10 +122,14 @@ if ( ! empty( $extra_urls ) ) {
 				<a href="#tab_google" aria-controls="tab_google" role="tab"
 				   data-toggle="tab"><?php echo lsmint( 'opt.tab.google' ); ?></a>
 			</li>
+			<li role="presentation">
+				<a href="#tab_bing" aria-controls="tab_bing" role="tab"
+				   data-toggle="tab"><?php echo lsmint( 'opt.tab.bing' ); ?></a>
+			</li>
 		</ul>
 
 		<form id="flsm" accept-charset="utf-8" method="POST"
-		      action="<?php echo admin_url( 'options-general.php?page=lti-sitemap-options' ); ?>">
+		      action="<?php echo $this->get_plugin_admin_url(); ?>">
 			<?php echo wp_nonce_field( 'lti_sitemap_options', 'lti_sitemap_token' ); ?>
 			<div class="tab-content">
 				<?php
@@ -146,34 +154,35 @@ if ( ! empty( $extra_urls ) ) {
 										       data-toggle="sitemap-options"
 										       data-target="#content_posts_group"/>
 									</label>
-										<div id="content_posts_group">
-											<div class="input-group">
-												<label>
-													<input name="content_posts_display"
-													       type="radio" <?php echo lsmrad( 'content_posts_display',
-														'normal' ); ?>
-													       value="normal"
-													       id="content_posts_normal"
-														/><?php echo lsmint( 'opt.content_posts_normal' ); ?>
-												</label>
-												<label>
-													<input name="content_posts_display"
-													       type="radio" <?php echo lsmrad( 'content_posts_display',
-														'year' ); ?>
-													       value="year"
-													       id="content_posts_year"
-														/><?php echo lsmint( 'opt.content_posts_year' ); ?>
-												</label>
-												<label>
-													<input name="content_posts_display"
-													       type="radio" <?php echo lsmrad( 'content_posts_display',
-														'month' ); ?>
-													       value="month"
-													       id="content_posts_month"
-														/><?php echo lsmint( 'opt.content_posts_month' ); ?>
-												</label>
-											</div>
+
+									<div id="content_posts_group">
+										<div class="input-group">
+											<label>
+												<input name="content_posts_display"
+												       type="radio" <?php echo lsmrad( 'content_posts_display',
+													'normal' ); ?>
+												       value="normal"
+												       id="content_posts_normal"
+													/><?php echo lsmint( 'opt.content_posts_normal' ); ?>
+											</label>
+											<label>
+												<input name="content_posts_display"
+												       type="radio" <?php echo lsmrad( 'content_posts_display',
+													'year' ); ?>
+												       value="year"
+												       id="content_posts_year"
+													/><?php echo lsmint( 'opt.content_posts_year' ); ?>
+											</label>
+											<label>
+												<input name="content_posts_display"
+												       type="radio" <?php echo lsmrad( 'content_posts_display',
+													'month' ); ?>
+												       value="month"
+												       id="content_posts_month"
+													/><?php echo lsmint( 'opt.content_posts_month' ); ?>
+											</label>
 										</div>
+									</div>
 
 									<label for="content_pages"><?php echo lsmint( 'opt.content_pages' ); ?>
 										<input type="checkbox" name="content_pages"
@@ -204,19 +213,6 @@ if ( ! empty( $extra_urls ) ) {
 								       data-target="#images_chk_group"
 								       id="content_images" <?php echo lsmchk( 'content_images' ); ?>/>
 							</label>
-
-							<div id="images_chk_group">
-								<div class="checkbox-group">
-									<label for="content_images_attachments"><?php echo lsmint( 'opt.content_images_attachments' ); ?>
-										<input type="checkbox" name="content_images_attachments"
-										       id="content_images_attachments" <?php echo lsmchk( 'content_images_attachments' ); ?>/>
-									</label>
-									<label for="content_images_featured"><?php echo lsmint( 'opt.content_images_featured' ); ?>
-										<input type="checkbox" name="content_images_featured"
-										       id="content_images_featured" <?php echo lsmchk( 'content_images_featured' ); ?>/>
-									</label>
-								</div>
-							</div>
 						</div>
 						<div class="form-help-container">
 							<div class="form-help">
@@ -327,17 +323,68 @@ if ( ! empty( $extra_urls ) ) {
 				 ***********************************************************************************************/
 				?>
 				<div role="tabpanel" class="tab-pane" id="tab_google">
-					<div class="form-group">
-						<div class="input-group">
-							<div class="checkbox">
-								<label for="_support"></label>
-
-								<div id="_chk_group">
-									<div class="checkbox-group">
-
+					<?php
+					/***********************************************************************************************
+					 *                              CASE : NOT AUTHENTICATED YET
+					 ***********************************************************************************************/
+					if ( ! $this->google_connector->is_authenticated() ): ?>
+						<div class="form-group">
+							<div class="input-group">
+								<div class="btn-group">
+								<input id="btn-get-google-auth" class="button-primary" type="button"
+								       value="<?php echo lsmint( 'btn.google.get_auth' ); ?>"/>
+								<input id="google_auth_url" type="hidden"
+								       value="<?php echo esc_url( $this->google_connector->get_authentication_url() ); ?>"/>
 									</div>
+
+								<div class="btn-group">
+									<input type="text" name="google_auth_token"
+									       id="google_auth_token" <?php echo lsmopt( 'google_auth_token' ); ?>/>
+									<input id="btn-google-log-in" class="button-primary" type="submit"
+									       name="lti_sitemap_google_auth"
+									       value="<?php echo lsmint( 'btn.google.log_in' ); ?>"/>
+								</div>
+									<?php if ( ! is_null( $this->google_error ) ): ?>
+										<p class="error_msg"><?php echo $this->google_error['error']; ?></p>
+										<p class="error_msg"><?php echo $this->google_error['google_response']; ?></p>
+									<?php endif; ?>
+							</div>
+							<div class="form-help-container">
+								<div class="form-help">
+									<p></p>
 								</div>
 							</div>
+						</div>
+					<?php
+					/***********************************************************************************************
+					 *                           CASE : GOOGLE AUTHENTICATION DONE
+					 ***********************************************************************************************/
+					else: ?>
+						<div class="form-group">
+							<div class="input-group">
+								<input id="btn-log-out" class="button-primary" type="button"
+								       value="<?php echo lsmint( 'btn.google.log-out' ); ?>"/>
+							</div>
+						</div>
+						<div class="form-help-container">
+							<div class="form-help">
+								<p></p>
+							</div>
+						</div>
+					<?php endif; ?>
+				</div>
+				<div role="tabpanel" class="tab-pane" id="tab_bing">
+					<div class="form-group">
+						<div class="input-group">
+							<div class="btn-group">
+							<input id="btn-bing-submit" class="button-primary" type="button"
+							       name="lti_sitemap_google_auth"
+							       value="<?php echo lsmint( 'btn.bing.sitemap_submit' ); ?>"/>
+							<input id="bing_submission_script" type="hidden"
+							       value="<?php echo wp_nonce_url( sprintf( "%s&%s&%s%s", $this->get_plugin_admin_url(),
+								       'noheader=true', 'bing_url=', $this->bing_connector->get_submission_url() ),
+								       'bing_url_submission', 'lti-sitemap-options' ); ?>"/>
+								</div>
 						</div>
 						<div class="form-help-container">
 							<div class="form-help">

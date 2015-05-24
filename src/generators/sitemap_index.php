@@ -178,8 +178,6 @@ class Sitemap_Generator_Index extends Sitemap_Generator {
 
 class Sitemap_Generator_Posts extends Sitemap_Generator {
 
-	private $added_images = array();
-
 	public function get() {
 		$sitemap_posts = new SiteMapUrlSet();
 		$sitemap_posts->addStylesheet( plugin_dir_url( __FILE__ ) . 'sitemap.xsl' );
@@ -199,12 +197,14 @@ class Sitemap_Generator_Posts extends Sitemap_Generator {
 			}
 
 			if ( $this->settings->get( 'content_images' ) ) {
-				if ( $this->settings->get( 'content_images_attachments' ) ) {
-					$this->add_images( $this->query->get_posts_attachment_images(), $sitemap_posts, $postsIndex );
-				}
+				$this->add_images( $this->query->get_posts_attachment_images(), $sitemap_posts, $postsIndex );
+
+				//Created this method because of some confusion on how featured images were attached. Not used anymore
+				/*
 				if ( $this->settings->get( 'content_images_featured' ) ) {
 					$this->add_images( $this->query->get_posts_thumbnail_images(), $sitemap_posts, $postsIndex );
 				}
+				*/
 			}
 		}
 
@@ -229,17 +229,70 @@ class Sitemap_Generator_Posts extends Sitemap_Generator {
 						$license_url = $matches[0];
 					}
 					$sitemap_url_index = $postsIndex[ $image->post_id ];
+					;
 
-					if ( ! isset( $this->added_images[ $image->url ] ) ) {
-						$this->added_images[ $image->url ] = true;
-						$xml->addImage( $sitemap_url_index, $image->url, $image->caption, '',
-							$image->title,
-							$license_url );
-					}
+					$xml->addImage( $sitemap_url_index, $this->wp_get_attachment_url($image), $image->caption, '',
+						$image->title,
+						$license_url );
+
+				}
+			}
+		}
+	}
+
+	/**
+	 * We copied the wp_get_attachment_url method without the costly database lookup,
+	 * since we've already done it.
+	 *
+	 *
+	 * @param \StdClass $post
+	 *
+	 * @return bool|mixed|string|void
+	 */
+	private function wp_get_attachment_url( $post ) {
+		$url = '';
+		$file = $post->rel_path;
+			// Get upload directory.
+			if ( ($uploads = wp_upload_dir()) && false === $uploads['error'] ) {
+				// Check that the upload base exists in the file location.
+				if ( 0 === strpos( $file, $uploads['basedir'] ) ) {
+					// Replace file location with url location.
+					$url = str_replace($uploads['basedir'], $uploads['baseurl'], $file);
+				} elseif ( false !== strpos($file, 'wp-content/uploads') ) {
+					$url = $uploads['baseurl'] . substr( $file, strpos($file, 'wp-content/uploads') + 18 );
+				} else {
+					// It's a newly-uploaded file, therefore $file is relative to the basedir.
+					$url = $uploads['baseurl'] . "/$file";
 				}
 			}
 
+		/*
+		 * If any of the above options failed, Fallback on the GUID as used pre-2.7,
+		 * not recommended to rely upon this.
+		 */
+		if ( empty($url) ) {
+			$url = $post->guid;
 		}
+
+		// On SSL front-end, URLs should be HTTPS.
+		if ( is_ssl() && ! is_admin() && 'wp-login.php' !== $GLOBALS['pagenow'] ) {
+			$url = set_url_scheme( $url );
+		}
+
+		/**
+		 * Filter the attachment URL.
+		 *
+		 * @since 2.1.0
+		 *
+		 * @param string $url     URL for the given attachment.
+		 * @param int    $post_id Attachment ID.
+		 */
+		$url = apply_filters( 'wp_get_attachment_url', $url, $post->ID );
+
+		if ( empty( $url ) )
+			return false;
+
+		return $url;
 	}
 
 

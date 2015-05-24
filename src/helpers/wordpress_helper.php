@@ -36,6 +36,11 @@ class Wordpress_Helper implements ICanHelp {
 		return home_url('/');
 	}
 
+	public function sitemap_url(){
+		return $this->home_url()."sitemap.xml";
+	}
+
+
 	public static function get_supported_post_types() {
 		/**
 		 * Allow filtering of supported post types

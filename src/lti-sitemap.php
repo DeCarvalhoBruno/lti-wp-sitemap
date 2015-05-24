@@ -60,8 +60,6 @@ class LTI_Sitemap {
 	 */
 	public function __construct() {
 		$this->file_path = plugin_dir_path( __FILE__ );
-		require_once $this->file_path . 'plugin/form_fields.php';
-		require_once $this->file_path . 'plugin/plugin.php';
 		$this->name        = LTI_SITEMAP_NAME;
 		$this->plugin_path = LTI_SITEMAP_PLUGIN_DIR;
 		$this->basename    = LTI_SITEMAP_PLUGIN_BASENAME;
@@ -93,7 +91,6 @@ class LTI_Sitemap {
 
 
 	private function load_dependencies() {
-		require_once $this->plugin_path . 'vendor/autoload.php';
 		require_once $this->plugin_path . 'src/helper.php';
 
 		$this->loader = new Loader();
@@ -250,12 +247,10 @@ class LTI_Sitemap {
 	}
 
 	public static function activate() {
-		require_once LTI_SITEMAP_MAIN_CLASS_DIR . 'activator.php';
 		Activator::activate();
 	}
 
 	public static function deactivate() {
-		require_once LTI_SITEMAP_MAIN_CLASS_DIR . 'deactivator.php';
 		Deactivator::deactivate();
 	}
 

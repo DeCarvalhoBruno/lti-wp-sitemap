@@ -22,8 +22,6 @@ class Defaults {
 			new def( 'content_authors', 'Checkbox',false ),
 			new def( 'content_user_defined', 'Checkbox' ,false),
 			new def( 'content_images', 'Checkbox' ,false),
-			new def( 'content_images_attachments', 'Checkbox' ,false),
-			new def( 'content_images_featured', 'Checkbox' ,false),
 			new def( 'change_frequency_frontpage', 'Text', 'daily' ),
 			new def( 'change_frequency_posts', 'Text', 'weekly' ),
 			new def( 'change_frequency_pages', 'Text', 'monthly' ),
@@ -36,6 +34,7 @@ class Defaults {
 			new def( 'priority_user_defined', 'Text', 0.3 ),
 			new def( 'extra_pages_url', 'Array' ),
 			new def( 'extra_pages_date', 'Array' ),
+			new def( 'google_auth_token', 'Text' ),
 		);
 	}
 }

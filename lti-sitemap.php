@@ -39,13 +39,13 @@ if ( ! function_exists( 'add_filter' ) ) {
 	exit();
 }
 
-define( 'LTI_SITEMAP_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+$plugin_dir_path = plugin_dir_path( __FILE__ );
+define( 'LTI_SITEMAP_PLUGIN_DIR', $plugin_dir_path );
 define( 'LTI_SITEMAP_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
-define( 'LTI_SITEMAP_MAIN_CLASS_DIR', plugin_dir_path( __FILE__ ) . 'src/' );
 define( 'LTI_SITEMAP_VERSION', '0.5.0' );
 define( 'LTI_SITEMAP_NAME', 'lti-sitemap' );
 
-require_once( plugin_dir_path( __FILE__ ) . 'src/lti-sitemap.php' );
+require_once $plugin_dir_path. 'vendor/autoload.php';
 
 register_activation_hook( __FILE__, array( 'Lti\Sitemap\LTI_Sitemap', 'activate' ) );
 register_deactivation_hook( __FILE__, array( 'Lti\Sitemap\LTI_Sitemap', 'deactivate' ) );

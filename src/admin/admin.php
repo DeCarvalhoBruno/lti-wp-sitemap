@@ -1,5 +1,7 @@
 <?php namespace Lti\Sitemap;
 
+use Lti\Sitemap\Helpers\Google_Helper;
+use Lti\Sitemap\Helpers\Bing_Helper;
 use Lti\Sitemap\Helpers\ICanHelp;
 use Lti\Sitemap\Plugin\Plugin_Settings;
 
@@ -42,6 +44,22 @@ class Admin {
 	private $helper;
 
 	/**
+	 * @var Google_Helper
+	 */
+	private $google_connector;
+
+	/**
+	 * @var Bing_Helper
+	 */
+	private $bing_connector;
+	/**
+	 * @var bool
+	 */
+	private $can_send_curl_requests;
+	private $google_error;
+
+
+	/**
 	 * @param $plugin_name
 	 * @param $plugin_basename
 	 * @param $version
@@ -67,6 +85,25 @@ class Admin {
 		$this->plugin_dir_url  = plugin_dir_url( $plugin_path . '/index.php' );
 		$this->settings        = $settings;
 		$this->helper          = $helper;
+
+		$this->can_send_curl_requests = function_exists( 'curl_version' );
+		if ( $this->can_send_curl_requests === true ) {
+			$this->google_connector = new Google_Helper();
+			$this->bing_connector = new Bing_Helper($this->helper->sitemap_url());
+
+			$auth_token = $this->settings->get( 'google_auth_token' );
+			if ( ! is_null( $auth_token ) ) {
+				if ( isset( $_SESSION['lti_sitemap_google_token'] ) ) {
+					$this->google_connector->set_access_token( $_SESSION['lti_sitemap_google_token'] );
+				} else {
+					try {
+						$_SESSION['lti_sitemap_google_token'] = $this->google_connector->authenticate( $auth_token );
+					} catch ( \Google_Auth_Exception $e ) {
+						$this->settings->set( 'google_auth_token', '' );
+					}
+				}
+			}
+		}
 	}
 
 	/**
@@ -76,7 +113,7 @@ class Admin {
 		wp_enqueue_style(
 			$this->plugin_name,
 			$this->plugin_dir_url . 'assets/dist/css/lti_sitemap_admin.css',
-			array( ),
+			array(),
 			$this->version,
 			'all' );
 	}
@@ -153,7 +190,7 @@ class Admin {
 	public function validate_input( $data ) {
 		unset( $data['_wpnonce'], $data['option_page'], $data['_wp_http_referer'] );
 		$this->settings = $this->settings->save( $data );
-		update_option( 'lti_sitemap_options', $this->settings);
+		update_option( 'lti_sitemap_options', $this->settings );
 	}
 
 	/**
@@ -161,14 +198,34 @@ class Admin {
 	 *
 	 */
 	public function options_page() {
+
+		$bing_url = filter_input(INPUT_GET,'bing_url');
+		if(!is_null($bing_url)&&wp_verify_nonce(filter_input(INPUT_GET,'lti-sitemap-options'),'bing_url_submission')){
+			include $this->admin_dir . '/partials/bing_sitemap_submission.php';
+			return;
+		}
+
 		$post_variables = $this->helper->filter_var_array( $_POST );
 
-		if ( isset( $post_variables['lti_sitemap_update'] ) ) {
+		if ( isset( $post_variables['lti_sitemap_update'] ) || isset( $post_variables['lti_sitemap_google_auth'] ) ) {
 			if ( isset( $post_variables['lti_sitemap_token'] ) ) {
 				if ( wp_verify_nonce( $post_variables['lti_sitemap_token'], 'lti_sitemap_options' ) !== false ) {
 					$this->validate_input( $post_variables );
 					$this->page_type = "lti_update";
-					$this->message   = lsmint( 'opt.msg.updated' );
+
+					if ( isset( $post_variables['lti_sitemap_google_auth'] ) ) {
+						try {
+							$_SESSION['lti_sitemap_google_token'] = $this->google_connector->authenticate( $post_variables['google_auth_token'] );
+						} catch ( \Google_Auth_Exception $e ) {
+							$this->google_error = array(
+								'error'           => lsmint( 'opt.err.google_auth_failure' ),
+								'google_response' => $e->getMessage()
+							);
+						}
+					} else {
+						$this->message = lsmint( 'opt.msg.updated' );
+
+					}
 
 				} else {
 					$this->page_type = "lti_error";
@@ -208,8 +265,8 @@ class Admin {
 		return $this->settings;
 	}
 
-	public function get_setting($setting){
-		return $this->settings->get($setting);
+	public function get_setting( $setting ) {
+		return $this->settings->get( $setting );
 	}
 
 	public function get_page_type() {
@@ -218,5 +275,9 @@ class Admin {
 
 	public function get_message() {
 		return $this->message;
+	}
+
+	public static function get_plugin_admin_url(){
+		return admin_url( 'options-general.php?page=lti-sitemap-options' );
 	}
 }

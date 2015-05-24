@@ -202,24 +202,55 @@ class Plugin_Queries {
 		return $this->get_results();
 	}
 
+	/**
+	 * Getting images only through the posts table
+	 *
+	 * Decided not to use it because we can't get the storage path of the image that way.
+	 * (At least, as far as I could see).
+	 */
+	//	public function get_posts_attachment_images() {
+	//		$this->q->select( array(
+	//			'p2.id as post_id',
+	//			'p1.post_content as license',
+	//			'p1.post_title as title',
+	//			'p1.post_excerpt as caption',
+	//			'p1.id as image_id'
+	//		) );
+	//		$this->q->from( array( $this->wpdb->posts . ' p1' ) );
+	//		$this->q->join( $this->wpdb->posts . ' p2', 'p1.post_parent', '=', 'p2.ID' );
+	//		$this->q->where( 'p2.post_type', '=', 'post' );
+	//		$this->q->where( 'p2.post_status', '=', 'publish' );
+	//		$this->q->where( 'p1.post_type', '=', 'attachment' );
+	//		$this->q->orderBy( array( 'p2.post_date_gmt DESC' ) );
+	//
+	//		return $this->get_results();
+	//	}
+
 	public function get_posts_attachment_images() {
 		$this->q->select( array(
-			'p2.id as post_id',
-			'p1.post_content as license',
-			'p1.post_title as title',
-			'p1.post_excerpt as caption',
-			'p1.guid as url'
+			'post_parent as post_id',
+			'p.ID',
+			'p.post_content as license',
+			'p.post_title as title',
+			'p.post_excerpt as caption',
+			'pm.meta_value as rel_path',
+			'p.guid'
 		) );
-		$this->q->from( array( $this->wpdb->posts . ' p1' ) );
-		$this->q->join( $this->wpdb->posts . ' p2', 'p1.post_parent', '=', 'p2.ID' );
-		$this->q->where( 'p2.post_type', '=', 'post' );
-		$this->q->where( 'p2.post_status', '=', 'publish' );
-		$this->q->where( 'p1.post_type', '=', 'attachment' );
-		$this->q->orderBy( array( 'p2.post_date_gmt DESC' ) );
+		$this->q->from( array( $this->wpdb->postmeta . ' pm' ) );
+		$this->q->join( $this->wpdb->posts . ' p', 'pm.post_id', '=', 'p.ID' );
+		$this->q->where( 'pm.meta_key', '=', '_wp_attached_file' );
+		$this->q->where( 'meta_value', '!=', '' );
+		$this->q->where( 'post_parent', '>', 0 );
+		$this->q->orderBy( array( 'p.post_date_gmt DESC' ) );
 
 		return $this->get_results();
 	}
 
+	/**
+	 * NOT USED at the moment.
+	 *
+	 * @return bool|mixed
+	 */
 	public function get_posts_thumbnail_images() {
 		$this->q->select( array(
 			'post_id',

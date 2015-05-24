@@ -2,8 +2,6 @@
     'use strict';
 
     $(document).ready(function () {
-
-
         /**
          * Sets messages in the admin screen header
          * Triggered after updates and resets
@@ -36,14 +34,14 @@
             sitemap_header.evalClass('lti_error');
         }
 
-        $('.btn-del-row').click(function(){
+        $('.btn-del-row').click(function () {
             $(this).parent().parent().empty();
             console.log('click remove');
         });
 
-        $('#btn_extra_pages_add').click(function(){
-           $(this).parent().parent().before('<tr><td><input type="text" required="required" name="extra_pages_url[]" placeholder="http://www.example.com"/></td><td><input type="text" name="extra_pages_date[]" placeholder="yyyy-mm-dd"/></td><td><button type="button" class="btn-del-row dashicons dashicons-no"></button></td></tr>');
-            $('.btn-del-row').click(function(){
+        $('#btn_extra_pages_add').click(function () {
+            $(this).parent().parent().before('<tr><td><input type="text" required="required" name="extra_pages_url[]" placeholder="http://www.example.com"/></td><td><input type="text" name="extra_pages_date[]" placeholder="yyyy-mm-dd"/></td><td><button type="button" class="btn-del-row dashicons dashicons-no"></button></td></tr>');
+            $('.btn-del-row').click(function () {
                 $(this).parent().parent().empty();
                 console.log('click remove');
             });
@@ -128,7 +126,7 @@
             });
 
             //We make sure we come back to the last active tab before the page is reloaded
-            $('#flsm').on('submit', function () {
+            $('#flsm').on('submit', function (e) {
                 var hash = window.location.hash;
                 if (hash) {
                     $(this).attr('action', $(this).attr('action') + hash);
@@ -136,6 +134,38 @@
 
             });
         }
+
+        $('#btn-get-google-auth').click(function (e) {
+            e.preventDefault();
+            var auth_url = $('#google_auth_url').val();
+            if (typeof auth_url == "string" && auth_url.length > 0) {
+                window.open(auth_url,
+                    '',
+                    'top=' + (screen.height / 2 - 580 / 2) + ',left=' + (screen.width / 2 - 640 / 2) + ',width=640,height=580,resizable=0,scrollbars=0,menubar=0,toolbar=0,status=1,location=0'
+                );
+
+            }
+        });
+
+        $('#btn-google-log-in').click(function (e) {
+
+            var auth_token = $('#google_auth_token');
+
+            if (auth_token.length > 0) {
+                if (auth_token.val().length == 0) {
+                    e.preventDefault();
+                    return false;
+                }
+            }
+        });
+
+        $('#btn-bing-submit').click(function(){
+            var bing_submission_script = ''+$('#bing_submission_script').val();
+            window.open(bing_submission_script,
+                '',
+                'top=' + (screen.height / 2 - 580 / 2) + ',left=' + (screen.width / 2 - 640 / 2) + ',width=640,height=580,resizable=0,scrollbars=0,menubar=0,toolbar=0,status=1,location=0'
+            );
+        });
 
     });
 })(jQuery);
