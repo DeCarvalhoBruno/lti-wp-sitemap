@@ -98,3 +98,9 @@ if(!function_exists('lti_mysql_date_year')) {
 		return mysql2date( 'Y', $date );
 	}
 }
+
+function lti_mysql_to_date($date){
+	$dt = new DateTime($date, new DateTimeZone('UTC'));
+	$dt->setTimezone(new DateTimeZone(get_option('timezone_string')));
+	return date_format($dt, get_option('date_format') . ' ' . get_option('time_format'));
+}

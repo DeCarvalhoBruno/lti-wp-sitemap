@@ -14,14 +14,14 @@ class Defaults {
 
 	public function __construct() {
 		$this->values = array(
-			new def( 'content_frontpage', 'Checkbox',true ),
-			new def( 'content_posts', 'Checkbox',false ),
+			new def( 'content_frontpage', 'Checkbox', true ),
+			new def( 'content_posts', 'Checkbox', false ),
 			new def( 'content_posts_display', 'Radio',
 				array( 'default' => 'normal', 'choice' => array( 'normal', 'year', 'month' ) ) ),
-			new def( 'content_pages', 'Checkbox',false ),
-			new def( 'content_authors', 'Checkbox',false ),
-			new def( 'content_user_defined', 'Checkbox' ,false),
-			new def( 'content_images', 'Checkbox' ,false),
+			new def( 'content_pages', 'Checkbox', false ),
+			new def( 'content_authors', 'Checkbox', false ),
+			new def( 'content_user_defined', 'Checkbox', false ),
+			new def( 'content_images', 'Checkbox', false ),
 			new def( 'change_frequency_frontpage', 'Text', 'daily' ),
 			new def( 'change_frequency_posts', 'Text', 'weekly' ),
 			new def( 'change_frequency_pages', 'Text', 'monthly' ),
@@ -34,7 +34,7 @@ class Defaults {
 			new def( 'priority_user_defined', 'Text', 0.3 ),
 			new def( 'extra_pages_url', 'Array' ),
 			new def( 'extra_pages_date', 'Array' ),
-			new def( 'google_auth_token', 'Text' ),
+			new def( 'google_access_token', 'Text' ),
 		);
 	}
 }
@@ -105,10 +105,10 @@ class Plugin_Settings {
 			//Settings is null when we reset to defaults
 			//In that case, we need to set the value to null so that checkboxes pick up their default values instead
 			//of being initialized to false
-			if($settings == null){
+			if ( $settings == null ) {
 				$this->{$value->name} = new $className( null, $value->default_value,
 					$value->impacts_user_settings );
-			}else{
+			} else {
 				$this->{$value->name} = new $className( $storedValue, $value->default_value,
 					$value->impacts_user_settings );
 
@@ -136,6 +136,12 @@ class Plugin_Settings {
 		if ( ! is_null( $value ) ) {
 			$className    = __NAMESPACE__ . "\\Field_" . $type;
 			$this->{$key} = new $className( $value );
+		}
+	}
+
+	public function remove( $key ) {
+		if ( isset( $this->{$key} ) ) {
+			unset( $this->{$key} );
 		}
 	}
 

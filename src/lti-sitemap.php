@@ -185,8 +185,13 @@ class LTI_Sitemap {
 					$type = $sitemapFileNameSuffix;
 				}
 			}
-
-			header( 'Content-Type: text/xml; charset=utf-8' );
+			if(!headers_sent()){
+				header( 'Content-Type: text/xml; charset=utf-8' );
+				//Robots can't index sitemaps, but have to be able to follow links (that's kind of the point of sitemaps)
+				header( 'X-Robots-Tag: noindex,follow' );
+				//No need for pingbacks here
+				header_remove('X-Pingback');
+			}
 			if ( empty( $type ) || in_array( $type, $this->sitemap_types ) ) {
 
 				echo $this->frontend->build_sitemap( $type );

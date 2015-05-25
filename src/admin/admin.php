@@ -2,6 +2,7 @@
 
 use Lti\Sitemap\Helpers\Google_Helper;
 use Lti\Sitemap\Helpers\Bing_Helper;
+use Lti\Sitemap\Helpers\Google_Helper_Webmaster_Site;
 use Lti\Sitemap\Helpers\ICanHelp;
 use Lti\Sitemap\Plugin\Plugin_Settings;
 
@@ -89,18 +90,14 @@ class Admin {
 		$this->can_send_curl_requests = function_exists( 'curl_version' );
 		if ( $this->can_send_curl_requests === true ) {
 			$this->google_connector = new Google_Helper();
-			$this->bing_connector = new Bing_Helper($this->helper->sitemap_url());
+			$this->bing_connector   = new Bing_Helper( $this->helper->sitemap_url() );
 
-			$auth_token = $this->settings->get( 'google_auth_token' );
-			if ( ! is_null( $auth_token ) ) {
-				if ( isset( $_SESSION['lti_sitemap_google_token'] ) ) {
-					$this->google_connector->set_access_token( $_SESSION['lti_sitemap_google_token'] );
-				} else {
-					try {
-						$_SESSION['lti_sitemap_google_token'] = $this->google_connector->authenticate( $auth_token );
-					} catch ( \Google_Auth_Exception $e ) {
-						$this->settings->set( 'google_auth_token', '' );
-					}
+			$access_token = $this->settings->get( 'google_access_token' );
+			if ( ! is_null( $access_token ) && ! empty( $access_token ) ) {
+				$this->google_connector->set_access_token( $access_token );
+
+				if ( $this->google_connector->assess_token_validity() !== true ) {
+					$this->settings->remove( 'google_access_token' );
 				}
 			}
 		}
@@ -185,12 +182,52 @@ class Admin {
 	/**
 	 * User input validation
 	 *
-	 * @param $data
+	 * @param array $post_variables
 	 */
-	public function validate_input( $data ) {
-		unset( $data['_wpnonce'], $data['option_page'], $data['_wp_http_referer'] );
-		$this->settings = $this->settings->save( $data );
-		update_option( 'lti_sitemap_options', $this->settings );
+	public function validate_input( $post_variables, $update_type ) {
+		if ( wp_verify_nonce( $post_variables['lti_sitemap_token'], 'lti_sitemap_options' ) !== false ) {
+			unset( $post_variables['_wpnonce'], $post_variables['option_page'], $post_variables['_wp_http_referer'] );
+			$google_access_token = $this->settings->get( 'google_access_token' );
+			$this->settings      = $this->settings->save( $post_variables );
+
+			/**
+			 * We save values into a new settings object, and our google access token, when set, isn't a part of the form
+			 * so we make sure it's saved if it existed before this form submission.
+			 */
+			if ( ! is_null( $google_access_token ) ) {
+				$this->settings->set( 'google_access_token', $google_access_token );
+			}
+
+			$this->page_type = "lti_update";
+
+			if ( method_exists( $this, $update_type ) ) {
+				call_user_func( array( $this, $update_type ), $post_variables );
+			}
+			update_option( 'lti_sitemap_options', $this->settings );
+		} else {
+			$this->page_type = "lti_error";
+			$this->message   = lsmint( "opt.msg.error_token" );
+		}
+	}
+
+	private function google_auth( $post_variables ) {
+		try {
+			$this->settings->set( 'google_access_token',
+				$this->google_connector->authenticate( $post_variables['google_auth_token'] ) );
+			$this->message = lsmint( 'opt.msg.google_logged_in' );
+		} catch ( \Google_Auth_Exception $e ) {
+			$this->google_error = array(
+				'error'           => lsmint( 'opt.err.google_auth_failure' ),
+				'google_response' => $e->getMessage()
+			);
+			$this->settings->remove( 'google_auth_token' );
+			$this->settings->remove( 'google_access_token' );
+		}
+	}
+
+	private function google_delete( $post_variables ) {
+		$this->google_connector->init_site_service('http://caprica.linguisticteam.org',
+								'http://caprica.linguisticteam.org/sitemap.xml');
 	}
 
 	/**
@@ -199,48 +236,57 @@ class Admin {
 	 */
 	public function options_page() {
 
-		$bing_url = filter_input(INPUT_GET,'bing_url');
-		if(!is_null($bing_url)&&wp_verify_nonce(filter_input(INPUT_GET,'lti-sitemap-options'),'bing_url_submission')){
+		/**
+		 * General > Bing > Send sitemap button
+		 */
+		$bing_url = filter_input( INPUT_GET, 'bing_url' );
+		if ( ! is_null( $bing_url ) && wp_verify_nonce( filter_input( INPUT_GET, 'lti-sitemap-options' ),
+				'bing_url_submission' )
+		) {
 			include $this->admin_dir . '/partials/bing_sitemap_submission.php';
+
 			return;
 		}
 
 		$post_variables = $this->helper->filter_var_array( $_POST );
+		$update_type    = '';
+		/**
+		 * Form submission handler
+		 */
+		switch ( true ) {
+			case isset( $post_variables['lti_sitemap_update'] ):
+				$update_type = "normal";
+				break;
+			case isset( $post_variables['lti_sitemap_google_auth'] ):
+				$update_type = "google_auth";
+				break;
+			case isset( $post_variables['lti_sitemap_google_submit'] ):
+				$update_type = "google_submit";
+				break;
+			case isset( $post_variables['lti_sitemap_google_delete'] ):
+				$update_type = "google_delete";
+				break;
+			case isset( $post_variables['lti_sitemap_google_logout'] ):
+				$update_type = "google_logout";
+				break;
+			/**
+			 * Settings reset handler
+			 */
+			case isset( $post_variables['lti_sitemap_reset'] ):
+				$this->settings = new Plugin_Settings();
+				update_option( 'lti_sitemap_options', $this->settings );
 
-		if ( isset( $post_variables['lti_sitemap_update'] ) || isset( $post_variables['lti_sitemap_google_auth'] ) ) {
-			if ( isset( $post_variables['lti_sitemap_token'] ) ) {
-				if ( wp_verify_nonce( $post_variables['lti_sitemap_token'], 'lti_sitemap_options' ) !== false ) {
-					$this->validate_input( $post_variables );
-					$this->page_type = "lti_update";
-
-					if ( isset( $post_variables['lti_sitemap_google_auth'] ) ) {
-						try {
-							$_SESSION['lti_sitemap_google_token'] = $this->google_connector->authenticate( $post_variables['google_auth_token'] );
-						} catch ( \Google_Auth_Exception $e ) {
-							$this->google_error = array(
-								'error'           => lsmint( 'opt.err.google_auth_failure' ),
-								'google_response' => $e->getMessage()
-							);
-						}
-					} else {
-						$this->message = lsmint( 'opt.msg.updated' );
-
-					}
-
-				} else {
-					$this->page_type = "lti_error";
-					$this->message   = lsmint( "opt.msg.error_token" );
-				}
-			}
-		} elseif ( isset( $post_variables['lti_sitemap_reset'] ) ) {
-			$this->settings = new Plugin_Settings();
-			update_option( 'lti_sitemap_options', $this->settings );
-
-			$this->page_type = "lti_reset";
-			$this->message   = lsmint( 'opt.msg.reset' );
-		} else {
-			$this->page_type = "lti_edit";
+				$this->page_type = "lti_reset";
+				$this->message   = lsmint( 'opt.msg.reset' );
+				break;
+			default:
+				$this->page_type = "lti_edit";
 		}
+
+		if ( isset( $post_variables['lti_sitemap_token'] ) && ! empty( $update_type ) ) {
+			$this->validate_input( $post_variables, $update_type );
+		}
+
 		include $this->admin_dir . '/partials/options-page.php';
 	}
 
@@ -277,7 +323,7 @@ class Admin {
 		return $this->message;
 	}
 
-	public static function get_plugin_admin_url(){
+	public static function get_plugin_admin_url() {
 		return admin_url( 'options-general.php?page=lti-sitemap-options' );
 	}
 }

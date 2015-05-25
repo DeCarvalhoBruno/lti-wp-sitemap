@@ -34,11 +34,19 @@
             sitemap_header.evalClass('lti_error');
         }
 
+        /**
+         * General > User-defined pages
+         * Removes rows from the table when the red cross is clicked
+         */
         $('.btn-del-row').click(function () {
             $(this).parent().parent().empty();
             console.log('click remove');
         });
 
+        /**
+         * General > User-defined pages
+         * Adds row to the table when clicking on the "plus" sign
+         */
         $('#btn_extra_pages_add').click(function () {
             $(this).parent().parent().before('<tr><td><input type="text" required="required" name="extra_pages_url[]" placeholder="http://www.example.com"/></td><td><input type="text" name="extra_pages_date[]" placeholder="yyyy-mm-dd"/></td><td><button type="button" class="btn-del-row dashicons dashicons-no"></button></td></tr>');
             $('.btn-del-row').click(function () {
@@ -88,7 +96,6 @@
                         $this.disable();
                     }
                 });
-
             }
         };
 
@@ -135,6 +142,10 @@
             });
         }
 
+        /**
+         * General > Google > "Get authentication code" button
+         * Opens a google authorization window that generates an access token that we need to use the google api
+         */
         $('#btn-get-google-auth').click(function (e) {
             e.preventDefault();
             var auth_url = $('#google_auth_url').val();
@@ -147,10 +158,13 @@
             }
         });
 
+        /**
+         * General > Google > "Log in" button
+         * Triggers form submission, see #flsm submit event handler
+         *
+         */
         $('#btn-google-log-in').click(function (e) {
-
             var auth_token = $('#google_auth_token');
-
             if (auth_token.length > 0) {
                 if (auth_token.val().length == 0) {
                     e.preventDefault();
@@ -159,8 +173,12 @@
             }
         });
 
-        $('#btn-bing-submit').click(function(){
-            var bing_submission_script = ''+$('#bing_submission_script').val();
+        /**
+         * General > Bing > send sitemap button
+         * Opens a popup that sends a GET request to Bing with the sitemap url
+         */
+        $('#btn-bing-submit').click(function () {
+            var bing_submission_script = '' + $('#bing_submission_script').val();
             window.open(bing_submission_script,
                 '',
                 'top=' + (screen.height / 2 - 580 / 2) + ',left=' + (screen.width / 2 - 640 / 2) + ',width=640,height=580,resizable=0,scrollbars=0,menubar=0,toolbar=0,status=1,location=0'

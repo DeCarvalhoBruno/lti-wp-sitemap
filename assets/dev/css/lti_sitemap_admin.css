@@ -15,7 +15,7 @@
     }
 
     .lti-sitemap-header.lti_update {
-        background-color: #9d6600;
+        background-color: #69594b;
     }
 
     .lti-sitemap-header.lti_update h2, .lti-sitemap-header.lti_error h2 {
@@ -31,7 +31,7 @@
     }
 
     p.error_msg {
-        background-color: #c90000;
+        color: #c90000;
         font-weight: bold;
     }
 
@@ -116,6 +116,22 @@
         text-align:center;
     }
 
+    #flsm .input-group input[type="submit"].button-delete {
+        background-color: #c90000;
+    }
+
+    #flsm .input-group input[type="submit"].button-submit {
+        color: #000000;
+        background-color: #fff438;
+        border: 1px solid #e0d632;
+    }
+
+    #flsm .input-group input[type="submit"].button-submit:hover {
+        color: #000000;
+        background-color: #f1e635;
+        border: 1px solid #e0d632;
+    }
+
     .btn-group {
         text-align: center;
     }
@@ -123,6 +139,7 @@
     #flsm .input-group .btn-group input[type="text"]{
         display:inline;
         width:60%;
+        vertical-align: middle;
     }
 
     #flsm .input-group input[type="button"]:hover {
@@ -139,7 +156,8 @@
         color: #ffffff;
         box-shadow: none;
         white-space: pre-wrap;
-        text-align:center
+        text-align:center;
+        vertical-align: middle;
     }
 
     #flsm .input-group input[type="submit"]:hover {

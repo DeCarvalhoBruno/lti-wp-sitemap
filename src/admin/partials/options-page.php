@@ -118,14 +118,16 @@ if ( ! empty( $extra_urls ) ) {
 				<a href="#tab_general" aria-controls="tab_general" role="tab"
 				   data-toggle="tab"><?php echo lsmint( 'opt.tab.general' ); ?></a>
 			</li>
-			<li role="presentation">
-				<a href="#tab_google" aria-controls="tab_google" role="tab"
-				   data-toggle="tab"><?php echo lsmint( 'opt.tab.google' ); ?></a>
-			</li>
-			<li role="presentation">
-				<a href="#tab_bing" aria-controls="tab_bing" role="tab"
-				   data-toggle="tab"><?php echo lsmint( 'opt.tab.bing' ); ?></a>
-			</li>
+			<?php if ( $this->can_send_curl_requests ): ?>
+				<li role="presentation">
+					<a href="#tab_google" aria-controls="tab_google" role="tab"
+					   data-toggle="tab"><?php echo lsmint( 'opt.tab.google' ); ?></a>
+				</li>
+				<li role="presentation">
+					<a href="#tab_bing" aria-controls="tab_bing" role="tab"
+					   data-toggle="tab"><?php echo lsmint( 'opt.tab.bing' ); ?></a>
+				</li>
+			<?php endif; ?>
 		</ul>
 
 		<form id="flsm" accept-charset="utf-8" method="POST"
@@ -322,32 +324,138 @@ if ( ! empty( $extra_urls ) ) {
 				 *                                  GOOGLE TAB
 				 ***********************************************************************************************/
 				?>
-				<div role="tabpanel" class="tab-pane" id="tab_google">
-					<?php
-					/***********************************************************************************************
-					 *                              CASE : NOT AUTHENTICATED YET
-					 ***********************************************************************************************/
-					if ( ! $this->google_connector->is_authenticated() ): ?>
-						<div class="form-group">
-							<div class="input-group">
-								<div class="btn-group">
-								<input id="btn-get-google-auth" class="button-primary" type="button"
-								       value="<?php echo lsmint( 'btn.google.get_auth' ); ?>"/>
-								<input id="google_auth_url" type="hidden"
-								       value="<?php echo esc_url( $this->google_connector->get_authentication_url() ); ?>"/>
+				<?php if ( $this->can_send_curl_requests ): ?>
+					<div role="tabpanel" class="tab-pane" id="tab_google">
+						<?php
+						/***********************************************************************************************
+						 *                              NOT AUTHENTICATED YET
+						 ***********************************************************************************************/
+						if ( ! $this->google_connector->is_authenticated() ): ?>
+							<div class="form-group">
+								<div class="input-group">
+									<div class="btn-group">
+										<input id="btn-get-google-auth" class="button-primary" type="button"
+										       value="<?php echo lsmint( 'btn.google.get_auth' ); ?>"/>
+										<input id="google_auth_url" type="hidden"
+										       value="<?php echo esc_url( $this->google_connector->get_authentication_url() ); ?>"/>
 									</div>
 
-								<div class="btn-group">
-									<input type="text" name="google_auth_token"
-									       id="google_auth_token" <?php echo lsmopt( 'google_auth_token' ); ?>/>
-									<input id="btn-google-log-in" class="button-primary" type="submit"
-									       name="lti_sitemap_google_auth"
-									       value="<?php echo lsmint( 'btn.google.log_in' ); ?>"/>
-								</div>
+									<div class="btn-group">
+										<input type="text" name="google_auth_token"
+										       id="google_auth_token" <?php echo lsmopt( 'google_auth_token' ); ?>/>
+										<input id="btn-google-log-in" class="button-primary" type="submit"
+										       name="lti_sitemap_google_auth"
+										       value="<?php echo lsmint( 'btn.google.log_in' ); ?>"/>
+									</div>
 									<?php if ( ! is_null( $this->google_error ) ): ?>
 										<p class="error_msg"><?php echo $this->google_error['error']; ?></p>
 										<p class="error_msg"><?php echo $this->google_error['google_response']; ?></p>
 									<?php endif; ?>
+								</div>
+								<div class="form-help-container">
+									<div class="form-help">
+										<p></p>
+									</div>
+								</div>
+							</div>
+						<?php
+						/***********************************************************************************************
+						 *                           AUTHENTICATED
+						 ***********************************************************************************************/
+						else:
+							$webmaster = $this->google_connector->init_service( 'http://dev.linguisticteam.org',
+								'http://dev.linguisticteam.org/sitemap.xml' );
+							$webmaster->request_sitemap_info();
+							$webmaster->request_site_info();
+							?>
+							<div class="form-group">
+								<div class="input-group">
+									<?php if ( $webmaster->has_sitemap() ): ?>
+										<table class="table">
+											<thead>
+											<tr>
+												<th><?php echo lsmint( 'google.table.hindicator' ); ?></th>
+												<th><?php echo lsmint( 'google.table.hvalue' ); ?></th>
+											</tr>
+											</thead>
+											<tbody>
+											<tr>
+												<td><?php echo lsmint( 'google.table_last_submitted' ); ?></td>
+												<td><?php echo lti_mysql_to_date( $webmaster->getLastSubmitted() ); ?></td>
+											</tr>
+											<tr>
+												<td><?php echo lsmint( 'google.table_last_downloaded' ); ?></td>
+												<td><?php echo lti_mysql_to_date( $webmaster->getLastDownloaded() ); ?></td>
+											</tr>
+											<tr>
+												<td><?php echo lsmint( 'google.table_is_processed' ); ?></td>
+												<td><?php echo ( $webmaster->getIsPending() ) ? lsmint( 'general.no' ) : lsmint( 'general.yes' ); ?></td>
+											</tr>
+											<tr>
+												<td><?php echo lsmint( 'google.table_nb_pages_submitted' ); ?></td>
+												<td><?php echo $webmaster->getNbPagesSubmitted(); ?></td>
+											</tr>
+											<tr>
+												<td><?php echo lsmint( 'google.table_nb_pages_indexed' ); ?></td>
+												<td><?php echo $webmaster->getNbPagesIndexed(); ?></td>
+											</tr>
+											</tbody>
+										</table>
+										<div class="btn-group">
+											<?php if($webmaster->is_site_admin()): ?>
+											<input id="btn-resubmit" class="button-primary button-submit" name="lti_sitemap_google_submit"
+											       type="submit"
+											       value="<?php echo lsmint( 'btn.google.resubmit' ); ?>"/>
+											<?php endif; ?>
+										</div>
+										<div class="btn-group">
+											<?php if($webmaster->is_site_admin()): ?>
+											<input id="btn-delete" class="button-primary button-delete" type="submit" name="lti_sitemap_google_delete"
+											       value="<?php echo lsmint( 'btn.google.delete' ); ?>"/>
+											<?php endif; ?>
+											<input id="btn-log-out" class="button-primary" type="submit" name="lti_sitemap_google_logout"
+											       value="<?php echo lsmint( 'btn.google.log-out' ); ?>"/>
+										</div>
+									<?php else: ?>
+										<?php if($webmaster->is_site_admin()): ?>
+										<div class="btn-group">
+											<input id="btn-submit" class="button-primary button-submit" type="submit" name="lti_sitemap_google_submit"
+											       value="<?php echo lsmint( 'btn.google.submit' ); ?>"/>
+										</div>
+										<?php endif; ?>
+										<div class="btn-group">
+											<input id="btn-log-out" class="button-primary" type="submit" name="lti_sitemap_google_logout"
+											       value="<?php echo lsmint( 'btn.google.log-out' ); ?>"/>
+										</div>
+									<?php endif; ?>
+								</div>
+								<div class="form-help-container">
+									<div class="form-help">
+										<p></p>
+									</div>
+								</div>
+							</div>
+						<?php endif; ?>
+					</div>
+					<?php
+					/***********************************************************************************************
+					 *                                  BING TAB
+					 ***********************************************************************************************/
+					?>
+					<div role="tabpanel" class="tab-pane" id="tab_bing">
+						<div class="form-group">
+							<div class="input-group">
+								<div class="btn-group">
+									<input id="btn-bing-submit" class="button-primary" type="button"
+									       name="lti_sitemap_google_auth"
+									       value="<?php echo lsmint( 'btn.bing.sitemap_submit' ); ?>"/>
+									<input id="bing_submission_script" type="hidden"
+									       value="<?php echo wp_nonce_url( sprintf( "%s&%s&%s%s",
+										       $this->get_plugin_admin_url(),
+										       'noheader=true', 'bing_url=',
+										       $this->bing_connector->get_submission_url() ),
+										       'bing_url_submission', 'lti-sitemap-options' ); ?>"/>
+								</div>
 							</div>
 							<div class="form-help-container">
 								<div class="form-help">
@@ -355,44 +463,8 @@ if ( ! empty( $extra_urls ) ) {
 								</div>
 							</div>
 						</div>
-					<?php
-					/***********************************************************************************************
-					 *                           CASE : GOOGLE AUTHENTICATION DONE
-					 ***********************************************************************************************/
-					else: ?>
-						<div class="form-group">
-							<div class="input-group">
-								<input id="btn-log-out" class="button-primary" type="button"
-								       value="<?php echo lsmint( 'btn.google.log-out' ); ?>"/>
-							</div>
-						</div>
-						<div class="form-help-container">
-							<div class="form-help">
-								<p></p>
-							</div>
-						</div>
-					<?php endif; ?>
-				</div>
-				<div role="tabpanel" class="tab-pane" id="tab_bing">
-					<div class="form-group">
-						<div class="input-group">
-							<div class="btn-group">
-							<input id="btn-bing-submit" class="button-primary" type="button"
-							       name="lti_sitemap_google_auth"
-							       value="<?php echo lsmint( 'btn.bing.sitemap_submit' ); ?>"/>
-							<input id="bing_submission_script" type="hidden"
-							       value="<?php echo wp_nonce_url( sprintf( "%s&%s&%s%s", $this->get_plugin_admin_url(),
-								       'noheader=true', 'bing_url=', $this->bing_connector->get_submission_url() ),
-								       'bing_url_submission', 'lti-sitemap-options' ); ?>"/>
-								</div>
-						</div>
-						<div class="form-help-container">
-							<div class="form-help">
-								<p></p>
-							</div>
-						</div>
 					</div>
-				</div>
+				<?php endif; ?>
 			</div>
 			<div class="form-group-submit">
 				<div class="button-group-submit">
