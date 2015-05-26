@@ -4,27 +4,22 @@ use Google_Client;
 use Google_Service_Webmasters;
 
 
-class Google_Helper {
+class Google_Helper extends Search_Engine_Helper {
 
 	/**
 	 * @var Google_Client
 	 */
 	private $client;
 	/**
-	 * @var \Lti\Sitemap\Helpers\Google_Helper_Webmaster_Site
+	 * @var \Lti\Sitemap\Helpers\Google_Helper_Webmaster
 	 */
 	private $site;
-
-	/**
-	 * @var \Lti\Sitemap\Helpers\Google_Helper_Webmaster_Sitemap
-	 */
-	private $sitemap;
 
 	private $access_token;
 
 	private $is_authenticated;
 
-	public static $admin_permission_levels = array('siteFullUser','siteOwner');
+	public static $admin_permission_levels = array( 'siteFullUser', 'siteOwner' );
 
 	public function __construct() {
 		$this->client = $this->initialize_google_client();
@@ -45,10 +40,11 @@ class Google_Helper {
 
 	public function init_service( $site_url, $sitemap_url ) {
 		$this->site = new Google_Helper_Webmaster( $this->client, $site_url, $sitemap_url );
+
 		return $this->site;
 	}
 
-	public function get_service(){
+	public function get_service() {
 		return $this->site;
 	}
 
@@ -95,6 +91,12 @@ class Google_Helper {
 		return true;
 	}
 
+	public function revoke_token() {
+		$this->client->revokeToken();
+		$this->is_authenticated = false;
+	}
+
+
 }
 
 class Google_Helper_Webmaster extends Google_Service_Webmasters {
@@ -105,7 +107,7 @@ class Google_Helper_Webmaster extends Google_Service_Webmasters {
 	private $nb_pages_submitted;
 	private $nb_pages_indexed;
 	private $permissionLevel;
-	private $has_sitemap=false;
+	private $has_sitemap = false;
 	private $is_site_admin;
 
 	public function __construct( Google_Client $client, $site_url, $sitemap_url ) {
@@ -114,7 +116,6 @@ class Google_Helper_Webmaster extends Google_Service_Webmasters {
 		$this->sitemap_url = $sitemap_url;
 	}
 
-
 	public function request_site_info() {
 		try {
 			/**
@@ -122,7 +123,7 @@ class Google_Helper_Webmaster extends Google_Service_Webmasters {
 			 */
 			$site                  = $this->sites->get( $this->site_url );
 			$this->permissionLevel = $site->permissionLevel;
-			if(in_array($this->permissionLevel, Google_Helper::$admin_permission_levels)){
+			if ( in_array( $this->permissionLevel, Google_Helper::$admin_permission_levels ) ) {
 				$this->is_site_admin = true;
 			}
 		} catch ( \Google_Service_Exception $e ) {
@@ -149,9 +150,9 @@ class Google_Helper_Webmaster extends Google_Service_Webmasters {
 			 */
 			foreach ( $sitemaps as $sitemap ) {
 				if ( $sitemap['path'] == $this->sitemap_url ) {
-					$this->has_sitemap = true;
+					$this->has_sitemap     = true;
 					$this->last_submitted  = $sitemap['lastSubmitted'];
-					$this->is_pending      = $sitemap['isPending']===true;
+					$this->is_pending      = $sitemap['isPending'] === true;
 					$this->last_downloaded = $sitemap['lastDownloaded'];
 					$tmp                   = $sitemap->getContents();
 					if ( count( $tmp ) > 0 ) {
@@ -226,11 +227,11 @@ class Google_Helper_Webmaster extends Google_Service_Webmasters {
 		return $this->nb_pages_indexed;
 	}
 
-	public function has_sitemap(){
+	public function has_sitemap() {
 		return $this->has_sitemap;
 	}
 
-	public function is_site_admin(){
+	public function is_site_admin() {
 		return $this->is_site_admin;
 	}
 

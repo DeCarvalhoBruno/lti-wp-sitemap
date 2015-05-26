@@ -119,13 +119,7 @@ if($url===false||is_null($url)){
 	die(lsmint('err.bing.popup'));
 }
 
-$ch = curl_init();
-curl_setopt( $ch, CURLOPT_URL, $url );
-curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, false );
-curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
-curl_exec( $ch );
-$result = curl_getinfo( $ch );
-curl_close( $ch );
+$result = \Lti\Sitemap\Helpers\Search_Engine_Helper::http_request($url);
 
 if(array_key_exists('http_code',$result)){
 	$code = $result['http_code'];

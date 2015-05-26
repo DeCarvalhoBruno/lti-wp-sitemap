@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: lti-sitemap\n"
-"POT-Creation-Date: 2015-05-25 22:02+0100\n"
-"PO-Revision-Date: 2015-05-25 22:03+0100\n"
+"POT-Creation-Date: 2015-05-26 16:22+0100\n"
+"PO-Revision-Date: 2015-05-26 16:22+0100\n"
 "Last-Translator: \n"
 "Language-Team: LTI <linguisticteam@gmail.com>\n"
 "Language: en_US\n"
@@ -18,47 +18,63 @@ msgstr ""
 "esc_html_x:1,2c;lsmint;lsmint_po\n"
 "X-Poedit-SearchPath-0: ../src\n"
 
-#: ../src/admin/admin.php:135
+#: ../src/admin/admin.php:139
 msgid "admin.menu_title"
 msgstr "LTI Sitemap settings"
 
-#: ../src/admin/admin.php:135
+#: ../src/admin/admin.php:139
 msgid "admin.menu_item"
-msgstr "LTI Sitemap"
+msgstr "XML Sitemap"
 
-#: ../src/admin/admin.php:152
+#: ../src/admin/admin.php:157
 msgid "general_hlp_welcome"
 msgstr "Welcome!"
 
-#: ../src/admin/admin.php:157
+#: ../src/admin/admin.php:162
 msgid "general_hlp_general"
 msgstr "General tab"
 
-#: ../src/admin/admin.php:176
+#: ../src/admin/admin.php:181
 msgid "general.settings"
 msgstr "Settings"
 
-#: ../src/admin/admin.php:209
+#: ../src/admin/admin.php:216
 msgid "opt.msg.error_token"
 msgstr "Plugin options could not be saved (session error)."
 
-#: ../src/admin/admin.php:217
+#: ../src/admin/admin.php:224
 msgid "opt.msg.google_logged_in"
 msgstr "Google authentication OK"
 
-#: ../src/admin/admin.php:220
+#: ../src/admin/admin.php:227
 msgid "opt.err.google_auth_failure"
 msgstr "Authentication failed, google returned the following error:"
 
-#: ../src/admin/admin.php:280
+#: ../src/admin/admin.php:237
+msgid "google.msg.submit"
+msgstr "The sitemap was submitted."
+
+#: ../src/admin/admin.php:243
+msgid "google.msg.resubmit"
+msgstr "The sitemap was refreshed."
+
+#: ../src/admin/admin.php:249
+msgid "google.msg.delete"
+msgstr "The sitemap was deleted."
+
+#: ../src/admin/admin.php:254
+msgid "google.msg.logout"
+msgstr "Google logout complete."
+
+#: ../src/admin/admin.php:309
 msgid "opt.msg.reset"
 msgstr "Plugin options have been reset."
 
-#: ../src/admin/admin.php:299
+#: ../src/admin/admin.php:328
 msgid "admin.help"
 msgstr "Help page"
 
-#: ../src/admin/admin.php:300
+#: ../src/admin/admin.php:329
 msgid "admin.contribute"
 msgstr "Contribute"
 
@@ -71,11 +87,11 @@ msgid "err.bing.popup"
 msgstr ""
 "The popup didn't receive proper data, please close this window and try again."
 
-#: ../src/admin/partials/bing_sitemap_submission.php:134
+#: ../src/admin/partials/bing_sitemap_submission.php:128
 msgid "err.bing.not_sent"
 msgstr "The request failed. Bing did not send acknolewdge reception."
 
-#: ../src/admin/partials/bing_sitemap_submission.php:136
+#: ../src/admin/partials/bing_sitemap_submission.php:130
 msgid "msg.bing.sent"
 msgstr "The XML sitemap was sent successfully."
 
@@ -293,11 +309,11 @@ msgstr "Value"
 
 #: ../src/admin/partials/options-page.php:383
 msgid "google.table_last_submitted"
-msgstr "Last submitted (GMT)"
+msgstr "First submitted"
 
 #: ../src/admin/partials/options-page.php:387
 msgid "google.table_last_downloaded"
-msgstr "Last fetched (GMT)"
+msgstr "Last processed"
 
 #: ../src/admin/partials/options-page.php:391
 msgid "google.table_is_processed"
@@ -321,11 +337,11 @@ msgstr "Total pages indexed"
 
 #: ../src/admin/partials/options-page.php:408
 msgid "btn.google.resubmit"
-msgstr "Resubmit"
+msgstr "Resubmit sitemap"
 
 #: ../src/admin/partials/options-page.php:414
 msgid "btn.google.delete"
-msgstr "Delete"
+msgstr "Delete sitemap"
 
 #: ../src/admin/partials/options-page.php:417
 #: ../src/admin/partials/options-page.php:428
@@ -334,7 +350,7 @@ msgstr "Log out"
 
 #: ../src/admin/partials/options-page.php:423
 msgid "btn.google.submit"
-msgstr "Submit"
+msgstr "Submit sitemap"
 
 #: ../src/admin/partials/options-page.php:451
 msgid "btn.bing.sitemap_submit"
@@ -350,25 +366,20 @@ msgstr "Reset to defaults"
 
 #: ../src/extra-strings.php:2
 msgid "Sitemap generator"
-msgstr ""
+msgstr "Review this plugin."
 
-#~ msgid "opt.msg.updated"
-#~ msgstr "Plugin options have been updated."
+#: ../src/lti-sitemap.php:216
+msgid "admin.footer.feedback"
+msgstr "Some feedback would be greatly appreciated, thank you!"
 
-#~ msgid "google.table_is_pending"
-#~ msgstr "Indexing is pending"
+#: ../src/lti-sitemap.php:216
+msgid "admin.footer.review"
+msgstr "Write a review."
 
-#~ msgid "opt.content_images_attachments"
-#~ msgstr "Attachments"
+#: ../src/lti-sitemap.php:225
+msgid "general.changelog"
+msgstr "Changelog"
 
-#~ msgid "opt.content_images_featured"
-#~ msgstr "Featured"
-
-#~ msgid "opt.group.content_categorize"
-#~ msgstr "Categorize by:"
-
-#~ msgid "opt.change_frequency_homepage"
-#~ msgstr "Front page"
-
-#~ msgid "opt.content_homepage"
-#~ msgstr "Front page"
+#: ../src/lti-sitemap.php:225
+msgid "general.version"
+msgstr "Plugin version"

@@ -48,7 +48,9 @@ class LTI_Sitemap {
 	public $frontend;
 	private $helper;
 
-	private $sitemap_types = array('main','posts','pages','authors');
+	private $sitemap_types = array( 'main', 'posts', 'pages', 'authors' );
+
+	public static $is_plugin_page = false;
 
 	/**
 	 * Define the core functionality of the plugin.
@@ -59,7 +61,7 @@ class LTI_Sitemap {
 	 *
 	 */
 	public function __construct() {
-		$this->file_path = plugin_dir_path( __FILE__ );
+		$this->file_path   = plugin_dir_path( __FILE__ );
 		$this->name        = LTI_SITEMAP_NAME;
 		$this->plugin_path = LTI_SITEMAP_PLUGIN_DIR;
 		$this->basename    = LTI_SITEMAP_PLUGIN_BASENAME;
@@ -68,6 +70,7 @@ class LTI_Sitemap {
 		if ( $this->settings === false || empty( $this->settings ) ) {
 			$this->settings = new Plugin_Settings();
 		}
+		static::$is_plugin_page = ( filter_input( INPUT_GET, 'page' ) == 'lti-sitemap-options' );
 
 		$this->load_dependencies();
 		$this->set_locale();
@@ -129,6 +132,8 @@ class LTI_Sitemap {
 		$this->loader->add_action( 'admin_enqueue_scripts', $this->admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $this->admin, 'enqueue_scripts' );
 		$this->loader->add_action( 'admin_menu', $this->admin, 'admin_menu' );
+		$this->loader->add_filter( 'admin_footer_text', $this, 'admin_footer_text' );
+		$this->loader->add_filter( 'update_footer', $this, 'update_footer', 15 );
 		$this->loader->add_filter( 'plugin_action_links', $this->admin, 'plugin_actions', 10, 2 );
 	}
 
@@ -185,12 +190,12 @@ class LTI_Sitemap {
 					$type = $sitemapFileNameSuffix;
 				}
 			}
-			if(!headers_sent()){
+			if ( ! headers_sent() ) {
 				header( 'Content-Type: text/xml; charset=utf-8' );
 				//Robots can't index sitemaps, but have to be able to follow links (that's kind of the point of sitemaps)
 				header( 'X-Robots-Tag: noindex,follow' );
 				//No need for pingbacks here
-				header_remove('X-Pingback');
+				header_remove( 'X-Pingback' );
 			}
 			if ( empty( $type ) || in_array( $type, $this->sitemap_types ) ) {
 
@@ -200,6 +205,24 @@ class LTI_Sitemap {
 				$wp_query->is_404 = true;
 			}
 		}
+	}
+
+	public function admin_footer_text( $text ) {
+		if ( ! static::$is_plugin_page ) {
+			return $text;
+		}
+
+		return sprintf( '<em>%s <a target="_blank" href="http://wordpress.org/support/view/plugin-reviews/%s#postform">%s</a></em>',
+			lsmint( 'admin.footer.feedback' ), LTI_SITEMAP_NAME, lsmint( 'admin.footer.review' ) );
+	}
+
+	public function update_footer($text) {
+		if ( ! static::$is_plugin_page ) {
+			return $text;
+		}
+
+		return sprintf( '<a target="_blank" title="%s" href="https://wordpress.org/plugins/%s/changelog/">%s %s</a>, %s',
+			lsmint( 'general.changelog' ), LTI_SITEMAP_NAME, lsmint( 'general.version' ), LTI_SITEMAP_VERSION, $text );
 	}
 
 	/**

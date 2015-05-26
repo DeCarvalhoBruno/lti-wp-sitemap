@@ -1,7 +1,7 @@
 <?php namespace Lti\Sitemap\Helpers;
 
 
-class Bing_Helper {
+class Bing_Helper extends Search_Engine_Helper{
 
 
 	private $submission_url = "http://www.bing.com/ping?sitemap=%s";

@@ -1,6 +1,6 @@
 /*****************************************************************************************************
                                     PLUGIN OPTIONS
-                                        options-general.php?page=lti-sitemap-options
+                                        admin.php?page=lti-sitemap-options
 ******************************************************************************************************/
 
 @media (min-width: 300px) {
@@ -132,7 +132,7 @@
         border: 1px solid #e0d632;
     }
 
-    .btn-group {
+    #flsm .btn-group {
         text-align: center;
     }
 

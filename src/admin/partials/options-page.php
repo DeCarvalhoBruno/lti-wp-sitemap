@@ -131,7 +131,7 @@ if ( ! empty( $extra_urls ) ) {
 		</ul>
 
 		<form id="flsm" accept-charset="utf-8" method="POST"
-		      action="<?php echo $this->get_plugin_admin_url(); ?>">
+		      action="<?php echo $this->get_admin_slug(); ?>">
 			<?php echo wp_nonce_field( 'lti_sitemap_options', 'lti_sitemap_token' ); ?>
 			<div class="tab-content">
 				<?php
@@ -451,7 +451,7 @@ if ( ! empty( $extra_urls ) ) {
 									       value="<?php echo lsmint( 'btn.bing.sitemap_submit' ); ?>"/>
 									<input id="bing_submission_script" type="hidden"
 									       value="<?php echo wp_nonce_url( sprintf( "%s&%s&%s%s",
-										       $this->get_plugin_admin_url(),
+										       $this->get_admin_slug(),
 										       'noheader=true', 'bing_url=',
 										       $this->bing_connector->get_submission_url() ),
 										       'bing_url_submission', 'lti-sitemap-options' ); ?>"/>
