@@ -51,6 +51,9 @@ class LTI_Sitemap {
 	private $sitemap_types = array( 'main', 'posts', 'pages', 'authors' );
 
 	public static $is_plugin_page = false;
+	public static $review_url = "http://wordpress.org/support/view/plugin-reviews/%s#postform";
+	public static $changelog_url = "https://wordpress.org/plugins/%s/changelog/";
+	public static $lti_seo_url;
 
 	/**
 	 * Define the core functionality of the plugin.
@@ -66,17 +69,20 @@ class LTI_Sitemap {
 		$this->plugin_path = LTI_SITEMAP_PLUGIN_DIR;
 		$this->basename    = LTI_SITEMAP_PLUGIN_BASENAME;
 		$this->settings    = get_option( "lti_sitemap_options" );
+		static::$lti_seo_url = $this->add_plugin_url('LTI SEO');
 
 		if ( $this->settings === false || empty( $this->settings ) ) {
 			$this->settings = new Plugin_Settings();
 		}
-		static::$is_plugin_page = ( filter_input( INPUT_GET, 'page' ) == 'lti-sitemap-options' );
+
 
 		$this->load_dependencies();
 		$this->set_locale();
 	}
 
 	public static function get_instance() {
+		static::$is_plugin_page = ( filter_input( INPUT_GET, 'page' ) == 'lti-sitemap-options' );
+
 		if ( ! isset( self::$instance ) ) {
 			self::$instance = new self();
 		}
@@ -126,15 +132,16 @@ class LTI_Sitemap {
 		$this->admin = new Admin( $this->name, $this->basename, $this->version, $this->settings, $this->plugin_path,
 			$this->helper );
 
-		$this->loader->add_filter( 'query_vars', $this, 'http_request_query_string', 1, 1 );
-		$this->loader->add_action( 'admin_init', $this->admin, 'register_setting' );
-		$this->loader->add_filter( 'plugin_row_meta', $this->admin, 'plugin_row_meta', 10, 2 );
-		$this->loader->add_action( 'admin_enqueue_scripts', $this->admin, 'enqueue_styles' );
-		$this->loader->add_action( 'admin_enqueue_scripts', $this->admin, 'enqueue_scripts' );
+		$this->loader->add_action( 'admin_init', $this, 'admin_init' );
 		$this->loader->add_action( 'admin_menu', $this->admin, 'admin_menu' );
-		$this->loader->add_filter( 'admin_footer_text', $this, 'admin_footer_text' );
-		$this->loader->add_filter( 'update_footer', $this, 'update_footer', 15 );
-		$this->loader->add_filter( 'plugin_action_links', $this->admin, 'plugin_actions', 10, 2 );
+		$this->loader->add_filter( 'plugin_action_links', $this->admin, 'plugin_action_links', 10, 2 );
+		$this->loader->add_filter( 'plugin_row_meta', $this->admin, 'plugin_row_meta', 10, 2 );
+		if ( LTI_Sitemap::$is_plugin_page ) {
+			$this->loader->add_action( 'admin_enqueue_scripts', $this->admin, 'enqueue_styles' );
+			$this->loader->add_action( 'admin_enqueue_scripts', $this->admin, 'enqueue_scripts' );
+			$this->loader->add_filter( 'admin_footer_text', $this, 'admin_footer_text' );
+			$this->loader->add_filter( 'update_footer', $this, 'update_footer', 15 );
+		}
 	}
 
 	/**
@@ -208,21 +215,15 @@ class LTI_Sitemap {
 	}
 
 	public function admin_footer_text( $text ) {
-		if ( ! static::$is_plugin_page ) {
-			return $text;
-		}
-
-		return sprintf( '<em>%s <a target="_blank" href="http://wordpress.org/support/view/plugin-reviews/%s#postform">%s</a></em>',
-			lsmint( 'admin.footer.feedback' ), LTI_SITEMAP_NAME, lsmint( 'admin.footer.review' ) );
+		return sprintf( '<em>%s <a target="_blank" href="%s">%s</a></em>',
+			lsmint( 'admin.footer.feedback' ), sprintf( static::$review_url, LTI_SITEMAP_NAME ),
+			lsmint( 'admin.footer.review' ) );
 	}
 
-	public function update_footer($text) {
-		if ( ! static::$is_plugin_page ) {
-			return $text;
-		}
-
-		return sprintf( '<a target="_blank" title="%s" href="https://wordpress.org/plugins/%s/changelog/">%s %s</a>, %s',
-			lsmint( 'general.changelog' ), LTI_SITEMAP_NAME, lsmint( 'general.version' ), LTI_SITEMAP_VERSION, $text );
+	public function update_footer( $text ) {
+		return sprintf( '<a target="_blank" title="%s" href="%s">%s %s</a>, %s',
+			lsmint( 'general.changelog' ), sprintf( static::$changelog_url, LTI_SITEMAP_NAME ),
+			lsmint( 'general.version' ), LTI_SITEMAP_VERSION, $text );
 	}
 
 	/**
@@ -233,6 +234,7 @@ class LTI_Sitemap {
 	 */
 	private function define_frontend_hooks() {
 		$this->frontend = new Frontend( $this->name, $this->version, $this->settings, $this->helper );
+		$this->loader->add_filter( 'query_vars', $this, 'http_request_query_string', 1, 1 );
 		$this->loader->add_filter( 'template_redirect', $this, 'http_request_handler', 1 );
 	}
 
@@ -280,6 +282,19 @@ class LTI_Sitemap {
 
 	public static function deactivate() {
 		Deactivator::deactivate();
+	}
+
+	public function admin_init() {
+		Activator::init_options();
+	}
+
+	private function add_plugin_url( $search ) {
+		$qS = sprintf( 'plugin-install.php?tab=search&s=%s', str_replace( ' ', '+', $search ) );
+		if ( is_multisite() && is_network_admin() ) {
+			return network_admin_url( $qS );
+		}
+
+		return admin_url( $qS );
 	}
 
 

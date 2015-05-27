@@ -1,6 +1,6 @@
 <?php namespace Lti\Sitemap;
 
-use Lti\Sitemap\Helpers\Google_Helper;
+use Lti\Google\Google_Helper;
 use Lti\Sitemap\Helpers\Bing_Helper;
 use Lti\Sitemap\Helpers\ICanHelp;
 use Lti\Sitemap\Plugin\Plugin_Settings;
@@ -44,19 +44,16 @@ class Admin {
 	private $helper;
 
 	/**
-	 * @var Google_Helper
-	 */
-	private $google_connector;
-
-	/**
 	 * @var Bing_Helper
 	 */
-	private $bing_connector;
+	private $bing;
+
 	/**
-	 * @var bool
+	 * @var Admin_Google
 	 */
-	private $can_send_curl_requests;
-	private $google_error;
+	private $google;
+
+	private $site_url;
 
 
 	/**
@@ -86,20 +83,13 @@ class Admin {
 		$this->settings        = $settings;
 		$this->helper          = $helper;
 
-		$this->can_send_curl_requests = function_exists( 'curl_version' );
-		if ( $this->can_send_curl_requests === true ) {
-			$this->google_connector = new Google_Helper();
-			$this->bing_connector   = new Bing_Helper( $this->helper->sitemap_url() );
-
-			$access_token = $this->settings->get( 'google_access_token' );
-			if ( ! is_null( $access_token ) && ! empty( $access_token ) ) {
-				$this->google_connector->set_access_token( $access_token );
-
-				if ( $this->google_connector->assess_token_validity() !== true ) {
-					$this->settings->remove( 'google_access_token' );
-				}
-			}
+		if ( ! LTI_Sitemap::$is_plugin_page ) {
+			return;
 		}
+		$this->google = new Admin_Google( $this );
+		$this->bing   = new Bing_Helper( $this->helper->sitemap_url() );
+		$this->site_url = $this->helper->home_url();
+		$this->sitemap_url = $this->helper->sitemap_url();
 	}
 
 	/**
@@ -175,7 +165,7 @@ class Admin {
 	 *
 	 * @return mixed
 	 */
-	public function plugin_actions( $links, $file ) {
+	public function plugin_action_links( $links, $file ) {
 		if ( $file == 'lti-sitemap/lti-sitemap.php' && function_exists( "admin_url" ) ) {
 			array_unshift( $links,
 				'<a href="' . admin_url( 'admin.php?page=lti-sitemap-options' ) . '">' . lsmint( 'general.settings' ) . '</a>' );
@@ -205,54 +195,17 @@ class Admin {
 
 			$this->page_type = "lti_update";
 
-			if ( method_exists( $this, $update_type ) ) {
-				$this->google_connector->init_service( 'http://dev.linguisticteam.org',
-					'http://dev.linguisticteam.org/sitemap.xml' );
-				call_user_func( array( $this, $update_type ), $post_variables );
+			if ( method_exists( $this->google, $update_type ) ) {
+				$this->google->helper->init_site_service( 'http://caprica.linguisticteam.org',
+					'http://caprica.linguisticteam.org/sitemap.xml' );
+				call_user_func( array( $this->google, $update_type ), $post_variables );
 			}
+
 			update_option( 'lti_sitemap_options', $this->settings );
 		} else {
 			$this->page_type = "lti_error";
 			$this->message   = lsmint( "opt.msg.error_token" );
 		}
-	}
-
-	private function google_auth( $post_variables ) {
-		try {
-			$this->settings->set( 'google_access_token',
-				$this->google_connector->authenticate( $post_variables['google_auth_token'] ) );
-			$this->message = lsmint( 'opt.msg.google_logged_in' );
-		} catch ( \Google_Auth_Exception $e ) {
-			$this->google_error = array(
-				'error'           => lsmint( 'opt.err.google_auth_failure' ),
-				'google_response' => $e->getMessage()
-			);
-			$this->settings->remove( 'google_access_token' );
-		}
-	}
-
-	private function google_submit() {
-		$webmaster = $this->google_connector->get_service();
-		$webmaster->submit_sitemap();
-		$this->message = lsmint( 'google.msg.submit' );
-	}
-
-	private function google_resubmit() {
-		$webmaster = $this->google_connector->get_service();
-		$webmaster->submit_sitemap();
-		$this->message = lsmint( 'google.msg.resubmit' );
-	}
-
-	private function google_delete() {
-		$webmaster = $this->google_connector->get_service();
-		$webmaster->delete_sitemap();
-		$this->message = lsmint( 'google.msg.delete' );
-	}
-
-	private function google_logout() {
-		$this->settings->remove( 'google_access_token' );
-		$this->message = lsmint( 'google.msg.logout' );
-		$this->google_connector->revoke_token();
 	}
 
 	/**
@@ -318,10 +271,6 @@ class Admin {
 		include $this->admin_dir . '/partials/options-page.php';
 	}
 
-	public function register_setting() {
-		Activator::activate();
-	}
-
 	public function plugin_row_meta( $links, $file ) {
 		if ( $file == $this->plugin_basename ) {
 			$links[] = '<a href="http://dev.linguisticteam.org/lti-sitemap-help/" target="_blank">' . lsmint( 'admin.help' ) . '</a>';
@@ -354,4 +303,17 @@ class Admin {
 	public static function get_admin_slug() {
 		return admin_url( 'admin.php?page=lti-sitemap-options' );
 	}
+
+	public function remove_setting( $setting ) {
+		$this->settings->remove( $setting );
+	}
+
+	public function set_setting( $setting, $value, $type = 'Text' ) {
+		$this->settings->set( $setting, $value, $type );
+	}
+
+	public function get_lti_seo_url(){
+		return LTI_Sitemap::$lti_seo_url;
+	}
+
 }

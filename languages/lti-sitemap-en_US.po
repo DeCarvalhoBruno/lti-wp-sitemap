@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: lti-sitemap\n"
-"POT-Creation-Date: 2015-05-26 16:22+0100\n"
-"PO-Revision-Date: 2015-05-26 16:22+0100\n"
+"POT-Creation-Date: 2015-05-27 21:16+0100\n"
+"PO-Revision-Date: 2015-05-27 21:16+0100\n"
 "Last-Translator: \n"
 "Language-Team: LTI <linguisticteam@gmail.com>\n"
 "Language: en_US\n"
@@ -18,65 +18,53 @@ msgstr ""
 "esc_html_x:1,2c;lsmint;lsmint_po\n"
 "X-Poedit-SearchPath-0: ../src\n"
 
-#: ../src/admin/admin.php:139
+#: ../src/admin/admin.php:125
 msgid "admin.menu_title"
 msgstr "LTI Sitemap settings"
 
-#: ../src/admin/admin.php:139
+#: ../src/admin/admin.php:125
 msgid "admin.menu_item"
 msgstr "XML Sitemap"
 
-#: ../src/admin/admin.php:157
+#: ../src/admin/admin.php:143
 msgid "general_hlp_welcome"
 msgstr "Welcome!"
 
-#: ../src/admin/admin.php:162
+#: ../src/admin/admin.php:148
 msgid "general_hlp_general"
 msgstr "General tab"
 
-#: ../src/admin/admin.php:181
+#: ../src/admin/admin.php:167
 msgid "general.settings"
 msgstr "Settings"
 
-#: ../src/admin/admin.php:216
+#: ../src/admin/admin.php:203
 msgid "opt.msg.error_token"
 msgstr "Plugin options could not be saved (session error)."
 
-#: ../src/admin/admin.php:224
-msgid "opt.msg.google_logged_in"
-msgstr "Google authentication OK"
-
-#: ../src/admin/admin.php:227
-msgid "opt.err.google_auth_failure"
-msgstr "Authentication failed, google returned the following error:"
-
-#: ../src/admin/admin.php:237
-msgid "google.msg.submit"
-msgstr "The sitemap was submitted."
-
-#: ../src/admin/admin.php:243
-msgid "google.msg.resubmit"
-msgstr "The sitemap was refreshed."
-
-#: ../src/admin/admin.php:249
-msgid "google.msg.delete"
-msgstr "The sitemap was deleted."
-
-#: ../src/admin/admin.php:254
-msgid "google.msg.logout"
-msgstr "Google logout complete."
-
-#: ../src/admin/admin.php:309
+#: ../src/admin/admin.php:257
 msgid "opt.msg.reset"
 msgstr "Plugin options have been reset."
 
-#: ../src/admin/admin.php:328
+#: ../src/admin/admin.php:272
 msgid "admin.help"
 msgstr "Help page"
 
-#: ../src/admin/admin.php:329
+#: ../src/admin/admin.php:273
 msgid "admin.contribute"
 msgstr "Contribute"
+
+#: ../src/admin/google.php:70
+msgid "google.msg.submit"
+msgstr "The sitemap was submitted."
+
+#: ../src/admin/google.php:76
+msgid "google.msg.resubmit"
+msgstr "The sitemap was refreshed."
+
+#: ../src/admin/google.php:82
+msgid "google.msg.delete"
+msgstr "The sitemap was deleted."
 
 #: ../src/admin/partials/bing_sitemap_submission.php:114
 msgid "msg.bing.sending"
@@ -291,76 +279,96 @@ msgstr "Change date"
 msgid "opt.hlp.extra_pages"
 msgstr "Extra pages"
 
-#: ../src/admin/partials/options-page.php:338
+#: ../src/admin/partials/options-page.php:337
 msgid "btn.google.get_auth"
 msgstr "Get authentication code"
 
-#: ../src/admin/partials/options-page.php:348
+#: ../src/admin/partials/options-page.php:347
 msgid "btn.google.log_in"
 msgstr "Log in"
 
-#: ../src/admin/partials/options-page.php:377
+#: ../src/admin/partials/options-page.php:370
 msgid "google.table.hindicator"
 msgstr "Indicator"
 
-#: ../src/admin/partials/options-page.php:378
+#: ../src/admin/partials/options-page.php:371
 msgid "google.table.hvalue"
 msgstr "Value"
 
-#: ../src/admin/partials/options-page.php:383
+#: ../src/admin/partials/options-page.php:376
 msgid "google.table_last_submitted"
 msgstr "First submitted"
 
-#: ../src/admin/partials/options-page.php:387
+#: ../src/admin/partials/options-page.php:380
 msgid "google.table_last_downloaded"
 msgstr "Last processed"
 
-#: ../src/admin/partials/options-page.php:391
+#: ../src/admin/partials/options-page.php:384
 msgid "google.table_is_processed"
 msgstr "Was processed"
 
-#: ../src/admin/partials/options-page.php:392
+#: ../src/admin/partials/options-page.php:385
 msgid "general.no"
 msgstr "No"
 
-#: ../src/admin/partials/options-page.php:392
+#: ../src/admin/partials/options-page.php:385
 msgid "general.yes"
 msgstr "Yes"
 
-#: ../src/admin/partials/options-page.php:395
+#: ../src/admin/partials/options-page.php:388
 msgid "google.table_nb_pages_submitted"
 msgstr "Total pages submitted"
 
-#: ../src/admin/partials/options-page.php:399
+#: ../src/admin/partials/options-page.php:392
 msgid "google.table_nb_pages_indexed"
 msgstr "Total pages indexed"
 
-#: ../src/admin/partials/options-page.php:408
+#: ../src/admin/partials/options-page.php:402
 msgid "btn.google.resubmit"
 msgstr "Resubmit sitemap"
 
-#: ../src/admin/partials/options-page.php:414
+#: ../src/admin/partials/options-page.php:409
 msgid "btn.google.delete"
 msgstr "Delete sitemap"
 
-#: ../src/admin/partials/options-page.php:417
-#: ../src/admin/partials/options-page.php:428
+#: ../src/admin/partials/options-page.php:413
+#: ../src/admin/partials/options-page.php:426
 msgid "btn.google.log-out"
 msgstr "Log out"
 
-#: ../src/admin/partials/options-page.php:423
+#: ../src/admin/partials/options-page.php:420
 msgid "btn.google.submit"
 msgstr "Submit sitemap"
 
-#: ../src/admin/partials/options-page.php:451
+#: ../src/admin/partials/options-page.php:430
+msgid "msg.google.info1"
+msgstr ""
+"The current site couldn't be found in Google's search console. Has it been "
+"activated yet?"
+
+#: ../src/admin/partials/options-page.php:431
+msgid "msg.google.info2"
+msgstr ""
+"You can either head over to the Google search console or activate our LTI "
+"SEO plugin to activate it from Wordpress."
+
+#: ../src/admin/partials/options-page.php:432
+msgid "msg.google.info3"
+msgstr "Google Search Console"
+
+#: ../src/admin/partials/options-page.php:432
+msgid "msg.google.info4"
+msgstr "LTI SEO Plugin"
+
+#: ../src/admin/partials/options-page.php:461
 msgid "btn.bing.sitemap_submit"
 msgstr "Send sitemap"
 
-#: ../src/admin/partials/options-page.php:472
+#: ../src/admin/partials/options-page.php:482
 msgid "general.save_changes"
 msgstr "Save changes"
 
-#: ../src/admin/partials/options-page.php:474
+#: ../src/admin/partials/options-page.php:484
 msgid "general.reset_defaults"
 msgstr "Reset to defaults"
 
@@ -368,18 +376,27 @@ msgstr "Reset to defaults"
 msgid "Sitemap generator"
 msgstr "Review this plugin."
 
-#: ../src/lti-sitemap.php:216
+#: ../src/lti-sitemap.php:215
 msgid "admin.footer.feedback"
 msgstr "Some feedback would be greatly appreciated, thank you!"
 
-#: ../src/lti-sitemap.php:216
+#: ../src/lti-sitemap.php:215
 msgid "admin.footer.review"
 msgstr "Write a review."
 
-#: ../src/lti-sitemap.php:225
+#: ../src/lti-sitemap.php:220
 msgid "general.changelog"
 msgstr "Changelog"
 
-#: ../src/lti-sitemap.php:225
+#: ../src/lti-sitemap.php:220
 msgid "general.version"
 msgstr "Plugin version"
+
+#~ msgid "opt.msg.google_logged_in"
+#~ msgstr "Google authentication OK."
+
+#~ msgid "opt.err.google_auth_failure"
+#~ msgstr "Authentication failed, google returned the following error:"
+
+#~ msgid "google.msg.logout"
+#~ msgstr "Google logout OK."

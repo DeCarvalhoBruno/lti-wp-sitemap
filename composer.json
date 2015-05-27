@@ -1,8 +1,8 @@
 {
     "name": "lti/lti-wp-sitemap",
     "require-dev": {
-        "google/apiclient": "~1.1",
-        "lti/xml-sitemap": "dev-master"
+        "lti/xml-sitemap": "dev-master",
+        "lti/google": "dev-master"
     },
   "scripts": {
     "post-install-cmd": [

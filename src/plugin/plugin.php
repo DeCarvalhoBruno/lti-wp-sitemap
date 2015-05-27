@@ -132,11 +132,22 @@ class Plugin_Settings {
 		return null;
 	}
 
+	/**
+	 * Adding new values to the settings class (like temporary ones) or setting existing ones.
+	 *
+	 * @param string $key
+	 * @param string $value
+	 * @param string $type Text, Checkbox, Radio, etc.
+	 */
 	public function set( $key, $value, $type = "Text" ) {
-		if ( ! is_null( $value ) ) {
-			$className    = __NAMESPACE__ . "\\Field_" . $type;
-			$this->{$key} = new $className( $value );
+		//We make sure the field, if it exists in the settings class,
+		//has the same type as originally defined because that impacts how the value is sanitized.
+		if ( isset( $this->{$key} ) ) {
+			$rC   = new \ReflectionClass( $this->{$key} );
+			$type = substr( $rC->getShortName(), 6 );
 		}
+		$className    = __NAMESPACE__ . "\\Field_" . $type;
+		$this->{$key} = new $className( $value );
 	}
 
 	public function remove( $key ) {

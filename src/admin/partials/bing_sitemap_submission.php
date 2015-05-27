@@ -119,7 +119,7 @@ if($url===false||is_null($url)){
 	die(lsmint('err.bing.popup'));
 }
 
-$result = \Lti\Sitemap\Helpers\Search_Engine_Helper::http_request($url);
+$result = \Lti\Sitemap\Helpers\Bing_Helper::http_request($url);
 
 if(array_key_exists('http_code',$result)){
 	$code = $result['http_code'];
