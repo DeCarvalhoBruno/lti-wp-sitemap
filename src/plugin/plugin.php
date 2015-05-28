@@ -8,6 +8,7 @@
  *
  * Class Defaults
  * @package Lti\Sitemap\Plugin
+ * @see Lti\Sitemap\Plugin\Fields
  */
 class Defaults {
 	public $values;
@@ -35,6 +36,19 @@ class Defaults {
 			new def( 'extra_pages_url', 'Array' ),
 			new def( 'extra_pages_date', 'Array' ),
 			new def( 'google_access_token', 'Text' ),
+			new def( 'content_news_support', 'Checkbox', false, true ),
+			new def( 'news_publication', 'Text' ),
+			new def( 'news_language', 'Text', 'en' ),
+			new def( 'news_access_type', 'Radio',
+				array( 'default' => 'Full', 'choice' => array( 'Full', 'Subscription', 'Registration' ) ), true ),
+			new def( 'news_genre_press_release', 'Checkbox', false, true ),
+			new def( 'news_genre_satire', 'Checkbox', false, true ),
+			new def( 'news_genre_blog', 'Checkbox', false, true ),
+			new def( 'news_genre_oped', 'Checkbox', false, true ),
+			new def( 'news_genre_opinion', 'Checkbox', false, true ),
+			new def( 'news_genre_user_generated', 'Checkbox', false, true ),
+			new def( 'news_keywords_cat_based', 'Checkbox', false),
+			new def( 'news_keywords_tag_based', 'Checkbox', false ),
 		);
 	}
 }

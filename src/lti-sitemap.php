@@ -69,7 +69,6 @@ class LTI_Sitemap {
 		$this->plugin_path = LTI_SITEMAP_PLUGIN_DIR;
 		$this->basename    = LTI_SITEMAP_PLUGIN_BASENAME;
 		$this->settings    = get_option( "lti_sitemap_options" );
-		static::$lti_seo_url = $this->add_plugin_url('LTI SEO');
 
 		if ( $this->settings === false || empty( $this->settings ) ) {
 			$this->settings = new Plugin_Settings();
@@ -104,6 +103,7 @@ class LTI_Sitemap {
 
 		$this->loader = new Loader();
 		$this->helper = new Wordpress_Helper( $this->settings );
+		static::$lti_seo_url = $this->helper->plugin_install_url('LTI SEO');
 	}
 
 	/**
@@ -136,9 +136,15 @@ class LTI_Sitemap {
 		$this->loader->add_action( 'admin_menu', $this->admin, 'admin_menu' );
 		$this->loader->add_filter( 'plugin_action_links', $this->admin, 'plugin_action_links', 10, 2 );
 		$this->loader->add_filter( 'plugin_row_meta', $this->admin, 'plugin_row_meta', 10, 2 );
+		$this->loader->add_action( 'add_meta_boxes', $this->admin, 'add_meta_boxes' );
+		$this->loader->add_action( 'save_post', $this->admin, 'save_post', 10, 3 );
+
+		if($GLOBALS['pagenow'] === 'post.php'||LTI_Sitemap::$is_plugin_page){
+		$this->loader->add_action( 'admin_enqueue_scripts', $this->admin, 'enqueue_styles' );
+		$this->loader->add_action( 'admin_enqueue_scripts', $this->admin, 'enqueue_scripts' );
+		}
+
 		if ( LTI_Sitemap::$is_plugin_page ) {
-			$this->loader->add_action( 'admin_enqueue_scripts', $this->admin, 'enqueue_styles' );
-			$this->loader->add_action( 'admin_enqueue_scripts', $this->admin, 'enqueue_scripts' );
 			$this->loader->add_filter( 'admin_footer_text', $this, 'admin_footer_text' );
 			$this->loader->add_filter( 'update_footer', $this, 'update_footer', 15 );
 		}
@@ -287,15 +293,5 @@ class LTI_Sitemap {
 	public function admin_init() {
 		Activator::init_options();
 	}
-
-	private function add_plugin_url( $search ) {
-		$qS = sprintf( 'plugin-install.php?tab=search&s=%s', str_replace( ' ', '+', $search ) );
-		if ( is_multisite() && is_network_admin() ) {
-			return network_admin_url( $qS );
-		}
-
-		return admin_url( $qS );
-	}
-
 
 }

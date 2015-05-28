@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: lti-sitemap\n"
-"POT-Creation-Date: 2015-05-27 21:16+0100\n"
-"PO-Revision-Date: 2015-05-27 21:16+0100\n"
+"POT-Creation-Date: 2015-05-28 20:37+0100\n"
+"PO-Revision-Date: 2015-05-28 20:37+0100\n"
 "Last-Translator: \n"
 "Language-Team: LTI <linguisticteam@gmail.com>\n"
 "Language: en_US\n"
@@ -18,53 +18,89 @@ msgstr ""
 "esc_html_x:1,2c;lsmint;lsmint_po\n"
 "X-Poedit-SearchPath-0: ../src\n"
 
-#: ../src/admin/admin.php:125
+#: ../src/admin/admin.php:140
 msgid "admin.menu_title"
 msgstr "LTI Sitemap settings"
 
-#: ../src/admin/admin.php:125
+#: ../src/admin/admin.php:140
 msgid "admin.menu_item"
 msgstr "XML Sitemap"
 
-#: ../src/admin/admin.php:143
+#: ../src/admin/admin.php:158
 msgid "general_hlp_welcome"
 msgstr "Welcome!"
 
-#: ../src/admin/admin.php:148
+#: ../src/admin/admin.php:163
 msgid "general_hlp_general"
 msgstr "General tab"
 
-#: ../src/admin/admin.php:167
+#: ../src/admin/admin.php:182
 msgid "general.settings"
 msgstr "Settings"
 
-#: ../src/admin/admin.php:203
+#: ../src/admin/admin.php:227
 msgid "opt.msg.error_token"
 msgstr "Plugin options could not be saved (session error)."
 
-#: ../src/admin/admin.php:257
+#: ../src/admin/admin.php:241
+msgid "admin.meta_box"
+msgstr "LTI Sitemap"
+
+#: ../src/admin/admin.php:372
 msgid "opt.msg.reset"
 msgstr "Plugin options have been reset."
 
-#: ../src/admin/admin.php:272
+#: ../src/admin/admin.php:421
 msgid "admin.help"
 msgstr "Help page"
 
-#: ../src/admin/admin.php:273
+#: ../src/admin/admin.php:422
 msgid "admin.contribute"
 msgstr "Contribute"
 
 #: ../src/admin/google.php:70
+msgid "google.msg.logout"
+msgstr "Google logout OK."
+
+#: ../src/admin/google.php:77
 msgid "google.msg.submit"
 msgstr "The sitemap was submitted."
 
-#: ../src/admin/google.php:76
+#: ../src/admin/google.php:83
 msgid "google.msg.resubmit"
 msgstr "The sitemap was refreshed."
 
-#: ../src/admin/google.php:82
+#: ../src/admin/google.php:89
 msgid "google.msg.delete"
 msgstr "The sitemap was deleted."
+
+#: ../src/admin/html.php:21
+msgid "opt.change_frequency.always"
+msgstr "Always"
+
+#: ../src/admin/html.php:22
+msgid "opt.change_frequency.hourly"
+msgstr "Hourly"
+
+#: ../src/admin/html.php:23
+msgid "opt.change_frequency.daily"
+msgstr "Daily"
+
+#: ../src/admin/html.php:24
+msgid "opt.change_frequency.weekly"
+msgstr "Weekly"
+
+#: ../src/admin/html.php:25
+msgid "opt.change_frequency.monthly"
+msgstr "Monthly"
+
+#: ../src/admin/html.php:26
+msgid "opt.change_frequency.yearly"
+msgstr "Yearly"
+
+#: ../src/admin/html.php:27
+msgid "opt.change_frequency.never"
+msgstr "Never"
 
 #: ../src/admin/partials/bing_sitemap_submission.php:114
 msgid "msg.bing.sending"
@@ -115,89 +151,145 @@ msgstr ""
 msgid "general_hlp_github"
 msgstr ""
 
-#: ../src/admin/partials/options-page.php:33
-msgid "opt.change_frequency.always"
-msgstr "Always"
-
-#: ../src/admin/partials/options-page.php:34
-msgid "opt.change_frequency.hourly"
-msgstr "Hourly"
-
-#: ../src/admin/partials/options-page.php:35
-msgid "opt.change_frequency.daily"
-msgstr "Daily"
-
-#: ../src/admin/partials/options-page.php:36
-msgid "opt.change_frequency.weekly"
-msgstr "Weekly"
-
-#: ../src/admin/partials/options-page.php:37
-msgid "opt.change_frequency.monthly"
-msgstr "Monthly"
-
-#: ../src/admin/partials/options-page.php:38
-msgid "opt.change_frequency.yearly"
-msgstr "Yearly"
-
-#: ../src/admin/partials/options-page.php:39
-msgid "opt.change_frequency.never"
-msgstr "Never"
-
-#: ../src/admin/partials/options-page.php:111
+#: ../src/admin/partials/options-page.php:15
 msgid "opt.title"
 msgstr "LTI Sitemap Settings"
 
-#: ../src/admin/partials/options-page.php:119
+#: ../src/admin/partials/options-page.php:23
 msgid "opt.tab.general"
 msgstr "General"
 
-#: ../src/admin/partials/options-page.php:124
+#: ../src/admin/partials/options-page.php:28
 msgid "opt.tab.google"
 msgstr "Google"
 
-#: ../src/admin/partials/options-page.php:128
+#: ../src/admin/partials/options-page.php:32
 msgid "opt.tab.bing"
 msgstr "Bing"
 
-#: ../src/admin/partials/options-page.php:146
+#: ../src/admin/partials/options-page.php:50
 msgid "opt.group.content"
 msgstr "Content"
 
-#: ../src/admin/partials/options-page.php:149
+#: ../src/admin/partials/options-page.php:53
 msgid "opt.content_frontpage"
 msgstr "Front page"
 
-#: ../src/admin/partials/options-page.php:153
+#: ../src/admin/partials/options-page.php:57
 msgid "opt.content_posts"
 msgstr "Posts"
 
-#: ../src/admin/partials/options-page.php:168
+#: ../src/admin/partials/options-page.php:72
 msgid "opt.content_posts_normal"
 msgstr "No categorization"
 
-#: ../src/admin/partials/options-page.php:176
+#: ../src/admin/partials/options-page.php:80
 msgid "opt.content_posts_year"
 msgstr "By year"
 
-#: ../src/admin/partials/options-page.php:184
+#: ../src/admin/partials/options-page.php:88
 msgid "opt.content_posts_month"
 msgstr "By month and year"
 
-#: ../src/admin/partials/options-page.php:189
+#: ../src/admin/partials/options-page.php:93
 msgid "opt.content_pages"
 msgstr "Pages"
 
-#: ../src/admin/partials/options-page.php:193
+#: ../src/admin/partials/options-page.php:97
 msgid "opt.content_authors"
 msgstr "Authors"
 
-#: ../src/admin/partials/options-page.php:198
+#: ../src/admin/partials/options-page.php:102
 msgid "opt.content_user_defined"
 msgstr "User defined"
 
-#: ../src/admin/partials/options-page.php:207
+#: ../src/admin/partials/options-page.php:111
 msgid "opt.hlp.content"
 msgstr "Determine the types of content featured in the sitemap."
+
+#: ../src/admin/partials/options-page.php:117
+msgid "opt.content_news_support"
+msgstr "News sitemap"
+
+#: ../src/admin/partials/options-page.php:126
+msgid "opt.news_publication"
+msgstr "Publication name"
+
+#: ../src/admin/partials/options-page.php:132
+msgid "opt.news_language"
+msgstr "Language"
+
+#: ../src/admin/partials/options-page.php:136
+#: ../src/admin/partials/postbox.php:50
+msgid "opt.news_access"
+msgstr "Access"
+
+#: ../src/admin/partials/options-page.php:144
+#: ../src/admin/partials/postbox.php:59
+msgid "opt.news_access_type_full"
+msgstr "Full"
+
+#: ../src/admin/partials/options-page.php:152
+#: ../src/admin/partials/postbox.php:67
+msgid "opt.news_access_type_subscription"
+msgstr "Subscription"
+
+#: ../src/admin/partials/options-page.php:160
+#: ../src/admin/partials/postbox.php:75
+msgid "opt.news_access_type_registration"
+msgstr "Registration"
+
+#: ../src/admin/partials/options-page.php:163
+#: ../src/admin/partials/postbox.php:33
+msgid "opt.news_keywords"
+msgstr "Keywords"
+
+#: ../src/admin/partials/options-page.php:165
+msgid "opt.news_keywords_cat_based"
+msgstr "Based on categories"
+
+#: ../src/admin/partials/options-page.php:169
+msgid "opt.news_keywords_tag_based"
+msgstr "Based on tags"
+
+#: ../src/admin/partials/options-page.php:174
+#: ../src/admin/partials/postbox.php:80
+msgid "opt.news_genre"
+msgstr "Genre"
+
+#: ../src/admin/partials/options-page.php:176
+#: ../src/admin/partials/postbox.php:83
+msgid "opt.news_genre_press_release"
+msgstr "Press release"
+
+#: ../src/admin/partials/options-page.php:180
+#: ../src/admin/partials/postbox.php:87
+msgid "opt.news_genre_satire"
+msgstr "Satire"
+
+#: ../src/admin/partials/options-page.php:184
+#: ../src/admin/partials/postbox.php:91
+msgid "opt.news_genre_blog"
+msgstr "Blog"
+
+#: ../src/admin/partials/options-page.php:188
+#: ../src/admin/partials/postbox.php:95
+msgid "opt.news_genre_oped"
+msgstr "Op ed"
+
+#: ../src/admin/partials/options-page.php:192
+#: ../src/admin/partials/postbox.php:99
+msgid "opt.news_genre_opinion"
+msgstr "Opinion"
+
+#: ../src/admin/partials/options-page.php:196
+#: ../src/admin/partials/postbox.php:103
+msgid "opt.news_genre_user_generated"
+msgstr "User generated"
+
+#: ../src/admin/partials/options-page.php:207
+msgid "opt.hlp.news"
+msgstr "News help"
 
 #: ../src/admin/partials/options-page.php:213
 msgid "opt.content_images"
@@ -287,108 +379,132 @@ msgstr "Get authentication code"
 msgid "btn.google.log_in"
 msgstr "Log in"
 
-#: ../src/admin/partials/options-page.php:370
+#: ../src/admin/partials/options-page.php:372
 msgid "google.table.hindicator"
 msgstr "Indicator"
 
-#: ../src/admin/partials/options-page.php:371
+#: ../src/admin/partials/options-page.php:373
 msgid "google.table.hvalue"
 msgstr "Value"
 
-#: ../src/admin/partials/options-page.php:376
+#: ../src/admin/partials/options-page.php:378
 msgid "google.table_last_submitted"
 msgstr "First submitted"
 
-#: ../src/admin/partials/options-page.php:380
+#: ../src/admin/partials/options-page.php:382
 msgid "google.table_last_downloaded"
 msgstr "Last processed"
 
-#: ../src/admin/partials/options-page.php:384
+#: ../src/admin/partials/options-page.php:386
 msgid "google.table_is_processed"
 msgstr "Was processed"
 
-#: ../src/admin/partials/options-page.php:385
+#: ../src/admin/partials/options-page.php:387
 msgid "general.no"
 msgstr "No"
 
-#: ../src/admin/partials/options-page.php:385
+#: ../src/admin/partials/options-page.php:387
 msgid "general.yes"
 msgstr "Yes"
 
-#: ../src/admin/partials/options-page.php:388
+#: ../src/admin/partials/options-page.php:390
 msgid "google.table_nb_pages_submitted"
 msgstr "Total pages submitted"
 
-#: ../src/admin/partials/options-page.php:392
+#: ../src/admin/partials/options-page.php:394
 msgid "google.table_nb_pages_indexed"
 msgstr "Total pages indexed"
 
-#: ../src/admin/partials/options-page.php:402
+#: ../src/admin/partials/options-page.php:404
 msgid "btn.google.resubmit"
 msgstr "Resubmit sitemap"
 
-#: ../src/admin/partials/options-page.php:409
+#: ../src/admin/partials/options-page.php:411
 msgid "btn.google.delete"
 msgstr "Delete sitemap"
 
-#: ../src/admin/partials/options-page.php:413
-#: ../src/admin/partials/options-page.php:426
+#: ../src/admin/partials/options-page.php:415
+#: ../src/admin/partials/options-page.php:444
 msgid "btn.google.log-out"
 msgstr "Log out"
 
-#: ../src/admin/partials/options-page.php:420
+#: ../src/admin/partials/options-page.php:422
 msgid "btn.google.submit"
 msgstr "Submit sitemap"
 
-#: ../src/admin/partials/options-page.php:430
+#: ../src/admin/partials/options-page.php:428
 msgid "msg.google.info1"
 msgstr ""
 "The current site couldn't be found in Google's search console. Has it been "
 "activated yet?"
 
-#: ../src/admin/partials/options-page.php:431
+#: ../src/admin/partials/options-page.php:430
 msgid "msg.google.info2"
 msgstr ""
-"You can either head over to the Google search console or activate our LTI "
-"SEO plugin to activate it from Wordpress."
+"You can head over to the Google search console or activate our LTI SEO "
+"plugin to activate your site from Wordpress."
 
-#: ../src/admin/partials/options-page.php:432
-msgid "msg.google.info3"
-msgstr "Google Search Console"
-
-#: ../src/admin/partials/options-page.php:432
+#: ../src/admin/partials/options-page.php:434
 msgid "msg.google.info4"
 msgstr "LTI SEO Plugin"
 
-#: ../src/admin/partials/options-page.php:461
+#: ../src/admin/partials/options-page.php:437
+msgid "msg.google.info3"
+msgstr "Google Search Console"
+
+#: ../src/admin/partials/options-page.php:473
 msgid "btn.bing.sitemap_submit"
 msgstr "Send sitemap"
 
-#: ../src/admin/partials/options-page.php:482
+#: ../src/admin/partials/options-page.php:494
 msgid "general.save_changes"
 msgstr "Save changes"
 
-#: ../src/admin/partials/options-page.php:484
+#: ../src/admin/partials/options-page.php:496
 msgid "general.reset_defaults"
 msgstr "Reset to defaults"
+
+#: ../src/admin/partials/postbox.php:18
+msgid "opt.post_is_news"
+msgstr "Is a news post"
+
+#: ../src/admin/partials/postbox.php:25
+msgid "box.news_title"
+msgstr "Title"
+
+#: ../src/admin/partials/postbox.php:29
+msgid "box.hlp.news_title"
+msgstr "If no text is entered, the post title will be used."
+
+#: ../src/admin/partials/postbox.php:40
+msgid "box.news_keywords_suggestion"
+msgstr "Suggestion:"
+
+#: ../src/admin/partials/postbox.php:43
+msgid "box.text_copy"
+msgstr "(Copy)"
+
+#: ../src/admin/partials/postbox.php:110
+msgid "box.news_stock_tickers"
+msgstr "Stock tickers"
 
 #: ../src/extra-strings.php:2
 msgid "Sitemap generator"
 msgstr "Review this plugin."
 
-#: ../src/lti-sitemap.php:215
+#: ../src/lti-sitemap.php:225
 msgid "admin.footer.feedback"
 msgstr "Some feedback would be greatly appreciated, thank you!"
 
-#: ../src/lti-sitemap.php:215
+#: ../src/lti-sitemap.php:226
 msgid "admin.footer.review"
 msgstr "Write a review."
 
-#: ../src/lti-sitemap.php:220
+#: ../src/lti-sitemap.php:231
 msgid "general.changelog"
 msgstr "Changelog"
 
-#: ../src/lti-sitemap.php:220
+#: ../src/lti-sitemap.php:232
 msgid "general.version"
 msgstr "Plugin version"
 
@@ -397,6 +513,3 @@ msgstr "Plugin version"
 
 #~ msgid "opt.err.google_auth_failure"
 #~ msgstr "Authentication failed, google returned the following error:"
-
-#~ msgid "google.msg.logout"
-#~ msgstr "Google logout OK."

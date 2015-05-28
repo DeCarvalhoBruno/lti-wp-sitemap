@@ -31,8 +31,7 @@ function lsmint_po($value){
  * @return mixed|null|string|void
  */
 function lsmopt( $value ) {
-	$admin = \Lti\Sitemap\LTI_Sitemap::get_instance()->get_admin();
-	return esc_attr($admin->get_setting( $value ));
+	return esc_attr(\Lti\Sitemap\LTI_Sitemap::get_instance()->get_admin()->get_form_values()->get( $value ));
 }
 
 /**

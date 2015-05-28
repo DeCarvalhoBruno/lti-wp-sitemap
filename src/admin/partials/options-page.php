@@ -1,107 +1,11 @@
 <?php
-
-class htmlSelect {
-
-	public $html;
-	public $id;
-
-	public function __construct( Array $elements, $name, $selectSelected = '', $selectID = '', $selectClass = '' ) {
-		if ( ! empty( $selectID ) ) {
-			$selectID = sprintf( 'id="%s"', $selectID );
-		}
-		if ( ! empty( $selectClass ) ) {
-			$selectClass = sprintf( 'class="%s"', $selectClass );
-		}
-		$this->html = sprintf( '<select name="%s" %s %s>', $name, $selectID, $selectClass );
-		foreach ( $elements as $value => $displayValue ) {
-			$selected = '';
-			if ( $value == $selectSelected ) {
-				$selected = 'selected="selected"';
-			}
-			$this->html .= sprintf( '<option value="%s" %s>%s</option>', $value, $selected, $displayValue );
-		}
-		$this->html .= "</select>";
-	}
-}
-
-
-//echo "<pre>";
-//print_r($this->settings);
-//echo "</pre>";
-
-$changeFrequencies = array(
-	"always"  => lsmint( 'opt.change_frequency.always' ),
-	"hourly"  => lsmint( 'opt.change_frequency.hourly' ),
-	"daily"   => lsmint( 'opt.change_frequency.daily' ),
-	"weekly"  => lsmint( 'opt.change_frequency.weekly' ),
-	"monthly" => lsmint( 'opt.change_frequency.monthly' ),
-	"yearly"  => lsmint( 'opt.change_frequency.yearly' ),
-	"never"   => lsmint( 'opt.change_frequency.never' )
-);
-
-$priorities                 = array(
-	"1"   => "1",
-	"0.9" => "0.9",
-	"0.8" => "0.8",
-	"0.7" => "0.7",
-	"0.6" => "0.6",
-	"0.5" => "0.5",
-	"0.4" => "0.4",
-	"0.3" => "0.3",
-	"0.2" => "0.2",
-	"0.1" => "0.1",
-);
-$changeFrequencyFrontpage   = new htmlSelect( $changeFrequencies, 'change_frequency_frontpage',
-	lsmopt( 'change_frequency_frontpage' ), 'change_frequency_frontpage' );
-$changeFrequencyPosts       = new htmlSelect( $changeFrequencies, 'change_frequency_posts',
-	lsmopt( 'change_frequency_posts' ), 'change_frequency_posts' );
-$changeFrequencyPages       = new htmlSelect( $changeFrequencies, 'change_frequency_pages',
-	lsmopt( 'change_frequency_pages' ), 'change_frequency_pages' );
-$changeFrequencyAuthors     = new htmlSelect( $changeFrequencies, 'change_frequency_authors',
-	lsmopt( 'change_frequency_authors' ), 'change_frequency_authors' );
-$changeFrequencyUserDefined = new htmlSelect( $changeFrequencies, 'change_frequency_user_defined',
-	lsmopt( 'change_frequency_user_defined' ), 'change_frequency_user_defined' );
-$priorityFrontpage          = new htmlSelect( $priorities, 'priority_frontpage', lsmopt( 'priority_frontpage' ),
-	'priority_frontpage' );
-$priorityPosts              = new htmlSelect( $priorities, 'priority_posts', lsmopt( 'priority_posts' ),
-	'priority_posts' );
-$priorityPages              = new htmlSelect( $priorities, 'priority_pages', lsmopt( 'priority_pages' ),
-	'priority_pages' );
-$priorityAuthors            = new htmlSelect( $priorities, 'priority_authors', lsmopt( 'priority_authors' ),
-	'priority_authors' );
-$priorityUserDefined        = new htmlSelect( $priorities, 'priority_user_defined', lsmopt( 'priority_user_defined' ),
-	'priority_user_defined' );
-
-$extraPages = "";
-/**
- * @var $this \Lti\Sitemap\Admin
- */
-$extra_urls = $this->settings->get( "extra_pages_url" );
-if ( ! empty( $extra_urls ) ) {
-	$extra_dates = $this->settings->get( "extra_pages_date" );
-	foreach ( $extra_urls as $key => $page ) {
-		$extraPages .= sprintf( '
-			<tr>
-				<td>
-					<input type="text" name="extra_pages_url[]" value="%s"/>
-				</td>
-				<td>
-					<input type="text" name="extra_pages_date[]" value="%s"/>
-				</td>
-				<td>
-					<button type="button" class="btn-del-row dashicons dashicons-no"></button>
-				</td>
-			</tr>',
-			$page, $extra_dates[ $key ], $key
-		);
-	}
-}
 /**
  * LTI Sitemap plugin
  *
  * Admin View
  *
  * @see \Lti\Sitemap\Admin::options_page
+ * @var $this \Lti\Sitemap\Admin
  *
  */
 ?>
@@ -210,6 +114,102 @@ if ( ! empty( $extra_urls ) ) {
 					</div>
 					<div class="form-group">
 						<div class="input-group">
+							<label><?php echo lsmint( 'opt.content_news_support' ); ?>
+								<input type="checkbox" name="content_news_support" data-toggle="sitemap-options"
+								       data-target="#news_chk_group"
+								       id="content_news_support" <?php echo lsmchk( 'content_news_support' ); ?>/>
+							</label>
+
+							<div id="news_chk_group">
+								<div class="input-group">
+									<label
+										for="news_publication"><?php echo lsmint( 'opt.news_publication' ); ?>
+										<input type="text" name="news_publication"
+										       id="news_publication" required="required"
+										       value="<?php echo lsmopt( 'news_publication' ); ?>"/>
+									</label>
+									<label
+										for="news_language"><?php echo lsmint( 'opt.news_language' ); ?>
+									</label>
+										<?php $this->html->select('language','news_language');?>
+
+									<label><?php echo lsmint( 'opt.news_access' ); ?></label>
+									<div class="input-group">
+										<label>
+											<input name="news_access_type"
+											       type="radio" <?php echo lsmrad( 'news_access_type',
+												'Full' ); ?>
+											       value="Full"
+											       id="news_access_type_full"
+												/><?php echo lsmint( 'opt.news_access_type_full' ); ?>
+										</label>
+										<label>
+											<input name="news_access_type"
+											       type="radio" <?php echo lsmrad( 'news_access_type',
+												'Subscription' ); ?>
+											       value="Subscription"
+											       id="news_access_type_subscription"
+												/><?php echo lsmint( 'opt.news_access_type_subscription' ); ?>
+										</label>
+										<label>
+											<input name="news_access_type"
+											       type="radio" <?php echo lsmrad( 'news_access_type',
+												'Registration' ); ?>
+											       value="Registration"
+											       id="news_access_type_registration"
+												/><?php echo lsmint( 'opt.news_access_type_registration' ); ?>
+										</label>
+									</div>
+									<label><?php echo lsmint( 'opt.news_keywords' ); ?></label>
+									<div class="input-group">
+										<label><?php echo lsmint( 'opt.news_keywords_cat_based' ); ?>
+											<input type="checkbox" name="news_keywords_cat_based"
+											       id="news_keywords_cat_based" <?php echo lsmchk( 'news_keywords_cat_based' ); ?>/>
+										</label>
+										<label><?php echo lsmint( 'opt.news_keywords_tag_based' ); ?>
+											<input type="checkbox" name="news_keywords_tag_based"
+											       id="news_keywords_tag_based" <?php echo lsmchk( 'news_keywords_tag_based' ); ?>/>
+										</label>
+									</div>
+									<label><?php echo lsmint( 'opt.news_genre' ); ?></label>
+									<div class="input-group">
+										<label><?php echo lsmint( 'opt.news_genre_press_release' ); ?>
+											<input type="checkbox" name="news_genre_press_release"
+											       id="news_genre_press_release" <?php echo lsmchk( 'news_genre_press_release' ); ?>/>
+										</label>
+										<label><?php echo lsmint( 'opt.news_genre_satire' ); ?>
+											<input type="checkbox" name="news_genre_satire"
+											       id="news_genre_satire" <?php echo lsmchk( 'news_genre_satire' ); ?>/>
+										</label>
+										<label><?php echo lsmint( 'opt.news_genre_blog' ); ?>
+											<input type="checkbox" name="news_genre_blog"
+											       id="news_genre_blog" <?php echo lsmchk( 'news_genre_blog' ); ?>/>
+										</label>
+										<label><?php echo lsmint( 'opt.news_genre_oped' ); ?>
+											<input type="checkbox" name="news_genre_oped"
+											       id="news_genre_oped" <?php echo lsmchk( 'news_genre_oped' ); ?>/>
+										</label>
+										<label><?php echo lsmint( 'opt.news_genre_opinion' ); ?>
+											<input type="checkbox" name="news_genre_opinion"
+											       id="news_genre_opinion" <?php echo lsmchk( 'news_genre_opinion' ); ?>/>
+										</label>
+										<label><?php echo lsmint( 'opt.news_genre_user_generated' ); ?>
+											<input type="checkbox" name="news_genre_user_generated"
+											       id="news_genre_user_generated" <?php echo lsmchk( 'news_genre_user_generated' ); ?>/>
+										</label>
+									</div>
+
+								</div>
+							</div>
+						</div>
+						<div class="form-help-container">
+							<div class="form-help">
+								<p><?php echo lsmint( 'opt.hlp.news' ); ?></p>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="input-group">
 							<label><?php echo lsmint( 'opt.content_images' ); ?>
 								<input type="checkbox" name="content_images" data-toggle="sitemap-options"
 								       data-target="#images_chk_group"
@@ -230,23 +230,23 @@ if ( ! empty( $extra_urls ) ) {
 								<label
 									for="change_frequency_frontpage"><?php echo lsmint( 'opt.change_frequency_frontpage' ); ?>
 								</label>
-								<?php echo $changeFrequencyFrontpage->html; ?>
+								<?php $this->html->select('changeFrequency','change_frequency_frontpage'); ?>
 								<label
 									for="change_frequency_posts"><?php echo lsmint( 'opt.change_frequency_posts' ); ?>
 								</label>
-								<?php echo $changeFrequencyPosts->html; ?>
+								<?php $this->html->select('changeFrequency','change_frequency_posts'); ?>
 								<label
 									for="change_frequency_pages"><?php echo lsmint( 'opt.change_frequency_pages' ); ?>
 								</label>
-								<?php echo $changeFrequencyPages->html; ?>
+								<?php $this->html->select('changeFrequency','change_frequency_pages'); ?>
 								<label
 									for="change_frequency_authors"><?php echo lsmint( 'opt.change_frequency_authors' ); ?>
 								</label>
-								<?php echo $changeFrequencyAuthors->html; ?>
+								<?php $this->html->select('changeFrequency','change_frequency_authors'); ?>
 								<label
 									for="change_frequency_user_defined"><?php echo lsmint( 'opt.change_frequency_user_defined' ); ?>
 								</label>
-								<?php echo $changeFrequencyUserDefined->html; ?>
+								<?php $this->html->select('changeFrequency','change_frequency_user_defined'); ?>
 							</div>
 						</div>
 						<div class="form-help-container">
@@ -262,19 +262,19 @@ if ( ! empty( $extra_urls ) ) {
 							<div class="checkbox-group">
 								<label for="priority_frontpage"><?php echo lsmint( 'opt.priority_frontpage' ); ?>
 								</label>
-								<?php echo $priorityFrontpage->html; ?>
+								<?php $this->html->select('priority','priority_frontpage'); ?>
 								<label for="priority_posts"><?php echo lsmint( 'opt.priority_posts' ); ?>
 								</label>
-								<?php echo $priorityPosts->html; ?>
+								<?php $this->html->select('priority','priority_posts'); ?>
 								<label for="priority_pages"><?php echo lsmint( 'opt.priority_pages' ); ?>
 								</label>
-								<?php echo $priorityPages->html; ?>
+								<?php $this->html->select('priority','priority_pages'); ?>
 								<label for="priority_authors"><?php echo lsmint( 'opt.priority_authors' ); ?>
 								</label>
-								<?php echo $priorityAuthors->html; ?>
+								<?php $this->html->select('priority','priority_authors'); ?>
 								<label for="priority_user_defined"><?php echo lsmint( 'opt.priority_user_defined' ); ?>
 								</label>
-								<?php echo $priorityUserDefined->html; ?>
+								<?php $this->html->select('priority','priority_user_defined'); ?>
 							</div>
 						</div>
 						<div class="form-help-container">
@@ -300,7 +300,7 @@ if ( ! empty( $extra_urls ) ) {
 										</tr>
 										</thead>
 										<tbody>
-										<?php echo $extraPages ?>
+										<?php echo $this->html->extraPages; ?>
 										<tr>
 											<td colspan="3">
 												<button type="button" class="dashicons dashicons-plus"
@@ -323,7 +323,7 @@ if ( ! empty( $extra_urls ) ) {
 				/***********************************************************************************************
 				 *                                  GOOGLE TAB
 				 ***********************************************************************************************/
-				if ($this->google->can_send_curl_requests): ?>
+				if ( $this->google->can_send_curl_requests ): ?>
 					<div role="tabpanel" class="tab-pane" id="tab_google">
 						<?php
 						/***********************************************************************************************
@@ -358,8 +358,9 @@ if ( ! empty( $extra_urls ) ) {
 						 *                           AUTHENTICATED
 						 ***********************************************************************************************/
 						else:
-							$site = $this->google->get_site_info();
-							$google_console_url = \Lti\Google\Google_Helper::get_site_console_url()
+							$site               = $this->google->get_site_info();
+							$google_console_url = $this->google->get_console_url();
+							$lti_seo_url        = $this->get_lti_seo_url();
 							?>
 							<div class="form-group">
 								<div class="input-group">
@@ -397,10 +398,10 @@ if ( ! empty( $extra_urls ) ) {
 											</table>
 											<?php if ( $site->sitemap->is_site_admin() ): ?>
 												<div class="btn-group">
-														<input id="btn-resubmit" class="button-primary button-submit"
-														       name="lti_sitemap_google_submit"
-														       type="submit"
-														       value="<?php echo lsmint( 'btn.google.resubmit' ); ?>"/>
+													<input id="btn-resubmit" class="button-primary button-submit"
+													       name="lti_sitemap_google_submit"
+													       type="submit"
+													       value="<?php echo lsmint( 'btn.google.resubmit' ); ?>"/>
 												</div>
 											<?php endif; ?>
 											<div class="btn-group">
@@ -421,22 +422,31 @@ if ( ! empty( $extra_urls ) ) {
 													       value="<?php echo lsmint( 'btn.google.submit' ); ?>"/>
 												</div>
 											<?php endif; ?>
-											<div class="btn-group">
-												<input id="btn-log-out" class="button-primary" type="submit"
-												       name="lti_sitemap_google_logout"
-												       value="<?php echo lsmint( 'btn.google.log-out' ); ?>"/>
-											</div>
 										<?php endif; ?>
 									<?php else: ?>
-										<p><?php echo lsmint( 'msg.google.info1' ); ?></p>
-										<p><?php echo lsmint( 'msg.google.info2' ); ?></p>
-										<p><a href="<?php echo $lti_seo_url; ?>"><?php echo lsmint( 'msg.google.info3' )?></a> /
-											<a href="<?php echo $google_console_url; ?>"><?php echo lsmint( 'msg.google.info4' ); ?></a></p>
+										<div class="info-messages">
+											<p><?php echo lsmint( 'msg.google.info1' ); ?></p>
 
+											<p><?php echo lsmint( 'msg.google.info2' ); ?></p>
+
+											<p>
+												<a target="_blank"
+												   href="<?php echo $lti_seo_url; ?>"><?php echo lsmint( 'msg.google.info4' ); ?></a>
+												/
+												<a target="_blank"
+												   href="<?php echo $google_console_url; ?>"><?php echo lsmint( 'msg.google.info3' ) ?></a>
+											</p>
+										</div>
 									<?php endif; ?>
+									<div class="btn-group">
+										<input id="btn-log-out" class="button-primary" type="submit"
+										       name="lti_sitemap_google_logout"
+										       value="<?php echo lsmint( 'btn.google.log-out' ); ?>"/>
+									</div>
 									<?php if ( ! is_null( $this->google->error ) ): ?>
 										<div class="google_errors">
 											<p class="error_msg"><?php echo $this->google->error['error']; ?></p>
+
 											<p class="error_msg"><?php echo $this->google->error['google_response']; ?></p>
 										</div>
 									<?php endif; ?>

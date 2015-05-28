@@ -99,6 +99,10 @@
 
     #flsm .input-group .input-group label {
         margin: 10px 0 10px 10px;
+        font-weight: normal;
+    }
+
+    #flsm .input-group .input-group .input-group label {
     }
 
     #flsm .input-group .input-group.file-selector input[type="text"],select {
@@ -134,6 +138,10 @@
 
     #flsm .btn-group {
         margin: 20px 0;
+        text-align: center;
+    }
+
+    #flsm .input-group .info-messages {
         text-align: center;
     }
 
@@ -242,7 +250,7 @@
         margin: 20px 0 10px 30px;
         display: block;
         font-weight: normal;
-        font-size: 1em;
+        font-size: 1.1em;
     }
 
     #flsm .input-group .checkbox-group label {
@@ -603,4 +611,64 @@
         width:65%;
         margin-left:100px;
     }
+}
+
+/*****************************************************************************************************
+                                    POST BOX
+                                        post.php
+******************************************************************************************************/
+
+#plsitemap .form-group {
+    position: relative;
+    display: block;
+    width: 95%;
+    overflow: hidden;
+    margin: 5px auto;
+    padding: 5px;
+}
+
+#plsitemap .input-group {
+    display: block;
+    width: 95%;
+    margin: 0 auto;
+}
+
+#plsitemap label {
+    margin: 0 0 5px 3px;
+    display: block;
+    font-weight: bold;
+}
+
+#plsitemap input {
+    display: block;
+    width: 95%;
+}
+
+#plsitemap .checkbox-group label {
+    margin: 5px 0 3px 10px;
+    display: block;
+    font-weight: normal;
+}
+
+#plsitemap .input-group label {
+    font-weight: normal;
+}
+
+#plsitemap .input-group input[type="checkbox"] {
+    float: right;
+    margin:0.4em 25% 0 2%;
+    width: 15px;
+    height: 15px;
+}
+
+#plsitemap .input-group input[type="radio"] {
+    float: right;
+    margin: 0.4em 25% 0 2%;
+    width: 15px;
+    height: 15px;
+}
+#plsitemap .input-group span.suggestion {
+    margin-left: .2em;
+    font-size: 0.9em;
+    font-style: italic;
 }

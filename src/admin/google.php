@@ -1,11 +1,11 @@
 <?php namespace Lti\Sitemap;
 
 use Lti\Google\Google_Helper;
+use Lti\Sitemap\Helpers\ICanHelp;
 
 class Admin_Google {
 	public $can_send_curl_requests;
 	public $error;
-	public static $console_url = 'https://www.google.com/webmasters/tools/home?hl=%s&siteUrl=%s';
 	private $site_url;
 
 	/**
@@ -13,13 +13,18 @@ class Admin_Google {
 	 */
 	public $helper;
 
-	public function __construct( Admin $admin ) {
+	/**
+	 * @param Admin $admin
+	 * @param ICanHelp|\Lti\Sitemap\Helpers\Wordpress_Helper $wp_helper
+	 */
+	public function __construct( Admin $admin, ICanHelp $wp_helper ) {
+		$this->wp_helper = $wp_helper;
 		$this->admin                  = $admin;
 		$this->can_send_curl_requests = function_exists( 'curl_version' );
 		if ( $this->can_send_curl_requests === true ) {
 			$this->helper = new Google_Helper( array(
 				'https://www.googleapis.com/auth/webmasters'
-			) );
+			), LTI_SITEMAP_NAME);
 
 			$access_token = $this->admin->get_setting( 'google_access_token' );
 			if ( ! is_null( $access_token ) && ! empty( $access_token ) ) {
@@ -62,7 +67,7 @@ class Admin_Google {
 
 	public function google_logout() {
 		$this->admin->remove_setting( 'google_access_token' );
-		$this->message = ltint( 'google.msg.logout' );
+		$this->message = lsmint( 'google.msg.logout' );
 		$this->helper->revoke_token();
 	}
 
@@ -84,8 +89,8 @@ class Admin_Google {
 		$this->message = lsmint( 'google.msg.delete' );
 	}
 
-//	public function get_console_url(){
-//		return Google_Helper::get_site_console_url($this->url)
-//	}
+	public function get_console_url(){
+		return Google_Helper::get_site_console_url($this->wp_helper->home_url(),$this->wp_helper->get_language());
+	}
 
 }

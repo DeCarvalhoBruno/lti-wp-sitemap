@@ -38,9 +38,8 @@ class Field_Radio extends Fields {
 	public function __construct( $value, $default = "", $isTracked = false ) {
 		$this->isTracked = $isTracked;
 		if ( is_array( $default ) ) {
-			$defaults = array_flip( $default['choice'] );
 			if ( $value ) {
-				if ( isset( $defaults[ $value ] ) ) {
+				if ( in_array( $value, $default['choice'] ) ) {
 					$this->value = $value;
 				} else {
 					$this->value = $default['default'];

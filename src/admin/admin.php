@@ -3,7 +3,9 @@
 use Lti\Google\Google_Helper;
 use Lti\Sitemap\Helpers\Bing_Helper;
 use Lti\Sitemap\Helpers\ICanHelp;
+use Lti\Sitemap\Plugin\Fields;
 use Lti\Sitemap\Plugin\Plugin_Settings;
+use Lti\Sitemap\Plugin\Postbox_Values;
 
 /**
  * Deals with everything that happens in the admin screen
@@ -55,6 +57,15 @@ class Admin {
 
 	private $site_url;
 
+	/**
+	 * @var Html_Elements
+	 */
+	private $html;
+	/**
+	 * @var \Lti\Sitemap\Plugin\Postbox_Values
+	 */
+	private $box_values;
+
 
 	/**
 	 * @param $plugin_name
@@ -86,9 +97,9 @@ class Admin {
 		if ( ! LTI_Sitemap::$is_plugin_page ) {
 			return;
 		}
-		$this->google = new Admin_Google( $this );
-		$this->bing   = new Bing_Helper( $this->helper->sitemap_url() );
-		$this->site_url = $this->helper->home_url();
+		$this->google      = new Admin_Google( $this, $this->helper );
+		$this->bing        = new Bing_Helper( $this->helper->sitemap_url() );
+		$this->site_url    = $this->helper->home_url();
 		$this->sitemap_url = $this->helper->sitemap_url();
 	}
 
@@ -182,6 +193,7 @@ class Admin {
 	public function validate_input( $post_variables, $update_type ) {
 		if ( wp_verify_nonce( $post_variables['lti_sitemap_token'], 'lti_sitemap_options' ) !== false ) {
 			unset( $post_variables['_wpnonce'], $post_variables['option_page'], $post_variables['_wp_http_referer'] );
+			$oldSettings         = $this->settings;
 			$google_access_token = $this->settings->get( 'google_access_token' );
 			$this->settings      = $this->settings->save( $post_variables );
 
@@ -195,6 +207,14 @@ class Admin {
 
 			$this->page_type = "lti_update";
 
+			if ( $this->settings != $oldSettings ) {
+				$changed = $this->settings->compare( $oldSettings );
+
+				if ( ! empty( $changed ) ) {
+					$this->update_global_post_fields( $changed );
+				}
+			}
+
 			if ( method_exists( $this->google, $update_type ) ) {
 				$this->google->helper->init_site_service( 'http://caprica.linguisticteam.org',
 					'http://caprica.linguisticteam.org/sitemap.xml' );
@@ -206,6 +226,96 @@ class Admin {
 			$this->page_type = "lti_error";
 			$this->message   = lsmint( "opt.msg.error_token" );
 		}
+	}
+
+	/**
+	 * Adds postboxes to posts
+	 *
+	 */
+	public function add_meta_boxes() {
+		if ( $this->settings->get( 'content_news_support' ) == true ) {
+			$supported_post_types = $this->get_supported_post_types();
+			foreach ( $supported_post_types as $supported_post_type ) {
+				add_meta_box(
+					'lti-sitemap-metadata-box',
+					lsmint( 'admin.meta_box' ),
+					array( $this, 'metadata_box' ),
+					$supported_post_type,
+					'advanced',
+					'high'
+				);
+			}
+		}
+	}
+
+	/**
+	 * Displays postbox values
+	 *
+	 * @param \WP_Post $post
+	 */
+	public function metadata_box( \WP_Post $post ) {
+		$this->box_values = get_post_meta( $post->ID, "lti_sitemap", true );
+
+		/**
+		 * When the post is created, we need to set robot values according to what was set
+		 * in the admin screen
+		 */
+		if ( empty( $this->box_values ) ) {
+//			$this->box_values = new Postbox_Values( array() );
+//			$robot            = new Robot( $this->helper );
+//			$robot_settings   = $robot->get_robot_setting( 'robot_support', 'post_' );
+//			foreach ( $robot_settings as $setting ) {
+//				$this->box_values->set( 'post_robot_' . $setting, true );
+//			}
+		}
+
+		$keywords = $this->box_values->get('news_keywords');
+		if(is_null($keywords)||empty($keywords)){
+
+			$keywords = $this->helper->get_keywords();
+			if(!empty($keywords)){
+				$this->box_values->set( 'news_keywords_suggestion',
+					implode(', ',$keywords) );
+			}
+		}
+
+		$this->set_current_page( 'post-edit' );
+		include $this->admin_dir . '/partials/postbox.php';
+	}
+
+	public function update_global_post_fields( $changed = array(), $reset = false ) {
+		/**
+		 * @var \wpdb $wpdb
+		 */
+		global $wpdb;
+		//@TODO: check whether this can be covered by some wp method
+		$sql = 'SELECT ' . $wpdb->posts . '.ID,' . $wpdb->postmeta . '.meta_value  FROM ' . $wpdb->posts . '
+				LEFT JOIN ' . $wpdb->postmeta . ' ON (' . $wpdb->posts . '.ID = ' . $wpdb->postmeta . '.post_id AND ' . $wpdb->postmeta . '.meta_key = "lti_sitemap")
+				WHERE ' . $wpdb->posts . '.post_type = "post" AND ' . $wpdb->posts . '.post_status!="auto-draft"';
+
+		$results = $wpdb->get_results( $sql );
+
+		if ( is_array( $results ) ) {
+			foreach ( $results as $result ) {
+				$postbox_values = $result->meta_value;
+				if ( ! is_null( $postbox_values ) && ! $reset ) {
+					$postbox_values = unserialize( $postbox_values );
+				} else {
+					$postbox_values = new Postbox_Values( new \stdClass() );
+				}
+
+				foreach ( $changed as $changedKey => $changedValue ) {
+					if ( isset( $postbox_values->{$changedKey} ) && $postbox_values->{$changedKey} instanceof Fields ) {
+						$postbox_values->{$changedKey}->value = $changedValue;
+					}
+				}
+				update_post_meta( $result->ID, 'lti_sitemap', $postbox_values );
+			}
+		}
+	}
+
+	public function get_supported_post_types() {
+		return array( 'post' );
 	}
 
 	/**
@@ -256,6 +366,7 @@ class Admin {
 			case isset( $post_variables['lti_sitemap_reset'] ):
 				$this->settings = new Plugin_Settings();
 				update_option( 'lti_sitemap_options', $this->settings );
+				$this->update_global_post_fields( array(), true );
 
 				$this->page_type = "lti_reset";
 				$this->message   = lsmint( 'opt.msg.reset' );
@@ -268,7 +379,41 @@ class Admin {
 			$this->validate_input( $post_variables, $update_type );
 		}
 
+		$this->html = new Html_Elements( $this->settings );
+
 		include $this->admin_dir . '/partials/options-page.php';
+	}
+
+	/**
+	 * Saves posts
+	 *
+	 * @param int $post_ID
+	 * @param \WP_Post $post
+	 * @param int $update
+	 */
+	public function save_post( $post_ID, $post, $update ) {
+		$post_variables = $this->helper->filter_input( INPUT_POST, 'lti_sitemap' );
+
+		if ( ! is_null( $post_variables ) ) {
+			$post_variables = $this->helper->filter_var_array( $_POST['lti_sitemap'] );
+			if ( ! is_null( $post_variables ) && ! empty( $post_variables ) ) {
+				update_post_meta( $post_ID, 'lti_sitemap', new Postbox_Values( (object) $post_variables ) );
+			}
+		}
+		$post_variables = $this->helper->filter_input( INPUT_POST, 'lti_sitemap_news' );
+		if ( ! is_null( $post_variables ) ) {
+			$post_variables = $this->helper->filter_var_array( $_POST['lti_sitemap_news'] );
+			if ( ! is_null( $post_variables ) && ! empty( $post_variables ) ) {
+				update_post_meta( $post_ID, 'post_is_news', true );
+			}else{
+				update_post_meta( $post_ID, 'post_is_news', false );
+			}
+
+		}else{
+			update_post_meta( $post_ID, 'post_is_news', null );
+		}
+
+
 	}
 
 	public function plugin_row_meta( $links, $file ) {
@@ -278,6 +423,21 @@ class Admin {
 		}
 
 		return $links;
+	}
+
+	/**
+	 * Returns the proper settings to apply depending on whether we're in the settings screen
+	 * or editing a post/page.
+	 *
+	 * @return \Lti\Seo\Plugin\Plugin_Settings
+	 */
+	public function get_form_values() {
+		switch ( $this->current_page ) {
+			case "post-edit":
+				return $this->box_values;
+		}
+
+		return $this->settings;
 	}
 
 	public function set_current_page( $page ) {
@@ -312,8 +472,16 @@ class Admin {
 		$this->settings->set( $setting, $value, $type );
 	}
 
-	public function get_lti_seo_url(){
+	public function get_lti_seo_url() {
 		return LTI_Sitemap::$lti_seo_url;
+	}
+
+	public function get_site_url() {
+		return $this->site_url;
+	}
+
+	public function get_sitemap_url() {
+		return $this->sitemap_url;
 	}
 
 }

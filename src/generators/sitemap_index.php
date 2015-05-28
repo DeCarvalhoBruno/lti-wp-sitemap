@@ -34,7 +34,6 @@ abstract class Sitemap_Generator implements ICanGenerateSitemaps {
 		$this->helper   = $helper;
 		$this->filename = $helper->home_url() . $this->filenamePrefix;
 		$this->query    = new Plugin_Queries();
-
 	}
 
 }
@@ -229,7 +228,6 @@ class Sitemap_Generator_Posts extends Sitemap_Generator {
 						$license_url = $matches[0];
 					}
 					$sitemap_url_index = $postsIndex[ $image->post_id ];
-					;
 
 					$xml->addImage( $sitemap_url_index, $this->wp_get_attachment_url($image), $image->caption, '',
 						$image->title,
@@ -295,5 +293,31 @@ class Sitemap_Generator_Posts extends Sitemap_Generator {
 		return $url;
 	}
 
+}
 
+class Sitemap_Generator_News extends Sitemap_Generator {
+
+	public function get(){
+		$sitemap_posts = new SiteMapUrlSet();
+		$sitemap_posts->addStylesheet( plugin_dir_url( __FILE__ ) . 'sitemap.xsl' );
+
+		$month           = $this->settings->get( 'month' );
+		$year            = $this->settings->get( 'year' );
+		$changeFrequency = $this->settings->get( 'change_frequency_posts' );
+		$priority        = $this->settings->get( 'priority_posts' );
+		$result          = $this->query->get_posts( $month, $year );
+
+		if ( ! empty( $result ) ) {
+			$postsIndex = array();
+			foreach ( $result as $entry ) {
+				$postsIndex[ $entry->ID ] = $sitemap_posts->add( new SitemapUrl( get_permalink( $entry->ID ),
+					lti_iso8601_date( $entry->lastmod ),
+					$changeFrequency, $priority ) );
+			}
+
+
+		}
+
+		return $sitemap_posts->output();
+	}
 }

@@ -317,4 +317,22 @@ class Plugin_Queries {
 
 		return $this->get_results();
 	}
+
+	public function get_news_info($time_delay=2592000){
+		$this->q->select( array( 'p.ID', 'p.post_modified_gmt as `lastmod`' ) );
+		$this->q->from( array( $this->wpdb->posts . ' p' ) );
+		$this->q->where( 'p.post_password', '=', '' );
+		$this->q->where( 'p.post_type', '=', 'post' );
+		$this->q->where( 'p.post_status', '=', 'publish' );
+		$past_date = current_time('timestamp',true)-$time_delay;
+		$this->q->where( 'p.post_modified_gmt', '>', $past_date );
+
+		$this->q->orderBy( array( 'p.post_date_gmt DESC' ) );
+
+		return $this->get_results();
+	}
+
+	public function get_news($time_delay=2592000){
+
+	}
 }
