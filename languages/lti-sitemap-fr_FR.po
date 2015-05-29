@@ -171,7 +171,7 @@ msgid "opt.hlp.content"
 msgstr ""
 
 #: ../src/admin/partials/options-page.php:202
-msgid "opt.content_images"
+msgid "opt.content_images_support"
 msgstr ""
 
 #: ../src/admin/partials/options-page.php:210

@@ -12,19 +12,20 @@
 class Postbox_Fields {
 	public $values = array(
 		array( 'post_is_news', 'Checkbox' ),
-		array( 'news_access_type', 'Radio', array( 'default' => 'Full', 'choice' => array( 'Full', 'Subscription', 'Registration' ) ) ),
+		array(
+			'news_access_type',
+			'Radio',
+			array( 'default' => 'Full', 'choice' => array( 'Full', 'Subscription', 'Registration' ) )
+		),
 		array( 'news_genre_press_release', 'Checkbox' ),
 		array( 'news_genre_satire', 'Checkbox' ),
 		array( 'news_genre_blog', 'Checkbox' ),
 		array( 'news_genre_oped', 'Checkbox' ),
 		array( 'news_genre_opinion', 'Checkbox' ),
 		array( 'news_genre_user_generated', 'Checkbox' ),
-		array('news_title','Text'),
-		array('news_keywords','Text'),
-		array('news_keywords_cat_based','Checkbox'),
-		array('news_keywords_tag_based','Checkbox'),
-		array('news_stock_tickers','Text'),
-
+		array( 'news_title', 'Text' ),
+		array( 'news_keywords', 'Text' ),
+		array( 'news_stock_tickers', 'Text' ),
 	);
 }
 
@@ -39,9 +40,9 @@ class Postbox_Values {
 				if ( isset( $form->{$value[0]} ) ) {
 					$storedValue = $form->{$value[0]};
 				}
-				$default=null;
-				$className         = __NAMESPACE__ . "\\Field_" . $value[1];
-				if(isset($value[2])){
+				$default   = null;
+				$className = __NAMESPACE__ . "\\Field_" . $value[1];
+				if ( isset( $value[2] ) ) {
 					$default = $value[2];
 				}
 				$this->{$value[0]} = new $className( $storedValue, $default );
@@ -66,4 +67,41 @@ class Postbox_Values {
 
 		}
 	}
+
+	public function get_genres() {
+		$type=array();
+		if ( $this->get( 'news_genre_press_release' ) == true ) {
+			$type[] = 'PressRelease';
+		}
+		if ( $this->get( 'news_genre_satire' ) == true ) {
+			$type[] = 'Satire';
+		}
+		if ( $this->get( 'news_genre_blog' ) == true ) {
+			$type[] = 'Blog';
+		}
+		if ( $this->get( 'news_genre_oped' ) == true ) {
+			$type[] = 'OpEd';
+		}
+		if ( $this->get( 'news_genre_opinion' ) == true ) {
+			$type[] = 'Opinion';
+		}
+		if ( $this->get( 'news_genre_user_generated' ) == true ) {
+			$type[] = 'UserGenerated';
+		}
+		return implode(',',$type);
+	}
+
+	/**
+	 * @param Plugin_Settings $settings
+	 */
+	public function set_postbox_params($settings){
+		$this->set('news_genre_press_release',$settings->get('news_genre_press_release'));
+		$this->set('news_genre_satire',$settings->get('news_genre_satire'));
+		$this->set('news_genre_blog',$settings->get('news_genre_blog'));
+		$this->set('news_genre_oped',$settings->get('news_genre_oped'));
+		$this->set('news_genre_opinion',$settings->get('news_genre_opinion'));
+		$this->set('news_genre_user_generated',$settings->get('news_genre_user_generated'));
+		$this->set('news_access_type',$settings->get('news_access_type'));
+	}
+
 }

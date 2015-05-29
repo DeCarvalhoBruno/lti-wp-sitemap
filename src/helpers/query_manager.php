@@ -25,12 +25,23 @@ class Query_Manager {
 		$this->where[] = array( " AND", $column, $comparator, $value );
 	}
 
-	public function whereIn( $column, $comparator, Array $values ) {
+	public function whereIn( $column, Array $values ) {
 		$this->where[] = array(
 			" AND",
 			$column,
 			"IN",
-			"('" . implode( "','", array_map( 'esc_sql', $values ) ) . "')"
+			sprintf( '(\'%s\')', implode( "','", array_map( 'esc_sql', $values ) ) )
+		);
+	}
+
+	public function whereInSelect( $column, Query_Manager $select ) {
+
+		$subQuery      = $select->build( false );
+		$this->where[] = array(
+			" AND",
+			$column,
+			" IN",
+			sprintf( '(%s)', $subQuery )
 		);
 	}
 
@@ -42,12 +53,12 @@ class Query_Manager {
 		$this->orderBy = array_unique( array_merge( $this->orderBy, $columns ) );
 	}
 
-	public function join( $table, $column, $comparator, $value ) {
+	public function join( $table, $column, $comparator = '', $value = '' ) {
 		$this->join[] = array( $table, $column, $comparator, $value );
 	}
 
 
-	public function build() {
+	public function build( $limit_results = true ) {
 		if ( empty( $this->columns ) ) {
 			$this->columns = array( "*" );
 		}
@@ -55,7 +66,20 @@ class Query_Manager {
 		$query .= " FROM " . implode( ',', $this->tables );
 		if ( ! empty( $this->join ) ) {
 			foreach ( $this->join as $join ) {
-				$query .= " JOIN " . $join[0] . " ON (" . $join[1] . $join[2] . $join[3] . ')';
+				if ( is_array( $join[1] ) ) {
+					$clauseArray = array();
+					$query .= ' JOIN ' . $join[0] . ' ON (';
+					foreach ( $join[1] as $clauses ) {
+						//Any clauses without dotted notation will be quoted
+						if ( strpos( $clauses[2], '.' ) === false && is_string( $clauses[2] ) ) {
+							$clauses[2] = sprintf( "'%s'", esc_sql( $clauses[2] ) );
+						}
+						$clauseArray[] = implode( '', $clauses );
+					}
+					$query .= implode( ' AND ', $clauseArray ) . ')';
+				} else {
+					$query .= " JOIN " . $join[0] . " ON (" . $join[1] . $join[2] . $join[3] . ')';
+				}
 			}
 			if ( ! empty( $this->where ) ) {
 				foreach ( $this->where as $where ) {
@@ -80,7 +104,9 @@ class Query_Manager {
 			$query .= " ORDER BY " . implode( ',', $this->orderBy );
 		}
 
-		$query .= " LIMIT " . self::$RESULTSET_LIMIT;
+		if ( $limit_results ) {
+			$query .= " LIMIT " . self::$RESULTSET_LIMIT;
+		}
 
 		return $query;
 
@@ -90,11 +116,11 @@ class Query_Manager {
 		$sql_query = preg_replace_callback( "#( FROM | WHERE | AND | OR | SET | VALUES\s?| (LEFT|RIGHT|OUTER|INNER|FULL) JOIN | JOIN | HAVING | ORDER BY | GROUP BY )#i",
 			create_function( '$matches', "return \"<br/>\".\$matches[0];" ), $sql_query );
 
-		return str_repeat( "=", 40 ) . "<br/>" . $sql_query . "<br/>" . str_repeat( "=", 40 ) . "<br/>";
+		return str_repeat( "=", 40 ) . "<br/>" . $sql_query . ";<br/>" . str_repeat( "=", 40 ) . "<br/>";
 	}
 }
 
-class Plugin_Queries {
+class Plugin_Query {
 
 	/**
 	 * @var \wpdb
@@ -298,7 +324,7 @@ class Plugin_Queries {
 		$this->q->from( array( $this->wpdb->posts . ' p' ) );
 		$this->q->join( $this->wpdb->users . ' u', 'u.ID', '=', 'post_author' );
 		$this->q->where( 'p.post_password', '=', '' );
-		$this->q->whereIn( 'p.post_type', 'IN', $supported_post_types );
+		$this->q->whereIn( 'p.post_type', $supported_post_types );
 		$this->q->where( 'p.post_status', '=', 'publish' );
 		$this->q->groupBy( array( 'u.ID' ) );
 
@@ -311,28 +337,61 @@ class Plugin_Queries {
 		$this->q->from( array( $this->wpdb->posts . ' p' ) );
 		$this->q->join( $this->wpdb->users . ' u', 'u.ID', '=', 'post_author' );
 		$this->q->where( 'p.post_password', '=', '' );
-		$this->q->whereIn( 'p.post_type', 'IN', $supported_post_types );
+		$this->q->whereIn( 'p.post_type', $supported_post_types );
 		$this->q->where( 'p.post_status', '=', 'publish' );
 		$this->q->groupBy( array( 'u.ID' ) );
 
 		return $this->get_results();
 	}
 
-	public function get_news_info($time_delay=2592000){
-		$this->q->select( array( 'p.ID', 'p.post_modified_gmt as `lastmod`' ) );
+	public function get_news_info( $time_delay = 2592000 ) {
+
+		$time = apply_filters( 'lti_news_time_delay', $time_delay );
+
+		$some_time_ago = date( 'Y-m-d H:i:s', current_time( 'timestamp', true ) - $time );
+
+		$this->q->select( array( 'MAX(p.post_modified_gmt) as `lastmod`' ) );
 		$this->q->from( array( $this->wpdb->posts . ' p' ) );
-		$this->q->where( 'p.post_password', '=', '' );
+		$this->q->join( 'wp_ldb_postmeta pm',
+			array(
+				array( 'p.ID', '=', 'pm.post_id' ),
+				array( 'pm.meta_key', '=', 'lti_sitemap' )
+			) );
+		$this->q->join( 'wp_ldb_postmeta pm2',
+			array(
+				array( 'p.ID', '=', 'pm2.post_id' ),
+				array( 'pm2.meta_key', '=', 'lti_sitemap_post_is_news' )
+			) );
+		$this->q->where( 'p.post_modified_gmt', '>', $some_time_ago );
 		$this->q->where( 'p.post_type', '=', 'post' );
 		$this->q->where( 'p.post_status', '=', 'publish' );
-		$past_date = current_time('timestamp',true)-$time_delay;
-		$this->q->where( 'p.post_modified_gmt', '>', $past_date );
-
-		$this->q->orderBy( array( 'p.post_date_gmt DESC' ) );
+		$this->q->where( 'p.post_password', '=', '' );
 
 		return $this->get_results();
 	}
 
-	public function get_news($time_delay=2592000){
+	public function get_news( $time_delay = 2592000 ) {
+		$time = apply_filters( 'lti_news_time_delay', $time_delay );
 
+		$some_time_ago = date( 'Y-m-d H:i:s', current_time( 'timestamp', true ) - $time );
+
+		$this->q->select( array( 'p.ID','p.post_date_gmt as `creation_date`', 'pm.meta_value', 'p.post_title' ) );
+		$this->q->from( array( $this->wpdb->posts . ' p' ) );
+		$this->q->join( 'wp_ldb_postmeta pm',
+			array(
+				array( 'p.ID', '=', 'pm.post_id' ),
+				array( 'pm.meta_key', '=', 'lti_sitemap' )
+			) );
+		$this->q->join( 'wp_ldb_postmeta pm2',
+			array(
+				array( 'p.ID', '=', 'pm2.post_id' ),
+				array( 'pm2.meta_key', '=', 'lti_sitemap_post_is_news' )
+			) );
+		$this->q->where( 'p.post_type', '=', 'post' );
+		$this->q->where( 'p.post_status', '=', 'publish' );
+		$this->q->where( 'p.post_password', '=', '' );
+		$this->q->where( 'p.post_modified_gmt', '>', $some_time_ago );
+
+		return $this->get_results();
 	}
 }

@@ -9,7 +9,8 @@
 /**
  * @var \Lti\Sitemap\Admin $this
  */
-$is_news  = ($this->helper->get_post_meta_key('post_is_news')=="1")?"checked=checked":"";
+$post_is_news = $this->helper->get_post_meta_key( 'lti_sitemap_post_is_news' );
+$is_news = ( !is_null($post_is_news)&&!empty($post_is_news)) ? "checked=checked" : "";
 ?>
 
 <div id="plsitemap">
@@ -22,25 +23,29 @@ $is_news  = ($this->helper->get_post_meta_key('post_is_news')=="1")?"checked=che
 		</div>
 	</div>
 	<div class="form-group">
-			<label><?php echo lsmint( 'box.news_title' ); ?></label>
+		<label><?php echo lsmint( 'box.news_title' ); ?></label>
+
 		<div class="input-group">
-				<input type="text" name="lti_sitemap[news_title]"
-				       id="news_title" <?php echo lsmchk( 'news_title' ); ?>/>
-			<span class="suggestion"><?php echo lsmint('box.hlp.news_title'); ?></span>
+			<input type="text" name="lti_sitemap[news_title]"
+			       id="news_title" value="<?php echo lsmopt( 'news_title' ); ?>"/>
+			<span class="suggestion"><?php echo lsmint( 'box.hlp.news_title' ); ?></span>
 		</div>
 	</div>
 	<div class="form-group">
-			<label for="news_keywords"><?php echo lsmint('opt.news_keywords'); ?></label>
+		<label for="news_keywords"><?php echo lsmint( 'opt.news_keywords' ); ?></label>
+
 		<div class="input-group">
 			<input type="text" name="lti_sitemap[news_keywords]" id="news_keywords"
 			       value="<?php echo lsmopt( 'news_keywords' ); ?>"/>
 			<?php $kw = lsmopt( 'news_keywords_suggestion' );
-			if ( !is_null($kw)&&!empty($kw) ):?>
+			if ( ! is_null( $kw ) && ! empty( $kw ) ):?>
 				<span class="suggestion" id="keywords_suggestion_box">
-					<?php echo lsmint('box.news_keywords_suggestion'); ?>&nbsp;
-					<span id="lti_sitemap_keywords_suggestion"><?php echo lsmopt( 'news_keywords_suggestion' ); ?></span>
+					<?php echo lsmint( 'box.news_keywords_suggestion' ); ?>&nbsp;
+					<span id="lti_sitemap_keywords_suggestion">
+						<?php echo lsmopt( 'news_keywords_suggestion' ); ?>
+					</span>
 					<a onclick="document.getElementById('news_keywords').setAttribute('value',document.getElementById('lti_sitemap_keywords_suggestion').textContent);">
-						<?php echo lsmint('box.text_copy'); ?>
+						<?php echo lsmint( 'box.text_copy' ); ?>
 					</a>
 				</span>
 			<?php endif; ?>
@@ -108,9 +113,10 @@ $is_news  = ($this->helper->get_post_meta_key('post_is_news')=="1")?"checked=che
 	</div>
 	<div class="form-group">
 		<label><?php echo lsmint( 'box.news_stock_tickers' ); ?></label>
+
 		<div class="input-group">
 			<input type="text" name="lti_sitemap[news_stock_tickers]"
-			       id="news_stock_tickers" <?php echo lsmchk( 'news_stock_tickers' ); ?>/>
+			       id="news_stock_tickers" value="<?php echo lsmopt( 'news_stock_tickers' ); ?>"/>
 		</div>
 	</div>
 </div>

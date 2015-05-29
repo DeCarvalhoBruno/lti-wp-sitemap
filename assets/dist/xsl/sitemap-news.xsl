@@ -2,6 +2,7 @@
 <xsl:stylesheet version="1.0"
                 xmlns:html="http://www.w3.org/TR/REC-html40"
                 xmlns:sitemap="http://www.sitemaps.org/schemas/sitemap/0.9"
+                xmlns:news="http://www.google.com/schemas/sitemap-news/0.9"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
     <xsl:output method="html" version="1.0" encoding="UTF-8" indent="yes"/>
     <xsl:template match="/">
@@ -35,7 +36,7 @@
                     }
 
                     #content {
-                        font-family: Arial, Verdana, "Trebuchet MS",sans-serif;
+                        font-family: Arial, Verdana, "Trebuchet MS", sans-serif;
                         margin: 1em;
                     }
 
@@ -54,11 +55,12 @@
                         padding: 0.5em 1em;
                     }
 
-                    td.url {
-                        font-size:0.9em;
+                    td:first-child {
+                        font-size: 0.9em;
+                        text-align: left;
                     }
 
-                    td.no_url {
+                    td {
                         text-align: center;
                     }
 
@@ -69,11 +71,6 @@
                         border: none;
                         padding: 1em 0.8em;
                         letter-spacing: 0.01pt;
-                    }
-
-                    th.url {
-                        padding: 1em 0 ;
-
                     }
 
                     tr.stripe {
@@ -113,16 +110,14 @@
     <xsl:template match="sitemap:urlset">
             <div id="header">
                 <h1>Sitemap</h1>
-
             </div>
         <div id="content">
             <table cellspacing="0" cellpadding="0">
                 <thead>
                     <tr>
-                        <th class="url">Sitemap URL</th>
-                        <th>Priority</th>
-                        <th>Change frequency</th>
-                        <th>Last modified (UTC)</th>
+                        <th>Title</th>
+                        <th>Genre(s)</th>
+                        <th>Publication Date</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -133,24 +128,21 @@
                             <xsl:if test="position() mod 2 != 1">
                                 <xsl:attribute name="class">stripe</xsl:attribute>
                             </xsl:if>
-                            <td class="url">
+                            <td>
                                 <xsl:variable name="itemURL">
                                     <xsl:value-of select="sitemap:loc"/>
                                 </xsl:variable>
                                 <a href="{$itemURL}" target="_blank">
-                                    <xsl:value-of select="sitemap:loc"/>
+                                    <xsl:value-of select="news:news/news:title"/>
                                 </a>
                             </td>
-                            <td class="no_url">
-                                <xsl:value-of select="concat(sitemap:priority*100,'%')"/>
-                            </td>
-                            <td  class="no_url">
+                            <td>
                                 <xsl:value-of
-                                        select="concat(translate(substring(sitemap:changefreq, 1, 1),concat($lower, $upper),concat($upper, $lower)),substring(sitemap:changefreq, 2))"/>
+                                        select="news:news/news:genres"/>
                             </td>
-                            <td  class="no_url">
+                            <td>
                                 <xsl:value-of
-                                        select="concat(substring(sitemap:lastmod,0,11),concat(' ', substring(sitemap:lastmod,12,5)))"/>
+                                        select="concat(substring(news:news/news:publication_date,0,11),concat(' ', substring(news:news/news:publication_date,12,5)))"/>
                             </td>
                         </tr>
                     </xsl:for-each>

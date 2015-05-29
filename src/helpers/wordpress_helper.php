@@ -87,7 +87,7 @@ class Wordpress_Helper implements ICanHelp {
 	}
 
 	private function get_post_info( $key ) {
-		$field = get_post_field( $key, $this->post_id, 'raw' );
+		$field = get_post_field( $key, '', 'raw' );
 		if ( ! empty( $field ) ) {
 			return $field;
 		}
@@ -115,12 +115,12 @@ class Wordpress_Helper implements ICanHelp {
 	}
 
 	public function get_categories() {
-		return $this->extract_array_object_value( get_the_category( $this->post_id ),
+		return $this->extract_array_object_value( get_the_category( ),
 			'cat_name' );
 	}
 
 	public function get_tags() {
-		return $this->extract_array_object_value( get_the_tags( $this->post_id ),
+		return $this->extract_array_object_value( get_the_tags(),
 			'name' );
 	}
 

@@ -31,6 +31,10 @@
 					<a href="#tab_bing" aria-controls="tab_bing" role="tab"
 					   data-toggle="tab"><?php echo lsmint( 'opt.tab.bing' ); ?></a>
 				</li>
+				<li role="presentation">
+					<a href="#tab_news" aria-controls="tab_news" role="tab"
+					   data-toggle="tab"><?php echo lsmint( 'opt.tab.news' ); ?></a>
+				</li>
 			<?php endif; ?>
 		</ul>
 
@@ -114,106 +118,10 @@
 					</div>
 					<div class="form-group">
 						<div class="input-group">
-							<label><?php echo lsmint( 'opt.content_news_support' ); ?>
-								<input type="checkbox" name="content_news_support" data-toggle="sitemap-options"
-								       data-target="#news_chk_group"
-								       id="content_news_support" <?php echo lsmchk( 'content_news_support' ); ?>/>
-							</label>
-
-							<div id="news_chk_group">
-								<div class="input-group">
-									<label
-										for="news_publication"><?php echo lsmint( 'opt.news_publication' ); ?>
-										<input type="text" name="news_publication"
-										       id="news_publication" required="required"
-										       value="<?php echo lsmopt( 'news_publication' ); ?>"/>
-									</label>
-									<label
-										for="news_language"><?php echo lsmint( 'opt.news_language' ); ?>
-									</label>
-										<?php $this->html->select('language','news_language');?>
-
-									<label><?php echo lsmint( 'opt.news_access' ); ?></label>
-									<div class="input-group">
-										<label>
-											<input name="news_access_type"
-											       type="radio" <?php echo lsmrad( 'news_access_type',
-												'Full' ); ?>
-											       value="Full"
-											       id="news_access_type_full"
-												/><?php echo lsmint( 'opt.news_access_type_full' ); ?>
-										</label>
-										<label>
-											<input name="news_access_type"
-											       type="radio" <?php echo lsmrad( 'news_access_type',
-												'Subscription' ); ?>
-											       value="Subscription"
-											       id="news_access_type_subscription"
-												/><?php echo lsmint( 'opt.news_access_type_subscription' ); ?>
-										</label>
-										<label>
-											<input name="news_access_type"
-											       type="radio" <?php echo lsmrad( 'news_access_type',
-												'Registration' ); ?>
-											       value="Registration"
-											       id="news_access_type_registration"
-												/><?php echo lsmint( 'opt.news_access_type_registration' ); ?>
-										</label>
-									</div>
-									<label><?php echo lsmint( 'opt.news_keywords' ); ?></label>
-									<div class="input-group">
-										<label><?php echo lsmint( 'opt.news_keywords_cat_based' ); ?>
-											<input type="checkbox" name="news_keywords_cat_based"
-											       id="news_keywords_cat_based" <?php echo lsmchk( 'news_keywords_cat_based' ); ?>/>
-										</label>
-										<label><?php echo lsmint( 'opt.news_keywords_tag_based' ); ?>
-											<input type="checkbox" name="news_keywords_tag_based"
-											       id="news_keywords_tag_based" <?php echo lsmchk( 'news_keywords_tag_based' ); ?>/>
-										</label>
-									</div>
-									<label><?php echo lsmint( 'opt.news_genre' ); ?></label>
-									<div class="input-group">
-										<label><?php echo lsmint( 'opt.news_genre_press_release' ); ?>
-											<input type="checkbox" name="news_genre_press_release"
-											       id="news_genre_press_release" <?php echo lsmchk( 'news_genre_press_release' ); ?>/>
-										</label>
-										<label><?php echo lsmint( 'opt.news_genre_satire' ); ?>
-											<input type="checkbox" name="news_genre_satire"
-											       id="news_genre_satire" <?php echo lsmchk( 'news_genre_satire' ); ?>/>
-										</label>
-										<label><?php echo lsmint( 'opt.news_genre_blog' ); ?>
-											<input type="checkbox" name="news_genre_blog"
-											       id="news_genre_blog" <?php echo lsmchk( 'news_genre_blog' ); ?>/>
-										</label>
-										<label><?php echo lsmint( 'opt.news_genre_oped' ); ?>
-											<input type="checkbox" name="news_genre_oped"
-											       id="news_genre_oped" <?php echo lsmchk( 'news_genre_oped' ); ?>/>
-										</label>
-										<label><?php echo lsmint( 'opt.news_genre_opinion' ); ?>
-											<input type="checkbox" name="news_genre_opinion"
-											       id="news_genre_opinion" <?php echo lsmchk( 'news_genre_opinion' ); ?>/>
-										</label>
-										<label><?php echo lsmint( 'opt.news_genre_user_generated' ); ?>
-											<input type="checkbox" name="news_genre_user_generated"
-											       id="news_genre_user_generated" <?php echo lsmchk( 'news_genre_user_generated' ); ?>/>
-										</label>
-									</div>
-
-								</div>
-							</div>
-						</div>
-						<div class="form-help-container">
-							<div class="form-help">
-								<p><?php echo lsmint( 'opt.hlp.news' ); ?></p>
-							</div>
-						</div>
-					</div>
-					<div class="form-group">
-						<div class="input-group">
-							<label><?php echo lsmint( 'opt.content_images' ); ?>
-								<input type="checkbox" name="content_images" data-toggle="sitemap-options"
+							<label><?php echo lsmint( 'opt.content_images_support' ); ?>
+								<input type="checkbox" name="content_images_support" data-toggle="sitemap-options"
 								       data-target="#images_chk_group"
-								       id="content_images" <?php echo lsmchk( 'content_images' ); ?>/>
+								       id="content_images_support" <?php echo lsmchk( 'content_images_support' ); ?>/>
 							</label>
 						</div>
 						<div class="form-help-container">
@@ -230,23 +138,23 @@
 								<label
 									for="change_frequency_frontpage"><?php echo lsmint( 'opt.change_frequency_frontpage' ); ?>
 								</label>
-								<?php $this->html->select('changeFrequency','change_frequency_frontpage'); ?>
+								<?php $this->html->select( 'changeFrequency', 'change_frequency_frontpage' ); ?>
 								<label
 									for="change_frequency_posts"><?php echo lsmint( 'opt.change_frequency_posts' ); ?>
 								</label>
-								<?php $this->html->select('changeFrequency','change_frequency_posts'); ?>
+								<?php $this->html->select( 'changeFrequency', 'change_frequency_posts' ); ?>
 								<label
 									for="change_frequency_pages"><?php echo lsmint( 'opt.change_frequency_pages' ); ?>
 								</label>
-								<?php $this->html->select('changeFrequency','change_frequency_pages'); ?>
+								<?php $this->html->select( 'changeFrequency', 'change_frequency_pages' ); ?>
 								<label
 									for="change_frequency_authors"><?php echo lsmint( 'opt.change_frequency_authors' ); ?>
 								</label>
-								<?php $this->html->select('changeFrequency','change_frequency_authors'); ?>
+								<?php $this->html->select( 'changeFrequency', 'change_frequency_authors' ); ?>
 								<label
 									for="change_frequency_user_defined"><?php echo lsmint( 'opt.change_frequency_user_defined' ); ?>
 								</label>
-								<?php $this->html->select('changeFrequency','change_frequency_user_defined'); ?>
+								<?php $this->html->select( 'changeFrequency', 'change_frequency_user_defined' ); ?>
 							</div>
 						</div>
 						<div class="form-help-container">
@@ -262,19 +170,19 @@
 							<div class="checkbox-group">
 								<label for="priority_frontpage"><?php echo lsmint( 'opt.priority_frontpage' ); ?>
 								</label>
-								<?php $this->html->select('priority','priority_frontpage'); ?>
+								<?php $this->html->select( 'priority', 'priority_frontpage' ); ?>
 								<label for="priority_posts"><?php echo lsmint( 'opt.priority_posts' ); ?>
 								</label>
-								<?php $this->html->select('priority','priority_posts'); ?>
+								<?php $this->html->select( 'priority', 'priority_posts' ); ?>
 								<label for="priority_pages"><?php echo lsmint( 'opt.priority_pages' ); ?>
 								</label>
-								<?php $this->html->select('priority','priority_pages'); ?>
+								<?php $this->html->select( 'priority', 'priority_pages' ); ?>
 								<label for="priority_authors"><?php echo lsmint( 'opt.priority_authors' ); ?>
 								</label>
-								<?php $this->html->select('priority','priority_authors'); ?>
+								<?php $this->html->select( 'priority', 'priority_authors' ); ?>
 								<label for="priority_user_defined"><?php echo lsmint( 'opt.priority_user_defined' ); ?>
 								</label>
-								<?php $this->html->select('priority','priority_user_defined'); ?>
+								<?php $this->html->select( 'priority', 'priority_user_defined' ); ?>
 							</div>
 						</div>
 						<div class="form-help-container">
@@ -420,6 +328,9 @@
 													<input id="btn-submit" class="button-primary button-submit"
 													       type="submit" name="lti_sitemap_google_submit"
 													       value="<?php echo lsmint( 'btn.google.submit' ); ?>"/>
+													<input id="btn-log-out" class="button-primary" type="submit"
+													       name="lti_sitemap_google_logout"
+													       value="<?php echo lsmint( 'btn.google.log-out' ); ?>"/>
 												</div>
 											<?php endif; ?>
 										<?php endif; ?>
@@ -437,12 +348,12 @@
 												   href="<?php echo $google_console_url; ?>"><?php echo lsmint( 'msg.google.info3' ) ?></a>
 											</p>
 										</div>
+										<div class="btn-group">
+											<input id="btn-log-out" class="button-primary" type="submit"
+											       name="lti_sitemap_google_logout"
+											       value="<?php echo lsmint( 'btn.google.log-out' ); ?>"/>
+										</div>
 									<?php endif; ?>
-									<div class="btn-group">
-										<input id="btn-log-out" class="button-primary" type="submit"
-										       name="lti_sitemap_google_logout"
-										       value="<?php echo lsmint( 'btn.google.log-out' ); ?>"/>
-									</div>
 									<?php if ( ! is_null( $this->google->error ) ): ?>
 										<div class="google_errors">
 											<p class="error_msg"><?php echo $this->google->error['error']; ?></p>
@@ -487,6 +398,112 @@
 						</div>
 					</div>
 				<?php endif; ?>
+				<?php
+				/***********************************************************************************************
+				 *                                  NEWS TAB
+				 ***********************************************************************************************/
+				?>
+				<div role="tabpanel" class="tab-pane" id="tab_news">
+					<div class="form-group">
+						<div class="input-group">
+							<label><?php echo lsmint( 'opt.content_news_support' ); ?>
+								<input type="checkbox" name="content_news_support" data-toggle="sitemap-options"
+								       data-target="#news_chk_group"
+								       id="content_news_support" <?php echo lsmchk( 'content_news_support' ); ?>/>
+							</label>
+
+							<div id="news_chk_group">
+								<div class="input-group">
+									<label
+										for="news_publication"><?php echo lsmint( 'opt.news_publication' ); ?>
+										<input type="text" name="news_publication"
+										       id="news_publication" required="required"
+										       value="<?php echo lsmopt( 'news_publication' ); ?>"/>
+									</label>
+									<label
+										for="news_language"><?php echo lsmint( 'opt.news_language' ); ?>
+									</label>
+									<?php $this->html->select( 'language', 'news_language' ); ?>
+
+									<label><?php echo lsmint( 'opt.news_access' ); ?></label>
+
+									<div class="input-group">
+										<label>
+											<input name="news_access_type"
+											       type="radio" <?php echo lsmrad( 'news_access_type',
+												'Full' ); ?>
+											       value="Full"
+											       id="news_access_type_full"
+												/><?php echo lsmint( 'opt.news_access_type_full' ); ?>
+										</label>
+										<label>
+											<input name="news_access_type"
+											       type="radio" <?php echo lsmrad( 'news_access_type',
+												'Subscription' ); ?>
+											       value="Subscription"
+											       id="news_access_type_subscription"
+												/><?php echo lsmint( 'opt.news_access_type_subscription' ); ?>
+										</label>
+										<label>
+											<input name="news_access_type"
+											       type="radio" <?php echo lsmrad( 'news_access_type',
+												'Registration' ); ?>
+											       value="Registration"
+											       id="news_access_type_registration"
+												/><?php echo lsmint( 'opt.news_access_type_registration' ); ?>
+										</label>
+									</div>
+									<label><?php echo lsmint( 'opt.news_keywords' ); ?></label>
+
+									<div class="input-group">
+										<label><?php echo lsmint( 'opt.news_keywords_cat_based' ); ?>
+											<input type="checkbox" name="news_keywords_cat_based"
+											       id="news_keywords_cat_based" <?php echo lsmchk( 'news_keywords_cat_based' ); ?>/>
+										</label>
+										<label><?php echo lsmint( 'opt.news_keywords_tag_based' ); ?>
+											<input type="checkbox" name="news_keywords_tag_based"
+											       id="news_keywords_tag_based" <?php echo lsmchk( 'news_keywords_tag_based' ); ?>/>
+										</label>
+									</div>
+									<label><?php echo lsmint( 'opt.news_genre' ); ?></label>
+
+									<div class="input-group">
+										<label><?php echo lsmint( 'opt.news_genre_press_release' ); ?>
+											<input type="checkbox" name="news_genre_press_release"
+											       id="news_genre_press_release" <?php echo lsmchk( 'news_genre_press_release' ); ?>/>
+										</label>
+										<label><?php echo lsmint( 'opt.news_genre_satire' ); ?>
+											<input type="checkbox" name="news_genre_satire"
+											       id="news_genre_satire" <?php echo lsmchk( 'news_genre_satire' ); ?>/>
+										</label>
+										<label><?php echo lsmint( 'opt.news_genre_blog' ); ?>
+											<input type="checkbox" name="news_genre_blog"
+											       id="news_genre_blog" <?php echo lsmchk( 'news_genre_blog' ); ?>/>
+										</label>
+										<label><?php echo lsmint( 'opt.news_genre_oped' ); ?>
+											<input type="checkbox" name="news_genre_oped"
+											       id="news_genre_oped" <?php echo lsmchk( 'news_genre_oped' ); ?>/>
+										</label>
+										<label><?php echo lsmint( 'opt.news_genre_opinion' ); ?>
+											<input type="checkbox" name="news_genre_opinion"
+											       id="news_genre_opinion" <?php echo lsmchk( 'news_genre_opinion' ); ?>/>
+										</label>
+										<label><?php echo lsmint( 'opt.news_genre_user_generated' ); ?>
+											<input type="checkbox" name="news_genre_user_generated"
+											       id="news_genre_user_generated" <?php echo lsmchk( 'news_genre_user_generated' ); ?>/>
+										</label>
+									</div>
+
+								</div>
+							</div>
+						</div>
+						<div class="form-help-container">
+							<div class="form-help">
+								<p><?php echo lsmint( 'opt.hlp.news' ); ?></p>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 			<div class="form-group-submit">
 				<div class="button-group-submit">

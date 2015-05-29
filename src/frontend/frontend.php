@@ -3,6 +3,7 @@
 use Lti\Sitemap\Generators\Sitemap_Generator_Authors;
 use Lti\Sitemap\Generators\Sitemap_Generator_Index;
 use Lti\Sitemap\Generators\Sitemap_Generator_Main;
+use Lti\Sitemap\Generators\Sitemap_Generator_News;
 use Lti\Sitemap\Generators\Sitemap_Generator_Pages;
 use Lti\Sitemap\Generators\Sitemap_Generator_Posts;
 use Lti\Sitemap\Helpers\ICanHelp;
@@ -62,6 +63,9 @@ class Frontend {
 				break;
 			case 'authors':
 				$sitemap = new Sitemap_Generator_Authors( $this->settings, $this->helper );
+				break;
+			case 'news':
+				$sitemap = new Sitemap_Generator_News( $this->settings, $this->helper );
 				break;
 			default:
 				$sitemap = new Sitemap_Generator_Index( $this->settings, $this->helper );

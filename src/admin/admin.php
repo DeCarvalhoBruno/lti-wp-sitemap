@@ -216,9 +216,11 @@ class Admin {
 			}
 
 			if ( method_exists( $this->google, $update_type ) ) {
-				$this->google->helper->init_site_service( 'http://caprica.linguisticteam.org',
-					'http://caprica.linguisticteam.org/sitemap.xml' );
+				$this->google->helper->init_site_service( $this->helper->home_url(),
+					$this->helper->sitemap_url());
 				call_user_func( array( $this->google, $update_type ), $post_variables );
+			}else{
+				$this->message   = lsmint( "opt.msg.update_ok" );
 			}
 
 			update_option( 'lti_sitemap_options', $this->settings );
@@ -257,25 +259,20 @@ class Admin {
 		$this->box_values = get_post_meta( $post->ID, "lti_sitemap", true );
 
 		/**
-		 * When the post is created, we need to set robot values according to what was set
-		 * in the admin screen
+		 * When a post is created, checkboxes have to be initialized
 		 */
 		if ( empty( $this->box_values ) ) {
-//			$this->box_values = new Postbox_Values( array() );
-//			$robot            = new Robot( $this->helper );
-//			$robot_settings   = $robot->get_robot_setting( 'robot_support', 'post_' );
-//			foreach ( $robot_settings as $setting ) {
-//				$this->box_values->set( 'post_robot_' . $setting, true );
-//			}
+			$this->box_values = new Postbox_Values( array() );
+			$this->box_values->set_postbox_params( $this->settings );
 		}
 
-		$keywords = $this->box_values->get('news_keywords');
-		if(is_null($keywords)||empty($keywords)){
+		$keywords = $this->box_values->get( 'news_keywords' );
+		if ( is_null( $keywords ) || empty( $keywords ) ) {
 
 			$keywords = $this->helper->get_keywords();
-			if(!empty($keywords)){
+			if ( ! empty( $keywords ) ) {
 				$this->box_values->set( 'news_keywords_suggestion',
-					implode(', ',$keywords) );
+					implode( ', ', $keywords ) );
 			}
 		}
 
@@ -392,27 +389,19 @@ class Admin {
 	 * @param int $update
 	 */
 	public function save_post( $post_ID, $post, $update ) {
-		$post_variables = $this->helper->filter_input( INPUT_POST, 'lti_sitemap' );
-
-		if ( ! is_null( $post_variables ) ) {
+		if ( isset( $_POST['lti_sitemap'] ) ) {
 			$post_variables = $this->helper->filter_var_array( $_POST['lti_sitemap'] );
+
 			if ( ! is_null( $post_variables ) && ! empty( $post_variables ) ) {
 				update_post_meta( $post_ID, 'lti_sitemap', new Postbox_Values( (object) $post_variables ) );
 			}
-		}
-		$post_variables = $this->helper->filter_input( INPUT_POST, 'lti_sitemap_news' );
-		if ( ! is_null( $post_variables ) ) {
 			$post_variables = $this->helper->filter_var_array( $_POST['lti_sitemap_news'] );
 			if ( ! is_null( $post_variables ) && ! empty( $post_variables ) ) {
-				update_post_meta( $post_ID, 'post_is_news', true );
-			}else{
-				update_post_meta( $post_ID, 'post_is_news', false );
+				update_post_meta( $post_ID, 'lti_sitemap_post_is_news', true );
+			} else {
+				delete_post_meta( $post_ID, 'lti_sitemap_post_is_news', true );
 			}
-
-		}else{
-			update_post_meta( $post_ID, 'post_is_news', null );
 		}
-
 
 	}
 
@@ -458,6 +447,10 @@ class Admin {
 
 	public function get_message() {
 		return $this->message;
+	}
+
+	public function set_message( $message ) {
+		$this->message = $message;
 	}
 
 	public static function get_admin_slug() {

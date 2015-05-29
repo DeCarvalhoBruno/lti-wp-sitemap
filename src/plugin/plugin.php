@@ -22,7 +22,7 @@ class Defaults {
 			new def( 'content_pages', 'Checkbox', false ),
 			new def( 'content_authors', 'Checkbox', false ),
 			new def( 'content_user_defined', 'Checkbox', false ),
-			new def( 'content_images', 'Checkbox', false ),
+			new def( 'content_images_support', 'Checkbox', false ),
 			new def( 'change_frequency_frontpage', 'Text', 'daily' ),
 			new def( 'change_frequency_posts', 'Text', 'weekly' ),
 			new def( 'change_frequency_pages', 'Text', 'monthly' ),
@@ -159,6 +159,11 @@ class Plugin_Settings {
 		if ( isset( $this->{$key} ) ) {
 			$rC   = new \ReflectionClass( $this->{$key} );
 			$type = substr( $rC->getShortName(), 6 );
+			//Radio buttons are supposed to be initialized with an array of default values but when we set values
+			//like this we don't set defaults so we pass Radio types as Text types. Values set this way are temporary anyway.
+			if ($type == 'Radio') {
+				$type = 'Text';
+			}
 		}
 		$className    = __NAMESPACE__ . "\\Field_" . $type;
 		$this->{$key} = new $className( $value );

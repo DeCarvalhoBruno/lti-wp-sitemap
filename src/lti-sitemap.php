@@ -48,7 +48,7 @@ class LTI_Sitemap {
 	public $frontend;
 	private $helper;
 
-	private $sitemap_types = array( 'main', 'posts', 'pages', 'authors' );
+	private $sitemap_types = array( 'main', 'posts', 'pages', 'authors', "news" );
 
 	public static $is_plugin_page = false;
 	public static $review_url = "http://wordpress.org/support/view/plugin-reviews/%s#postform";
@@ -101,9 +101,9 @@ class LTI_Sitemap {
 	private function load_dependencies() {
 		require_once $this->plugin_path . 'src/helper.php';
 
-		$this->loader = new Loader();
-		$this->helper = new Wordpress_Helper( $this->settings );
-		static::$lti_seo_url = $this->helper->plugin_install_url('LTI SEO');
+		$this->loader        = new Loader();
+		$this->helper        = new Wordpress_Helper( $this->settings );
+		static::$lti_seo_url = $this->helper->plugin_install_url( 'LTI SEO' );
 	}
 
 	/**
@@ -139,9 +139,11 @@ class LTI_Sitemap {
 		$this->loader->add_action( 'add_meta_boxes', $this->admin, 'add_meta_boxes' );
 		$this->loader->add_action( 'save_post', $this->admin, 'save_post', 10, 3 );
 
-		if($GLOBALS['pagenow'] === 'post.php'||LTI_Sitemap::$is_plugin_page){
-		$this->loader->add_action( 'admin_enqueue_scripts', $this->admin, 'enqueue_styles' );
-		$this->loader->add_action( 'admin_enqueue_scripts', $this->admin, 'enqueue_scripts' );
+		if ( isset( $GLOBALS['pagenow'] ) ) {
+			if ( $GLOBALS['pagenow'] === 'post.php' || LTI_Sitemap::$is_plugin_page || $GLOBALS['pagenow'] === 'post-new.php' ) {
+				$this->loader->add_action( 'admin_enqueue_scripts', $this->admin, 'enqueue_styles' );
+				$this->loader->add_action( 'admin_enqueue_scripts', $this->admin, 'enqueue_scripts' );
+			}
 		}
 
 		if ( LTI_Sitemap::$is_plugin_page ) {
@@ -189,7 +191,6 @@ class LTI_Sitemap {
 				$parsedOptions[ $keyValue[0] ] = @$keyValue[1];
 			}
 			$type = "index";
-			$year = $month = null;
 			if ( isset( $parsedOptions["params"] ) ) {
 				$sitemapFileNameSuffix = $parsedOptions["params"];
 
