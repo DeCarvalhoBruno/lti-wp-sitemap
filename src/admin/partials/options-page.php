@@ -113,6 +113,13 @@
 						<div class="form-help-container">
 							<div class="form-help">
 								<p><?php echo lsmint( 'opt.hlp.content' ); ?></p>
+								<ul>
+									<li><?php echo lsmint( 'opt.hlp.content.frontpage' ); ?></li>
+									<li><?php echo lsmint( 'opt.hlp.content.posts' ); ?></li>
+									<li><?php echo lsmint( 'opt.hlp.content.pages' ); ?></li>
+									<li><?php echo lsmint( 'opt.hlp.content.authors' ); ?></li>
+									<li><?php echo lsmint( 'opt.hlp.content.user_defined' ); ?></li>
+								</ul>
 							</div>
 						</div>
 					</div>
@@ -242,7 +249,7 @@
 								<div class="input-group">
 									<div class="btn-group">
 										<input id="btn-get-google-auth" class="button-primary" type="button"
-										       value="<?php echo lsmint( 'btn.google.get_auth' ); ?>"/>
+										       value="<?php echo lsmint( 'btn.google.get_auth' ); ?>" placeholder="<?php echo lsmint( 'in.google.cp_token' ); ?>"/>
 										<input id="google_auth_url" type="hidden"
 										       value="<?php echo esc_url( $this->google->helper->get_authentication_url() ); ?>"/>
 									</div>

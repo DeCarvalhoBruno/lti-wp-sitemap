@@ -13,7 +13,7 @@ class Lti_Sitemap_Help_Menu {
 	}
 
 	public function welcome_tab() {
-		return '<p>' . lsmint( 'general_hlp_welcome_1' ) . '</p>';
+		return sprintf('<p>%s</p><p><strong>%s</strong></p>',lsmint( 'general_hlp_welcome_1' ),lsmint( 'general_hlp_welcome_2' ));
 	}
 
 	public function general_tab() {
