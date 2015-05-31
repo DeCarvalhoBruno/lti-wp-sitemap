@@ -8,6 +8,8 @@
  * @var $this \Lti\Sitemap\Admin
  *
  */
+$lti_seo_url        = $this->get_lti_seo_url();
+$google_console_url = $this->google->get_console_url();
 ?>
 <div id="lti_sitemap_wrapper">
 
@@ -48,6 +50,11 @@
 				 ***********************************************************************************************/
 				?>
 				<div role="tabpanel" class="tab-pane active" id="tab_general">
+					<div id="sitemap-info">
+						<h3><?php echo lsmint( 'hlp.sitemap_info' ); ?> <em><a
+								href="<?php echo $this->get_sitemap_url(); ?>"
+								target="_blank"><?php echo $this->get_sitemap_url(); ?></a></em></h3>
+					</div>
 					<div class="form-group">
 						<div class="input-group">
 							<div class="checkbox">
@@ -166,7 +173,9 @@
 						</div>
 						<div class="form-help-container">
 							<div class="form-help">
-								<p><?php echo lsmint( 'opt.hlp.change_frequency' ); ?></p>
+								<p><?php echo lsmint( 'opt.hlp.change_frequency1' ); ?></p>
+
+								<p><?php echo lsmint( 'opt.hlp.change_frequency2' ); ?></p>
 							</div>
 						</div>
 					</div>
@@ -194,7 +203,9 @@
 						</div>
 						<div class="form-help-container">
 							<div class="form-help">
-								<p><?php echo lsmint( 'opt.hlp.priority' ); ?></p>
+								<p><?php echo lsmint( 'opt.hlp.priority1' ); ?></p>
+
+								<p><?php echo lsmint( 'opt.hlp.priority2' ); ?></p>
 							</div>
 						</div>
 					</div>
@@ -249,14 +260,15 @@
 								<div class="input-group">
 									<div class="btn-group">
 										<input id="btn-get-google-auth" class="button-primary" type="button"
-										       value="<?php echo lsmint( 'btn.google.get_auth' ); ?>" placeholder="<?php echo lsmint( 'in.google.cp_token' ); ?>"/>
+										       value="<?php echo lsmint( 'btn.google.get_auth' ); ?>"/>
 										<input id="google_auth_url" type="hidden"
 										       value="<?php echo esc_url( $this->google->helper->get_authentication_url() ); ?>"/>
 									</div>
 
 									<div class="btn-group">
 										<input type="text" name="google_auth_token"
-										       id="google_auth_token"/>
+										       id="google_auth_token"
+										       placeholder="<?php echo lsmint( 'in.google.cp_token' ); ?>"/>
 										<input id="btn-google-log-in" class="button-primary" type="submit"
 										       name="lti_sitemap_google_auth"
 										       value="<?php echo lsmint( 'btn.google.log_in' ); ?>"/>
@@ -264,7 +276,21 @@
 								</div>
 								<div class="form-help-container">
 									<div class="form-help">
-										<p></p>
+										<p><?php echo lsmint( 'hlp.google.log_in' ); ?></p>
+
+										<p style="text-align: center">
+											<a target="_blank"
+											   href="<?php echo $lti_seo_url; ?>"><?php echo lsmint( 'msg.google.info4' ); ?></a>
+											/
+											<a target="_blank"
+											   href="<?php echo $google_console_url; ?>"><?php echo lsmint( 'msg.google.info3' ) ?></a>
+										</p>
+
+										<p><?php echo lsmint( 'hlp.google.log_in1' ); ?></p>
+										<ol>
+											<li><?php echo lsmint( 'hlp.google.log_in2' ); ?></li>
+											<li><?php echo lsmint( 'hlp.google.log_in3' ); ?></li>
+										</ol>
 									</div>
 								</div>
 							</div>
@@ -273,9 +299,7 @@
 						 *                           AUTHENTICATED
 						 ***********************************************************************************************/
 						else:
-							$site               = $this->google->get_site_info();
-							$google_console_url = $this->google->get_console_url();
-							$lti_seo_url        = $this->get_lti_seo_url();
+							$site = $this->google->get_site_info();
 							?>
 							<div class="form-group">
 								<div class="input-group">
@@ -371,7 +395,29 @@
 								</div>
 								<div class="form-help-container">
 									<div class="form-help">
-										<p></p>
+										<p><?php echo lsmint( 'hlp.google.logged_in' ); ?></p>
+										<ul>
+											<li><p><?php echo lsmint( 'hlp.google.logged_in1' ); ?></p>
+
+												<p><?php echo lsmint( 'hlp.google.logged_in1-1' ); ?></p>
+												<ul>
+													<li><?php echo lsmint( 'hlp.google.logged_in1-2' ); ?></li>
+													<li><?php echo lsmint( 'hlp.google.logged_in1-3' ); ?></li>
+													<li><?php echo lsmint( 'hlp.google.logged_in1-4' ); ?></li>
+													<li><?php echo lsmint( 'hlp.google.logged_in1-5' ); ?></li>
+													<li><?php echo lsmint( 'hlp.google.logged_in1-6' ); ?></li>
+												</ul>
+											<p><strong><?php echo lsmint( 'hlp.google.logged_in1-7' ); ?></strong></p>
+											</li>
+
+											<li><?php echo lsmint( 'hlp.google.logged_in2' ); ?></li>
+											<li><?php echo lsmint( 'hlp.google.logged_in3' ); ?></li>
+											<li><p><?php echo lsmint( 'hlp.google.logged_in4' ); ?></p>
+
+												<p><strong><?php echo lsmint( 'hlp.google.logged_in5' ); ?></strong></p>
+											</li>
+										</ul>
+										<?php echo lsmint( 'hlp.google.logged_in6' ); ?>
 									</div>
 								</div>
 							</div>
@@ -506,7 +552,15 @@
 						</div>
 						<div class="form-help-container">
 							<div class="form-help">
-								<p><?php echo lsmint( 'opt.hlp.news' ); ?></p>
+								<p><?php echo lsmint( 'opt.hlp.news1' ); ?></p>
+								<ul>
+									<li><?php echo lsmint( 'opt.hlp.news2' ); ?></li>
+									<li><?php echo lsmint( 'opt.hlp.news3' ); ?></li>
+									<li><?php echo lsmint( 'opt.hlp.news4' ); ?> <a
+											href="https://support.google.com/news/publisher/answer/116037"
+											target="_blank"><?php echo lsmint( 'google.keyword_list_url' ); ?></a></li>
+									<li><?php echo lsmint( 'opt.hlp.news5' ); ?></li>
+								</ul>
 							</div>
 						</div>
 					</div>

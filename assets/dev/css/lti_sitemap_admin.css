@@ -66,6 +66,10 @@
         content:"";
     }
 
+    #flsm #sitemap-info {
+        text-align: center;
+    }
+
     #flsm .form-group {
         position: relative;
         display: block;

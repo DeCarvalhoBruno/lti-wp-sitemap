@@ -13,25 +13,29 @@ class Lti_Sitemap_Help_Menu {
 	}
 
 	public function welcome_tab() {
-		return sprintf('<p>%s</p><p><strong>%s</strong></p>',lsmint( 'general_hlp_welcome_1' ),lsmint( 'general_hlp_welcome_2' ));
+		return sprintf( '<p>%s</p><p>%s</p><p><strong>%s</strong></p>', lsmint( 'general_hlp_welcome_1' ),
+			lsmint( 'general_hlp_welcome_2' ), lsmint( 'general_hlp_welcome_3' ) );
 	}
 
 	public function general_tab() {
-		return '<p>' . lsmint( 'general_hlp_general_1' ) . '</p>';
+		return sprintf( '<p>%s</p><p>%s</p>', lsmint( 'general_hlp_general1' ), lsmint( 'general_hlp_general2' ) );
 	}
 
-	public function frontpage_tab() {
-		return '<p>' . lsmint( 'general_hlp_frontpage_1' ) . '</p>';
+	public function google_tab() {
+		return sprintf( '<p>%s</p><p>%s</p>', lsmint( 'general_hlp_google1' ), lsmint( 'general_hlp_google2' ) );
 	}
 
-	public function social_tab() {
-		return '<p>' . lsmint( 'general_hlp_social_1' ) . '</p>';
+	public function bing_tab() {
+		return sprintf( '<p>%s</p><p>%s</p>', lsmint( 'general_hlp_bing1' ), lsmint( 'general_hlp_bing2' ) );
 	}
+
+	public function news_tab() {
+		return sprintf( '<p>%s</p><p>%s</p>', lsmint( 'general_hlp_news1' ), lsmint( 'general_hlp_news2' ) );
+	}
+
 
 	public function sidebar() {
-		return '<p><strong>' . lsmint( 'general_hlp_about_us' ) . '</strong></p>' .
-		       '<p><a href="http://dev.linguisticteam.org/lti-seo-help/" target="_blank">' . lsmint( 'general_hlp_dev_blog' ) . '</a></p>' .
-		       '<p><strong>' . lsmint( 'general_hlp_contribute' ) . '</strong></p>' .
-		       '<p><a href="https://github.com/DeCarvalhoBruno/lti-wp-seo" target="_blank">' . lsmint( 'general_hlp_github' ) . '</a></p>';
+		return '<p><strong>' . lsmint( 'general_hlp_contribute' ) . '</strong></p>' .
+		       '<p><a href="https://github.com/DeCarvalhoBruno/lti-wp-sitemap" target="_blank">' . lsmint( 'general_hlp_github' ) . '</a></p>';
 	}
 }
