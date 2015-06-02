@@ -415,7 +415,7 @@ class Admin {
 			$post_variables = $this->helper->filter_var_array( $_POST['lti_sitemap'] );
 
 			if ( isset( $post_variables['news_stock_tickers'] ) ) {
-				$stock_tickers                        = array_slice(
+				$stock_tickers = array_slice(
 					explode( ",", $post_variables['news_stock_tickers'] ), 0, 5 );
 
 				$post_variables['news_stock_tickers'] = null;
@@ -539,17 +539,11 @@ class Admin {
 							continue;
 						}
 						if ( preg_match( '#^(\d{4})-(\d{2})-(\d{2})$#', $date, $matches ) === 0 ) {
-							unset( $post_variables['extra_pages_date'][ $key ] );
-							if ( isset( $post_variables['extra_pages_url'] ) && isset( $post_variables['extra_pages_url'][ $key ] ) ) {
-								unset( $post_variables['extra_pages_url'][ $key ] );
-							}
+							$post_variables['extra_pages_date'][ $key ] = null;
 						} else if ( checkdate( intval( $matches[2] ), intval( $matches[3] ),
 								intval( $matches[1] ) ) === false
 						) {
-							unset( $post_variables['extra_pages_date'][ $key ] );
-							if ( isset( $post_variables['extra_pages_url'] ) && isset( $post_variables['extra_pages_url'][ $key ] ) ) {
-								unset( $post_variables['extra_pages_url'][ $key ] );
-							}
+							$post_variables['extra_pages_date'][ $key ] = null;
 						}
 					}
 				}

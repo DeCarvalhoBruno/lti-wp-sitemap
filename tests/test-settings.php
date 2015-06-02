@@ -1,7 +1,5 @@
 <?php namespace Lti\Sitemap\Test;
 
-use Lti\Sitemap\Plugin\Plugin_Settings;
-
 class SettingsTest extends LTI_Sitemap_UnitTestCase {
 
 	public function testSettings() {

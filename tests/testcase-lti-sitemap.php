@@ -20,18 +20,6 @@ class Lti_Sitemap_UnitTestCase extends \WP_UnitTestCase {
 		$this->instance = Lti_Sitemap::get_instance();
 	}
 
-	public function hasContent($content,$query){
-		$s = new \DOMDocument();
-		@$s->loadHTML($content);
-		$xpath = new \DOMXPath($s);
-		$tags = $xpath->query($query);
-
-		if($tags->length>0){
-			return true;
-		}
-		return false;
-	}
-
 	public function go_to( $url ) {
 		$_GET = $_POST = array();
 		foreach (array('query_string', 'id', 'postdata', 'authordata', 'day', 'currentmonth', 'page', 'pages', 'multipage', 'more', 'numpages', 'pagenow') as $v) {

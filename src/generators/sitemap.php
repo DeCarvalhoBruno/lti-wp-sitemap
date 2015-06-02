@@ -124,12 +124,12 @@ class Sitemap_Generator_Index extends Sitemap_Generator {
 	public function get() {
 		$sitemap_index = new SiteMapIndex();
 		$sitemap_index->addStylesheet( $this->get_stylesheet_url() );
-		if ( $this->settings->get( 'content_frontpage' ) == true ) {
+		if ( $this->settings->get( 'content_frontpage' ) === true ) {
 			$sitemap_index->add( new Sitemap( $this->filename . 'main.xml',
 				lti_iso8601_date( get_lastpostmodified( 'gmt' ) ) ) );
 		}
 
-		if ( $this->settings->get( 'content_posts' ) == true ) {
+		if ( $this->settings->get( 'content_posts' ) === true ) {
 			$filterByMonthParam = ( $this->settings->get( 'content_posts_display' ) == 'month' );
 			$filterNormalParam  = ( $this->settings->get( 'content_posts_display' ) == 'normal' );
 			if ( $filterNormalParam === false ) {
@@ -162,7 +162,7 @@ class Sitemap_Generator_Index extends Sitemap_Generator {
 			}
 		}
 
-		if ( $this->settings->get( 'content_pages' ) == true ) {
+		if ( $this->settings->get( 'content_pages' ) === true ) {
 			$result = $this->query->get_pages_info();
 			if ( ! empty( $result ) ) {
 				$sitemap_index->add( new Sitemap( $this->filename . 'pages.xml',
@@ -171,7 +171,7 @@ class Sitemap_Generator_Index extends Sitemap_Generator {
 			}
 		}
 
-		if ( $this->settings->get( 'content_authors' ) == true ) {
+		if ( $this->settings->get( 'content_authors' ) === true ) {
 			$result = $this->query->get_authors_info( $this->helper->get_supported_post_types() );
 			if ( ! empty( $result ) ) {
 				$sitemap_index->add( new Sitemap( $this->filename . 'authors.xml',
@@ -180,7 +180,7 @@ class Sitemap_Generator_Index extends Sitemap_Generator {
 			}
 		}
 
-		if ( $this->settings->get( 'content_news_support' ) == true ) {
+		if ( $this->settings->get( 'content_news_support' ) === true ) {
 			$result = $this->query->get_news_info();
 			if ( ! empty( $result ) ) {
 				$sitemap_index->add( new Sitemap( $this->filename . 'news.xml',
