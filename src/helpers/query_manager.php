@@ -366,6 +366,7 @@ class Plugin_Query {
 		$this->q->where( 'p.post_type', '=', 'post' );
 		$this->q->where( 'p.post_status', '=', 'publish' );
 		$this->q->where( 'p.post_password', '=', '' );
+		$this->q->orderBy( array( 'p.post_date_gmt DESC' ) );
 
 		return $this->get_results();
 	}
@@ -391,6 +392,7 @@ class Plugin_Query {
 		$this->q->where( 'p.post_status', '=', 'publish' );
 		$this->q->where( 'p.post_password', '=', '' );
 		$this->q->where( 'p.post_modified_gmt', '>', $some_time_ago );
+		$this->q->orderBy( array( 'p.post_date_gmt DESC' ) );
 
 		return $this->get_results();
 	}

@@ -133,14 +133,14 @@ class Admin {
 	 * Adding "Help" button to the admin screen
 	 */
 	public function admin_menu() {
-		if (is_null(LTI_Menu::$main_menuitem) ) {
+		if ( is_null( LTI_Menu::$main_menuitem ) ) {
 			add_menu_page( 'LTI', 'LTI', 'manage_options', 'lti-sitemap-options',
 				array( $this, 'options_page' ),
 				LTI_Menu::$image_base64_url );
 			LTI_Menu::$main_menuitem = 'lti-sitemap-options';
 		}
-			$page = add_submenu_page( LTI_Menu::$main_menuitem, lsmint( 'admin.menu_title' ), lsmint( 'admin.menu_item' ),
-				'manage_options', 'lti-sitemap-options', array( $this, 'options_page' ) );
+		$page = add_submenu_page( LTI_Menu::$main_menuitem, lsmint( 'admin.menu_title' ), lsmint( 'admin.menu_item' ),
+			'manage_options', 'lti-sitemap-options', array( $this, 'options_page' ) );
 		add_action( 'load-' . $page, array( $this, 'wp_help_menu' ) );
 
 	}
@@ -212,7 +212,12 @@ class Admin {
 			unset( $post_variables['_wpnonce'], $post_variables['option_page'], $post_variables['_wp_http_referer'] );
 			$oldSettings         = $this->settings;
 			$google_access_token = $this->settings->get( 'google_access_token' );
-			$this->settings      = $this->settings->save( $post_variables );
+
+			if ( isset( $post_variables['extra_pages_url'] ) ) {
+				$post_variables = $this->validate_extra_urls( $post_variables );
+			}
+
+			$this->settings = $this->settings->save( $post_variables );
 
 			/**
 			 * We save values into a new settings object, and our google access token, when set, isn't a part of the form
@@ -234,10 +239,10 @@ class Admin {
 
 			if ( method_exists( $this->google, $update_type ) ) {
 				$this->google->helper->init_sitemap_service( $this->helper->home_url(),
-					$this->helper->sitemap_url());
+					$this->helper->sitemap_url() );
 				call_user_func( array( $this->google, $update_type ), $post_variables );
-			}else{
-				$this->message   = lsmint( "opt.msg.update_ok" );
+			} else {
+				$this->message = lsmint( "opt.msg.update_ok" );
 			}
 
 			update_option( 'lti_sitemap_options', $this->settings );
@@ -409,22 +414,39 @@ class Admin {
 		if ( isset( $_POST['lti_sitemap'] ) ) {
 			$post_variables = $this->helper->filter_var_array( $_POST['lti_sitemap'] );
 
+			if ( isset( $post_variables['news_stock_tickers'] ) ) {
+				$stock_tickers                        = array_slice(
+					explode( ",", $post_variables['news_stock_tickers'] ), 0, 5 );
+
+				$post_variables['news_stock_tickers'] = null;
+				if ( ! empty( $stock_tickers ) ) {
+					$tickers = array();
+					foreach ( $stock_tickers as $ticker ) {
+						if ( preg_match( '#(\w+:\w+)#', $ticker ) ) {
+							$tickers[] = trim( $ticker );
+						}
+					}
+					if ( ! empty( $tickers ) ) {
+						$post_variables['news_stock_tickers'] = implode( ',', $tickers );
+					}
+				}
+			}
+
 			if ( ! is_null( $post_variables ) && ! empty( $post_variables ) ) {
 				update_post_meta( $post_ID, 'lti_sitemap', new Postbox_Values( (object) $post_variables ) );
 			}
+
 			$post_variables = $this->helper->filter_var_array( $_POST['lti_sitemap_news'] );
-			if ( ! is_null( $post_variables ) && ! empty( $post_variables ) ) {
+			if ( ! is_null( $post_variables ) && ! empty( $post_variables ) && $post_variables !== false ) {
 				update_post_meta( $post_ID, 'lti_sitemap_post_is_news', true );
 			} else {
 				delete_post_meta( $post_ID, 'lti_sitemap_post_is_news', true );
 			}
 		}
-
 	}
 
 	public function plugin_row_meta( $links, $file ) {
 		if ( $file == $this->plugin_basename ) {
-			//$links[] = '<a href="http://dev.linguisticteam.org/lti-sitemap-help/" target="_blank">' . lsmint( 'admin.help' ) . '</a>';
 			$links[] = '<a href="https://github.com/DeCarvalhoBruno/lti-wp-sitemap" target="_blank">' . lsmint( 'admin.contribute' ) . '</a>';
 		}
 
@@ -492,6 +514,50 @@ class Admin {
 
 	public function get_sitemap_url() {
 		return $this->sitemap_url;
+	}
+
+	private function validate_extra_urls( $post_variables ) {
+		$urls = $post_variables['extra_pages_url'];
+
+		if ( ! empty( $urls ) ) {
+
+			foreach ( $urls as $key => $url ) {
+				if ( filter_var( $url, FILTER_VALIDATE_URL ) === false ) {
+					unset( $post_variables['extra_pages_url'][ $key ] );
+					if ( isset( $post_variables['extra_pages_date'] ) && isset( $post_variables['extra_pages_date'][ $key ] ) ) {
+						unset( $post_variables['extra_pages_date'][ $key ] );
+					}
+				}
+			}
+
+			if ( isset( $post_variables['extra_pages_date'] ) ) {
+				$dates = $post_variables['extra_pages_date'];
+
+				if ( ! empty( $dates ) ) {
+					foreach ( $dates as $key => $date ) {
+						if ( empty( $date ) ) {
+							continue;
+						}
+						if ( preg_match( '#^(\d{4})-(\d{2})-(\d{2})$#', $date, $matches ) === 0 ) {
+							unset( $post_variables['extra_pages_date'][ $key ] );
+							if ( isset( $post_variables['extra_pages_url'] ) && isset( $post_variables['extra_pages_url'][ $key ] ) ) {
+								unset( $post_variables['extra_pages_url'][ $key ] );
+							}
+						} else if ( checkdate( intval( $matches[2] ), intval( $matches[3] ),
+								intval( $matches[1] ) ) === false
+						) {
+							unset( $post_variables['extra_pages_date'][ $key ] );
+							if ( isset( $post_variables['extra_pages_url'] ) && isset( $post_variables['extra_pages_url'][ $key ] ) ) {
+								unset( $post_variables['extra_pages_url'][ $key ] );
+							}
+						}
+					}
+				}
+
+			}
+		}
+
+		return $post_variables;
 	}
 
 }

@@ -41,9 +41,7 @@ $is_news = ( !is_null($post_is_news)&&!empty($post_is_news)) ? "checked=checked"
 			if ( ! is_null( $kw ) && ! empty( $kw ) ):?>
 				<span class="suggestion" id="keywords_suggestion_box">
 					<?php echo lsmint( 'box.news_keywords_suggestion' ); ?>&nbsp;
-					<span id="lti_sitemap_keywords_suggestion">
-						<?php echo lsmopt( 'news_keywords_suggestion' ); ?>
-					</span>
+					<span id="lti_sitemap_keywords_suggestion"><?php echo lsmopt( 'news_keywords_suggestion' ); ?></span>
 					<a onclick="document.getElementById('news_keywords').setAttribute('value',document.getElementById('lti_sitemap_keywords_suggestion').textContent);">
 						<?php echo lsmint( 'box.text_copy' ); ?>
 					</a>
@@ -117,6 +115,7 @@ $is_news = ( !is_null($post_is_news)&&!empty($post_is_news)) ? "checked=checked"
 		<div class="input-group">
 			<input type="text" name="lti_sitemap[news_stock_tickers]"
 			       id="news_stock_tickers" value="<?php echo lsmopt( 'news_stock_tickers' ); ?>"/>
+			<span class="suggestion"><?php echo lsmint( 'box.hlp.news_stock_tickers' ); ?></span>
 		</div>
 	</div>
 </div>

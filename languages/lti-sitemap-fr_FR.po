@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: lti-sitemap\n"
-"POT-Creation-Date: 2015-05-31 20:29+0100\n"
-"PO-Revision-Date: 2015-05-31 21:25+0100\n"
+"POT-Creation-Date: 2015-06-02 12:35+0100\n"
+"PO-Revision-Date: 2015-06-02 12:37+0100\n"
 "Last-Translator: \n"
 "Language-Team: LTI <linguisticteam@gmail.com>\n"
 "Language: fr_FR\n"
@@ -50,25 +50,25 @@ msgstr "Onglet news"
 msgid "general.settings"
 msgstr "Paramètres"
 
-#: ../src/admin/admin.php:240
+#: ../src/admin/admin.php:245
 msgid "opt.msg.update_ok"
 msgstr "Les paramètres ont été mis à jour."
 
-#: ../src/admin/admin.php:246
+#: ../src/admin/admin.php:251
 msgid "opt.msg.error_token"
 msgstr "Les paramètres n'ont pas pu être mis à jour (erreur de session)."
 
-#: ../src/admin/admin.php:260
+#: ../src/admin/admin.php:265
 msgid "admin.meta_box"
 msgstr "LTI Sitemap"
 
-#: ../src/admin/admin.php:386
+#: ../src/admin/admin.php:391
 msgid "opt.msg.reset"
 msgstr "Les paramètres ont été réinitialisés."
 
-#: ../src/admin/admin.php:428
+#: ../src/admin/admin.php:450
 msgid "admin.contribute"
-msgstr "Contribuez (Anglais)"
+msgstr "Contribuez"
 
 #: ../src/admin/google.php:59
 msgid "msg.google_logged_in"
@@ -122,21 +122,21 @@ msgstr "Annuel"
 msgid "opt.change_frequency.never"
 msgstr "Jamais"
 
-#: ../src/admin/partials/bing_sitemap_submission.php:114
+#: ../src/admin/partials/bing_sitemap_submission.php:112
 msgid "msg.bing.sending"
 msgstr "Envoi du plan de site à Bing"
 
-#: ../src/admin/partials/bing_sitemap_submission.php:119
+#: ../src/admin/partials/bing_sitemap_submission.php:117
 msgid "err.bing.popup"
 msgstr ""
 "La popup n'a pas reçu les bonnes données, merci de fermer cette popup et de "
 "réessayer."
 
-#: ../src/admin/partials/bing_sitemap_submission.php:128
+#: ../src/admin/partials/bing_sitemap_submission.php:126
 msgid "err.bing.not_sent"
 msgstr "L'envoi a échoué, Bing n'a pas accusé réception."
 
-#: ../src/admin/partials/bing_sitemap_submission.php:130
+#: ../src/admin/partials/bing_sitemap_submission.php:128
 msgid "msg.bing.sent"
 msgstr "Le plan de site a été transmis."
 
@@ -171,11 +171,11 @@ msgstr ""
 #: ../src/admin/partials/help_menu.php:21
 msgid "general_hlp_general2"
 msgstr ""
-"Les sections \"contenu\", \"images\" et \"personnalisé\" permettent de "
-"définir quels types de contenus sont affichés dans les plans de site et "
-"comment ils sont organisés. Les sections \"périodicité\" et \"priorités\" "
-"permettent d'estimer la fréquence de changement des contenus et leur "
-"importance relative au sein du site."
+"Les sections \"contenus\", \"images des articles\" et \"pages personnalisées"
+"\" permettent de définir quels types de contenus sont affichés dans les "
+"plans de site et comment ils sont organisés. Les sections \"périodicité\" et "
+"\"priorités\" permettent d'estimer la fréquence de changement des contenus "
+"et leur importance relative au sein du site."
 
 #: ../src/admin/partials/help_menu.php:25
 msgid "general_hlp_google1"
@@ -200,7 +200,7 @@ msgstr ""
 msgid "general_hlp_bing2"
 msgstr ""
 "À l'heure actuelle, Bing ne fournit pas de méthode automatisée pour "
-"transmettre des plans de site au travers de son API. Il se pourraient qu'ils "
+"transmettre des plans de site au travers de son API. Il se pourrait qu'ils "
 "ajoutent cette fonctionalité dans le futur, au quel cas nous l'ajouterons à "
 "cet onglet."
 
@@ -292,24 +292,20 @@ msgstr "Les plans de site peuvent recenser les types de contenus suivants :"
 #: ../src/admin/partials/options-page.php:124
 msgid "opt.hlp.content.frontpage"
 msgstr ""
-"Page d'accueil : créé un plan de site principal listant la page d'accueil "
-"ainsi que les liens définis dans la section \"personnalisé\"."
+"Page d'accueil : liste la page d'accueil ainsi que les liens définis dans la "
+"section \"pages personnalisées\"."
 
 #: ../src/admin/partials/options-page.php:125
 msgid "opt.hlp.content.posts"
-msgstr ""
-"Articles : créé un plan de site dedié aux articles, classés par date si "
-"nécessaire."
+msgstr "Articles : liste les articles, classés par date si nécessaire."
 
 #: ../src/admin/partials/options-page.php:126
 msgid "opt.hlp.content.pages"
-msgstr "Pages: créé un plan de site pour les pages."
+msgstr "Pages : référence les pages."
 
 #: ../src/admin/partials/options-page.php:127
 msgid "opt.hlp.content.authors"
-msgstr ""
-"Auteurs : un plan de site listant les utilisateurs ayant au moins un article "
-"publié."
+msgstr "Auteurs : liste les utilisateurs ayant au moins un article publié."
 
 #: ../src/admin/partials/options-page.php:128
 msgid "opt.hlp.content.user_defined"
@@ -484,7 +480,7 @@ msgstr "Première transmission"
 
 #: ../src/admin/partials/options-page.php:321
 msgid "google.table_last_downloaded"
-msgstr "Dernier parcours"
+msgstr "Dernière analyse"
 
 #: ../src/admin/partials/options-page.php:325
 msgid "google.table_is_processed"
@@ -544,241 +540,284 @@ msgstr ""
 
 #: ../src/admin/partials/options-page.php:400
 msgid "hlp.google.logged_in1"
-msgstr "Submit sitemap: notifies Google of the existence of this sitemap."
+msgstr ""
+"Transmettre le plan de site : notifie Google de la présence de ce plan de "
+"site."
 
 #: ../src/admin/partials/options-page.php:402
 msgid "hlp.google.logged_in1-1"
-msgstr "If a sitemap is found, Google provides the following information:"
+msgstr ""
+"Si un plan de site est trouvé dans la console Google, les informations "
+"suivantes sont collectées :"
 
 #: ../src/admin/partials/options-page.php:404
 msgid "hlp.google.logged_in1-2"
 msgstr ""
-"First submitted: the time at which the sitemap was initially submitted."
+"Première transmission : la date à laquelle le plan de site a été transmis "
+"pour la première fois."
 
 #: ../src/admin/partials/options-page.php:405
 msgid "hlp.google.logged_in1-3"
-msgstr "Last processed: the last time Google crawled the sitemap's links."
+msgstr ""
+"Dernière analyse : date à laquelle Google a parcouru les liens du plan de "
+"site."
 
 #: ../src/admin/partials/options-page.php:406
 msgid "hlp.google.logged_in1-4"
-msgstr "Whether Google had time to look through the sitemap yet."
+msgstr "Analyse terminée : indique si Google a déjà parcouru le plan de site."
 
 #: ../src/admin/partials/options-page.php:407
 msgid "hlp.google.logged_in1-5"
-msgstr "The total number of links crawled within the sitemap."
+msgstr ""
+"Total de pages transmises : le nombre de liens du plan de site parcourus"
 
 #: ../src/admin/partials/options-page.php:408
 msgid "hlp.google.logged_in1-6"
-msgstr "The total number of resources that will appear in search results."
+msgstr ""
+"Total de pages indexées : le nombre de ressources qui apparaitront dans les "
+"résultats de recherche."
 
 #: ../src/admin/partials/options-page.php:410
 msgid "hlp.google.logged_in1-7"
 msgstr ""
-"Note: the whole process of crawling through all the links on your site might "
-"take a while, so don't be alarmed if the numbers on screen aren't being "
-"updated."
+"Note : le parcours de tous les liens répertoriés de votre site peuvent "
+"prendre un certain temps ; il n'est pas surprenant que les statistiques ne "
+"se mettent pas à jour tout de suite."
 
 #: ../src/admin/partials/options-page.php:413
 msgid "hlp.google.logged_in2"
-msgstr "Resubmit sitemap: asks Google to crawl the sitemap once more."
+msgstr ""
+"Transmettre le plan de site à nouveau : demande à Google de parcourir le "
+"plan de site une nouvelle fois."
 
 #: ../src/admin/partials/options-page.php:414
 msgid "hlp.google.logged_in3"
-msgstr "Delete sitemap: removes the current site's sitemap from the console."
+msgstr ""
+"Supprimer le plan de site : enlève le lien vers le plan de site de la "
+"console Google."
 
 #: ../src/admin/partials/options-page.php:415
 msgid "hlp.google.logged_in4"
-msgstr "Log out: end this Google session."
+msgstr "Déconnexion : terminer cette session auprès de Google."
 
 #: ../src/admin/partials/options-page.php:417
 msgid "hlp.google.logged_in5"
 msgstr ""
-"Note: this doesn't disconnect you from your Google account, it only closes "
-"the session we initiated earlier by providing an authentication code."
+"Note : cette opération ne vous déconnecte pas de votre compte Google, elle "
+"permet simplement de clore la session ouverte lorsque nous avons copié/collé "
+"le code d'authentification."
 
 #: ../src/admin/partials/options-page.php:420
 msgid "hlp.google.logged_in6"
 msgstr ""
-"When you load this admin page, the plugin initiates an authentication "
-"process with Google which may slow things down, so we recommend you log out "
-"if  you're not using this functionality."
+"Lorsque cette page se charge, il se peut que vous constatiez des lenteurs du "
+"fait du processus d'authentification auprès de Google ; au quel cas, nous "
+"vous conseillons de vous déconnecter dès que le site a été vérifié."
 
 #: ../src/admin/partials/options-page.php:437
 msgid "btn.bing.sitemap_submit"
-msgstr "Send sitemap"
+msgstr "Transmettre le plan de site"
 
-#: ../src/admin/partials/options-page.php:462
+#: ../src/admin/partials/options-page.php:448
+msgid "bing.help1"
+msgstr ""
+"En utilisant le bouton \"Transmettre le plan de site\", le service \"ping\" "
+"de Bing peut être notifié de l'existence de votre plan de site. Cette "
+"méthode ne retournant pas de réponse spécifique, nous ne pouvons pas "
+"garantir que le plan de site sera parcouru par Bing."
+
+#: ../src/admin/partials/options-page.php:449
+msgid "bing.help2"
+msgstr "Service Bing webmaster tools"
+
+#: ../src/admin/partials/options-page.php:463
 msgid "opt.content_news_support"
-msgstr "News sitemap"
+msgstr "Plan de site actualités"
 
-#: ../src/admin/partials/options-page.php:471
+#: ../src/admin/partials/options-page.php:472
 msgid "opt.news_publication"
-msgstr "Publication name"
+msgstr "Nom de la publication"
 
-#: ../src/admin/partials/options-page.php:477
+#: ../src/admin/partials/options-page.php:478
 msgid "opt.news_language"
-msgstr "Language"
+msgstr "Langue"
 
-#: ../src/admin/partials/options-page.php:481
-#: ../src/admin/partials/postbox.php:55
+#: ../src/admin/partials/options-page.php:482
+#: ../src/admin/partials/postbox.php:53
 msgid "opt.news_access"
-msgstr "Access"
+msgstr "Accès"
 
-#: ../src/admin/partials/options-page.php:490
-#: ../src/admin/partials/postbox.php:64
+#: ../src/admin/partials/options-page.php:491
+#: ../src/admin/partials/postbox.php:62
 msgid "opt.news_access_type_full"
-msgstr "Full"
+msgstr "Total"
 
-#: ../src/admin/partials/options-page.php:498
-#: ../src/admin/partials/postbox.php:72
+#: ../src/admin/partials/options-page.php:499
+#: ../src/admin/partials/postbox.php:70
 msgid "opt.news_access_type_subscription"
-msgstr "Subscription"
+msgstr "Abonnement"
 
-#: ../src/admin/partials/options-page.php:506
-#: ../src/admin/partials/postbox.php:80
+#: ../src/admin/partials/options-page.php:507
+#: ../src/admin/partials/postbox.php:78
 msgid "opt.news_access_type_registration"
-msgstr "Registration"
+msgstr "Inscription"
 
-#: ../src/admin/partials/options-page.php:509
+#: ../src/admin/partials/options-page.php:510
 #: ../src/admin/partials/postbox.php:35
 msgid "opt.news_keywords"
-msgstr "Keywords"
+msgstr "Mots clés"
 
-#: ../src/admin/partials/options-page.php:512
+#: ../src/admin/partials/options-page.php:513
 msgid "opt.news_keywords_cat_based"
-msgstr "Based on categories"
+msgstr "Utilisant les catégories"
 
-#: ../src/admin/partials/options-page.php:516
+#: ../src/admin/partials/options-page.php:517
 msgid "opt.news_keywords_tag_based"
-msgstr "Based on tags"
+msgstr "Utilisant les étiquettes"
 
-#: ../src/admin/partials/options-page.php:521
-#: ../src/admin/partials/postbox.php:85
+#: ../src/admin/partials/options-page.php:522
+#: ../src/admin/partials/postbox.php:83
 msgid "opt.news_genre"
 msgstr "Genre"
 
-#: ../src/admin/partials/options-page.php:524
-#: ../src/admin/partials/postbox.php:88
+#: ../src/admin/partials/options-page.php:525
+#: ../src/admin/partials/postbox.php:86
 msgid "opt.news_genre_press_release"
-msgstr "Press release"
+msgstr "Communiqué de presse"
 
-#: ../src/admin/partials/options-page.php:528
-#: ../src/admin/partials/postbox.php:92
+#: ../src/admin/partials/options-page.php:529
+#: ../src/admin/partials/postbox.php:90
 msgid "opt.news_genre_satire"
 msgstr "Satire"
 
-#: ../src/admin/partials/options-page.php:532
-#: ../src/admin/partials/postbox.php:96
+#: ../src/admin/partials/options-page.php:533
+#: ../src/admin/partials/postbox.php:94
 msgid "opt.news_genre_blog"
 msgstr "Blog"
 
-#: ../src/admin/partials/options-page.php:536
-#: ../src/admin/partials/postbox.php:100
+#: ../src/admin/partials/options-page.php:537
+#: ../src/admin/partials/postbox.php:98
 msgid "opt.news_genre_oped"
-msgstr "Op ed"
+msgstr "Editorial"
 
-#: ../src/admin/partials/options-page.php:540
-#: ../src/admin/partials/postbox.php:104
+#: ../src/admin/partials/options-page.php:541
+#: ../src/admin/partials/postbox.php:102
 msgid "opt.news_genre_opinion"
 msgstr "Opinion"
 
-#: ../src/admin/partials/options-page.php:544
-#: ../src/admin/partials/postbox.php:108
+#: ../src/admin/partials/options-page.php:545
+#: ../src/admin/partials/postbox.php:106
 msgid "opt.news_genre_user_generated"
-msgstr "User generated"
+msgstr "Personnalisé"
 
-#: ../src/admin/partials/options-page.php:555
-msgid "opt.hlp.news1"
+#: ../src/admin/partials/options-page.php:556
+msgid "opt.hlp.news0"
 msgstr ""
-"Creates a news sitemap that'll help crawlers keep track of news related "
-"media on your site."
+"Ajoute une section dans la page d'édition des articles permettant de "
+"déterminer que l'article est une actualité et d'en remplir les attributs."
 
 #: ../src/admin/partials/options-page.php:557
-msgid "opt.hlp.news2"
+msgid "opt.hlp.news1"
 msgstr ""
-"Publication name: as per Google: it must exactly match the name as it "
-"appears on your articles in news.google.com, omitting any trailing "
-"parentheticals. For example, if the name appears in Google News as \"The "
-"Example Times (subscription)\", you should use the name, \"The Example Times"
-"\"."
-
-#: ../src/admin/partials/options-page.php:558
-msgid "opt.hlp.news3"
-msgstr ""
-"Access: this option has two options: \"subscription\" or \"registration\". "
-"It is assumed that by default users have full access to news items, so this "
-"information is optional in news sitemaps and will be added only if you "
-"select an option other than \"Full\"."
+"Créé un plan de site actualités qui permettra aux robots de moteur de "
+"recherche de se tenir à jour des actualités publiées sur votre site."
 
 #: ../src/admin/partials/options-page.php:559
-msgid "opt.hlp.news4"
+msgid "opt.hlp.news2"
 msgstr ""
-"Keywords: as per Google: A comma-separated list of keywords describing the "
-"topic of the article. Keywords may be drawn from, but are not limited to, "
-"the list of existing Google News keywords."
+"Nom de la publication : d'après Google : ce nom doit correspondre exactement "
+"à celui qui s'affiche dans vos articles sur news.google.com, sans les "
+"parenthèses finales et leur contenu. Par exemple, si le nom de votre "
+"publication dans Google Actualités est \"Journal L'Exemple (abonnement)\", "
+"vous devrez utiliser le nom \"Journal L'Exemple\"."
+
+#: ../src/admin/partials/options-page.php:560
+msgid "opt.hlp.news3"
+msgstr ""
+"Accès : deux choix existent pour cette valeur, abonnement ou inscription. On "
+"suppose que par défaut les utilisateurs auront un accès complet aux "
+"articles, c'est pourquoi cette information est optionnelle dans le plan de "
+"site et nous ne l'ajouterons que si vous choisissez l'une des deux options."
 
 #: ../src/admin/partials/options-page.php:561
-msgid "google.keyword_list_url"
-msgstr "(Keyword List)"
+msgid "opt.hlp.news4"
+msgstr ""
+"Mots clés : selon Google : liste de mots clés séparés par des virgules "
+"décrivant le sujet de l'article. Les mots clés peuvent en partie être issus "
+"de la liste des mots clés Google Actualités existants sans toutefois s'y "
+"limiter."
 
-#: ../src/admin/partials/options-page.php:562
+#: ../src/admin/partials/options-page.php:563
+msgid "google.keyword_list_url"
+msgstr "(Liste)"
+
+#: ../src/admin/partials/options-page.php:564
 msgid "opt.hlp.news5"
 msgstr ""
-"Genre: as per Google: A comma-separated list of properties characterizing "
-"the content of the article. Your content must be labeled accurately, in "
-"order to provide a consistent experience for our users."
-
-#: ../src/admin/partials/options-page.php:572
-msgid "general.save_changes"
-msgstr "Save changes"
+"Genre : d'après Google : liste de propriétés séparées par des virgules "
+"décrivant le contenu de l'article. Pour assurer aux internautes une certaine "
+"cohérence, vous devez appliquer les bons libellés à votre contenu."
 
 #: ../src/admin/partials/options-page.php:574
+msgid "general.save_changes"
+msgstr "Mettre à jour"
+
+#: ../src/admin/partials/options-page.php:576
 msgid "general.reset_defaults"
-msgstr "Reset to defaults"
+msgstr "Reinitialiser"
 
 #: ../src/admin/partials/postbox.php:19
 msgid "opt.post_is_news"
-msgstr "Is a news post"
+msgstr "Cet article est une actualité"
 
 #: ../src/admin/partials/postbox.php:26
 msgid "box.news_title"
-msgstr "Title"
+msgstr "Titre"
 
 #: ../src/admin/partials/postbox.php:31
 msgid "box.hlp.news_title"
-msgstr "If no text is entered, the post's title will be used."
+msgstr "Si ce champ est vide, le titre de l'article sera utilisé."
 
 #: ../src/admin/partials/postbox.php:43
 msgid "box.news_keywords_suggestion"
 msgstr "Suggestion:"
 
-#: ../src/admin/partials/postbox.php:48
+#: ../src/admin/partials/postbox.php:46
 msgid "box.text_copy"
-msgstr "(Copy)"
+msgstr "(Copier)"
 
-#: ../src/admin/partials/postbox.php:115
+#: ../src/admin/partials/postbox.php:113
 msgid "box.news_stock_tickers"
-msgstr "Stock tickers"
+msgstr "Symboles boursiers"
+
+#: ../src/admin/partials/postbox.php:118
+msgid "box.hlp.news_stock_tickers"
+msgstr ""
+"Jusqu'à 5 tickers séparés par des virgules, suivant le format Google Finance."
 
 #: ../src/extra-strings.php:2
-msgid "Sitemap generator"
-msgstr "Review this plugin."
+msgid ""
+"Hassle free XML Sitemaps: pick your featured content, let search engines do "
+"the rest!"
+msgstr ""
+"Les plans de site XML sans accrocs : choisissez vos contenus, laissez les "
+"moteurs de recherche s'occuper du reste !"
 
 #: ../src/lti-sitemap.php:226
 msgid "admin.footer.feedback"
-msgstr "Some feedback would be greatly appreciated!"
+msgstr "Des retours de votre part seraient très appréciés !"
 
 #: ../src/lti-sitemap.php:227
 msgid "admin.footer.review"
-msgstr "Write a review."
+msgstr "Laissez-nous un commentaire."
 
 #: ../src/lti-sitemap.php:232
 msgid "general.changelog"
-msgstr "Changelog"
+msgstr "Journal des modifications"
 
 #: ../src/lti-sitemap.php:233
 msgid "general.version"
-msgstr "Plugin version"
+msgstr "Version de l'extension"
 
 #~ msgid "admin.help"
 #~ msgstr "Help page"

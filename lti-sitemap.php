@@ -5,10 +5,10 @@
  *
  * @wordpress-plugin
  * Plugin Name:       LTI Sitemap
- * Description:       Sitemap generator
+ * Description:       Hassle free XML Sitemaps: pick your featured content, let search engines do the rest!
  * Version:           0.5.0
  * Author:            Linguistic Team International
- * Author URI:        http://info.linguisticteam.org/
+ * Author URI:        http://dev.linguisticteam.org/
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       lti-sitemap

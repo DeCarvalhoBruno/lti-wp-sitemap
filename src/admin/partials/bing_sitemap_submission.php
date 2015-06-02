@@ -38,7 +38,7 @@
 			background-image: url("data:image/svg+xml;base64, PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDE1My4xIDE5MS40IiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCAxNTMuMSAxOTEuNCIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+DQo8cGF0aCBpZD0iQmluZyIgZmlsbD0iI0Y0QkQyNyIgZD0iTTQzLjYsMTkxLjRMMCwxNjAuOVYwIGw0My44LDEzLjR2MTA4LjJMMS4zLDE1OS41bDEwMy45LTU0LjdsLTI4LjgtMTNMNTYuOSw0OS42bDk2LjMsMjkuNXY0N0w0My42LDE5MS40eiIvPg0KPC9zdmc+");
 			background-repeat: no-repeat;
 			opacity: 0.1;
-			z-index:-1;
+			z-index: -1;
 		}
 
 		#wpfooter {
@@ -51,10 +51,7 @@
 			padding-top: 10px;
 			position: absolute;
 			right: 0;
-		}
-
-		#wpcontent, #wpfooter {
-			margin-left: 160px;
+			margin: 0;
 		}
 
 		a, div {
@@ -95,8 +92,9 @@
 		}
 
 		.close {
-			width:50%;
-			margin: 150px; auto 0;
+			width: 50%;
+			margin: 150px;
+			auto 0;
 			text-align: center;
 		}
 
@@ -111,23 +109,23 @@
 	<div>
 		<div class="content-wrapper">
 			<div class="content">
-				<h2><?php echo lsmint('msg.bing.sending'); ?>
+				<h2><?php echo lsmint( 'msg.bing.sending' ); ?>
 <?php
 
-$url = filter_input(INPUT_GET,'bing_url');
-if($url===false||is_null($url)){
-	die(lsmint('err.bing.popup'));
+$url = filter_input( INPUT_GET, 'bing_url' );
+if ( $url === false || is_null( $url ) ) {
+	die( lsmint( 'err.bing.popup' ) );
 }
 
-$result = \Lti\Sitemap\Helpers\Bing_Helper::http_request($url);
+$result = \Lti\Sitemap\Helpers\Bing_Helper::http_request( $url );
 
-if(array_key_exists('http_code',$result)){
+if ( array_key_exists( 'http_code', $result ) ) {
 	$code = $result['http_code'];
 
-	if($code!='200'){
-		echo sprintf('<h2 class="error">%s</h2>',lsmint('err.bing.not_sent'));
-	}else{
-		echo sprintf('<h2 class="success">%s</h2>',lsmint('msg.bing.sent'));
+	if ( $code != '200' ) {
+		echo sprintf( '<h2 class="error">%s</h2>', lsmint( 'err.bing.not_sent' ) );
+	} else {
+		echo sprintf( '<h2 class="success">%s</h2>', lsmint( 'msg.bing.sent' ) );
 	}
 }
 

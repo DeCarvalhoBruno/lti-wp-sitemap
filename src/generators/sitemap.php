@@ -371,7 +371,7 @@ class Sitemap_Generator_News extends Sitemap_Generator {
 
 				$stock_tickers = $news->get( 'news_stock_tickers' );
 				if ( ! is_null( $stock_tickers ) ) {
-					$newsNode->set_keywords( $stock_tickers );
+					$newsNode->set_stock_tickers( $stock_tickers );
 				}
 				$sitemap_news->addNewsNode( $postsIndex[ $entry->ID ], $newsNode );
 			}

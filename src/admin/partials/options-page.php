@@ -445,7 +445,8 @@ $google_console_url = $this->google->get_console_url();
 							</div>
 							<div class="form-help-container">
 								<div class="form-help">
-									<p></p>
+									<p><?php echo lsmint( 'bing.help1' ); ?></p>
+									<p style="text-align: center"><a href="https://www.bing.com/webmaster/home/mysites" target="_blank"><?php echo lsmint( 'bing.help2' ); ?></a></p>
 								</div>
 							</div>
 						</div>
@@ -552,6 +553,7 @@ $google_console_url = $this->google->get_console_url();
 						</div>
 						<div class="form-help-container">
 							<div class="form-help">
+								<p><?php echo lsmint( 'opt.hlp.news0' ); ?></p>
 								<p><?php echo lsmint( 'opt.hlp.news1' ); ?></p>
 								<ul>
 									<li><?php echo lsmint( 'opt.hlp.news2' ); ?></li>

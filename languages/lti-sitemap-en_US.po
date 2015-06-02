@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: lti-sitemap\n"
-"POT-Creation-Date: 2015-05-31 15:55+0100\n"
-"PO-Revision-Date: 2015-05-31 21:09+0100\n"
+"POT-Creation-Date: 2015-06-02 12:12+0100\n"
+"PO-Revision-Date: 2015-06-02 12:35+0100\n"
 "Last-Translator: \n"
 "Language-Team: LTI <linguisticteam@gmail.com>\n"
 "Language: en_US\n"
@@ -50,27 +50,23 @@ msgstr "News tab"
 msgid "general.settings"
 msgstr "Settings"
 
-#: ../src/admin/admin.php:240
+#: ../src/admin/admin.php:281
 msgid "opt.msg.update_ok"
 msgstr "Plugin options have been updated."
 
-#: ../src/admin/admin.php:246
+#: ../src/admin/admin.php:287
 msgid "opt.msg.error_token"
 msgstr "Plugin options could not be saved (session error)."
 
-#: ../src/admin/admin.php:260
+#: ../src/admin/admin.php:301
 msgid "admin.meta_box"
 msgstr "LTI Sitemap"
 
-#: ../src/admin/admin.php:386
+#: ../src/admin/admin.php:427
 msgid "opt.msg.reset"
 msgstr "Plugin options have been reset."
 
-#: ../src/admin/admin.php:427
-msgid "admin.help"
-msgstr "Help page"
-
-#: ../src/admin/admin.php:428
+#: ../src/admin/admin.php:468
 msgid "admin.contribute"
 msgstr "Contribute"
 
@@ -126,20 +122,20 @@ msgstr "Yearly"
 msgid "opt.change_frequency.never"
 msgstr "Never"
 
-#: ../src/admin/partials/bing_sitemap_submission.php:114
+#: ../src/admin/partials/bing_sitemap_submission.php:112
 msgid "msg.bing.sending"
 msgstr "Sending sitemap to Bing..."
 
-#: ../src/admin/partials/bing_sitemap_submission.php:119
+#: ../src/admin/partials/bing_sitemap_submission.php:117
 msgid "err.bing.popup"
 msgstr ""
 "The popup didn't receive proper data, please close this window and try again."
 
-#: ../src/admin/partials/bing_sitemap_submission.php:128
+#: ../src/admin/partials/bing_sitemap_submission.php:126
 msgid "err.bing.not_sent"
 msgstr "The request failed. Bing did not send acknolewdge reception."
 
-#: ../src/admin/partials/bing_sitemap_submission.php:130
+#: ../src/admin/partials/bing_sitemap_submission.php:128
 msgid "msg.bing.sent"
 msgstr "The XML sitemap was sent successfully."
 
@@ -414,7 +410,7 @@ msgstr "Change date"
 
 #: ../src/admin/partials/options-page.php:243
 msgid "opt.hlp.extra_pages"
-msgstr "Extra web adresses to be added to the main sitemap."
+msgstr "Extra links to be added to the main sitemap."
 
 #: ../src/admin/partials/options-page.php:263
 msgid "btn.google.get_auth"
@@ -544,7 +540,9 @@ msgstr "Submit sitemap: notifies Google of the existence of this sitemap."
 
 #: ../src/admin/partials/options-page.php:402
 msgid "hlp.google.logged_in1-1"
-msgstr "If a sitemap is found, Google provides the following information:"
+msgstr ""
+"If we find a matching sitemap in the console, the following information is "
+"collected:"
 
 #: ../src/admin/partials/options-page.php:404
 msgid "hlp.google.logged_in1-2"
@@ -557,15 +555,18 @@ msgstr "Last processed: the last time Google crawled the sitemap's links."
 
 #: ../src/admin/partials/options-page.php:406
 msgid "hlp.google.logged_in1-4"
-msgstr "Whether Google had time to look through the sitemap yet."
+msgstr ""
+"Was processed : whether Google had time to look through the sitemap yet."
 
 #: ../src/admin/partials/options-page.php:407
 msgid "hlp.google.logged_in1-5"
-msgstr "The total number of links crawled within the sitemap."
+msgstr "Total pages submitted: the number of links crawled within the sitemap."
 
 #: ../src/admin/partials/options-page.php:408
 msgid "hlp.google.logged_in1-6"
-msgstr "The total number of resources that will appear in search results."
+msgstr ""
+"Total pages indexed: the number of resources that will appear in search "
+"results."
 
 #: ../src/admin/partials/options-page.php:410
 msgid "hlp.google.logged_in1-7"
@@ -597,99 +598,116 @@ msgid "hlp.google.logged_in6"
 msgstr ""
 "When you load this admin page, the plugin initiates an authentication "
 "process with Google which may slow things down, so we recommend you log out "
-"if  you're not using this functionality."
+"if you're not using this functionality."
 
 #: ../src/admin/partials/options-page.php:437
 msgid "btn.bing.sitemap_submit"
 msgstr "Send sitemap"
 
-#: ../src/admin/partials/options-page.php:462
+#: ../src/admin/partials/options-page.php:448
+msgid "bing.help1"
+msgstr ""
+"Using the \"Send sitemap\" button, you can notify the Bing ping service of "
+"the existence of your sitemap. We don't receive feeback from Bing using this "
+"method, so there's no guarantee that the sitemap will be processed."
+
+#: ../src/admin/partials/options-page.php:449
+msgid "bing.help2"
+msgstr "Bing webmaster tools service"
+
+#: ../src/admin/partials/options-page.php:463
 msgid "opt.content_news_support"
 msgstr "News sitemap"
 
-#: ../src/admin/partials/options-page.php:471
+#: ../src/admin/partials/options-page.php:472
 msgid "opt.news_publication"
 msgstr "Publication name"
 
-#: ../src/admin/partials/options-page.php:477
+#: ../src/admin/partials/options-page.php:478
 msgid "opt.news_language"
 msgstr "Language"
 
-#: ../src/admin/partials/options-page.php:481
-#: ../src/admin/partials/postbox.php:55
+#: ../src/admin/partials/options-page.php:482
+#: ../src/admin/partials/postbox.php:53
 msgid "opt.news_access"
 msgstr "Access"
 
-#: ../src/admin/partials/options-page.php:490
-#: ../src/admin/partials/postbox.php:64
+#: ../src/admin/partials/options-page.php:491
+#: ../src/admin/partials/postbox.php:62
 msgid "opt.news_access_type_full"
 msgstr "Full"
 
-#: ../src/admin/partials/options-page.php:498
-#: ../src/admin/partials/postbox.php:72
+#: ../src/admin/partials/options-page.php:499
+#: ../src/admin/partials/postbox.php:70
 msgid "opt.news_access_type_subscription"
 msgstr "Subscription"
 
-#: ../src/admin/partials/options-page.php:506
-#: ../src/admin/partials/postbox.php:80
+#: ../src/admin/partials/options-page.php:507
+#: ../src/admin/partials/postbox.php:78
 msgid "opt.news_access_type_registration"
 msgstr "Registration"
 
-#: ../src/admin/partials/options-page.php:509
+#: ../src/admin/partials/options-page.php:510
 #: ../src/admin/partials/postbox.php:35
 msgid "opt.news_keywords"
 msgstr "Keywords"
 
-#: ../src/admin/partials/options-page.php:512
+#: ../src/admin/partials/options-page.php:513
 msgid "opt.news_keywords_cat_based"
 msgstr "Based on categories"
 
-#: ../src/admin/partials/options-page.php:516
+#: ../src/admin/partials/options-page.php:517
 msgid "opt.news_keywords_tag_based"
 msgstr "Based on tags"
 
-#: ../src/admin/partials/options-page.php:521
-#: ../src/admin/partials/postbox.php:85
+#: ../src/admin/partials/options-page.php:522
+#: ../src/admin/partials/postbox.php:83
 msgid "opt.news_genre"
 msgstr "Genre"
 
-#: ../src/admin/partials/options-page.php:524
-#: ../src/admin/partials/postbox.php:88
+#: ../src/admin/partials/options-page.php:525
+#: ../src/admin/partials/postbox.php:86
 msgid "opt.news_genre_press_release"
 msgstr "Press release"
 
-#: ../src/admin/partials/options-page.php:528
-#: ../src/admin/partials/postbox.php:92
+#: ../src/admin/partials/options-page.php:529
+#: ../src/admin/partials/postbox.php:90
 msgid "opt.news_genre_satire"
 msgstr "Satire"
 
-#: ../src/admin/partials/options-page.php:532
-#: ../src/admin/partials/postbox.php:96
+#: ../src/admin/partials/options-page.php:533
+#: ../src/admin/partials/postbox.php:94
 msgid "opt.news_genre_blog"
 msgstr "Blog"
 
-#: ../src/admin/partials/options-page.php:536
-#: ../src/admin/partials/postbox.php:100
+#: ../src/admin/partials/options-page.php:537
+#: ../src/admin/partials/postbox.php:98
 msgid "opt.news_genre_oped"
 msgstr "Op ed"
 
-#: ../src/admin/partials/options-page.php:540
-#: ../src/admin/partials/postbox.php:104
+#: ../src/admin/partials/options-page.php:541
+#: ../src/admin/partials/postbox.php:102
 msgid "opt.news_genre_opinion"
 msgstr "Opinion"
 
-#: ../src/admin/partials/options-page.php:544
-#: ../src/admin/partials/postbox.php:108
+#: ../src/admin/partials/options-page.php:545
+#: ../src/admin/partials/postbox.php:106
 msgid "opt.news_genre_user_generated"
 msgstr "User generated"
 
-#: ../src/admin/partials/options-page.php:555
+#: ../src/admin/partials/options-page.php:556
+msgid "opt.hlp.news0"
+msgstr ""
+"Adds a postbox in the post editing area to determine whether the post is a "
+"news item and to fill in details."
+
+#: ../src/admin/partials/options-page.php:557
 msgid "opt.hlp.news1"
 msgstr ""
 "Creates a news sitemap that'll help crawlers keep track of news related "
 "media on your site."
 
-#: ../src/admin/partials/options-page.php:557
+#: ../src/admin/partials/options-page.php:559
 msgid "opt.hlp.news2"
 msgstr ""
 "Publication name: as per Google: it must exactly match the name as it "
@@ -698,7 +716,7 @@ msgstr ""
 "Example Times (subscription)\", you should use the name, \"The Example Times"
 "\"."
 
-#: ../src/admin/partials/options-page.php:558
+#: ../src/admin/partials/options-page.php:560
 msgid "opt.hlp.news3"
 msgstr ""
 "Access: this option has two options: \"subscription\" or \"registration\". "
@@ -706,29 +724,29 @@ msgstr ""
 "information is optional in news sitemaps and will be added only if you "
 "select an option other than \"Full\"."
 
-#: ../src/admin/partials/options-page.php:559
+#: ../src/admin/partials/options-page.php:561
 msgid "opt.hlp.news4"
 msgstr ""
 "Keywords: as per Google: A comma-separated list of keywords describing the "
 "topic of the article. Keywords may be drawn from, but are not limited to, "
 "the list of existing Google News keywords."
 
-#: ../src/admin/partials/options-page.php:561
+#: ../src/admin/partials/options-page.php:563
 msgid "google.keyword_list_url"
 msgstr "(Keyword List)"
 
-#: ../src/admin/partials/options-page.php:562
+#: ../src/admin/partials/options-page.php:564
 msgid "opt.hlp.news5"
 msgstr ""
 "Genre: as per Google: A comma-separated list of properties characterizing "
 "the content of the article. Your content must be labeled accurately, in "
 "order to provide a consistent experience for our users."
 
-#: ../src/admin/partials/options-page.php:572
+#: ../src/admin/partials/options-page.php:574
 msgid "general.save_changes"
 msgstr "Save changes"
 
-#: ../src/admin/partials/options-page.php:574
+#: ../src/admin/partials/options-page.php:576
 msgid "general.reset_defaults"
 msgstr "Reset to defaults"
 
@@ -748,17 +766,23 @@ msgstr "If no text is entered, the post's title will be used."
 msgid "box.news_keywords_suggestion"
 msgstr "Suggestion:"
 
-#: ../src/admin/partials/postbox.php:48
+#: ../src/admin/partials/postbox.php:46
 msgid "box.text_copy"
 msgstr "(Copy)"
 
-#: ../src/admin/partials/postbox.php:115
+#: ../src/admin/partials/postbox.php:113
 msgid "box.news_stock_tickers"
 msgstr "Stock tickers"
 
+#: ../src/admin/partials/postbox.php:118
+msgid "box.hlp.news_stock_tickers"
+msgstr "Up to 5 comma separated tickers (following the Google finance format)"
+
 #: ../src/extra-strings.php:2
-msgid "Sitemap generator"
-msgstr "Review this plugin."
+msgid ""
+"Hassle free XML Sitemaps: pick your featured content, let search engines do "
+"the rest!"
+msgstr ""
 
 #: ../src/lti-sitemap.php:226
 msgid "admin.footer.feedback"
@@ -775,3 +799,6 @@ msgstr "Changelog"
 #: ../src/lti-sitemap.php:233
 msgid "general.version"
 msgstr "Plugin version"
+
+#~ msgid "admin.help"
+#~ msgstr "Help page"
