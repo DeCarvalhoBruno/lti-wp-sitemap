@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: lti-sitemap\n"
-"POT-Creation-Date: 2015-06-02 12:35+0100\n"
-"PO-Revision-Date: 2015-06-02 12:37+0100\n"
+"POT-Creation-Date: 2015-06-03 13:03+0100\n"
+"PO-Revision-Date: 2015-06-03 15:43+0100\n"
 "Last-Translator: \n"
 "Language-Team: LTI <linguisticteam@gmail.com>\n"
 "Language: fr_FR\n"
@@ -44,7 +44,7 @@ msgstr "Onglet Bing"
 
 #: ../src/admin/admin.php:180
 msgid "general_hlp_news"
-msgstr "Onglet news"
+msgstr "Onglet actualités"
 
 #: ../src/admin/admin.php:199
 msgid "general.settings"
@@ -207,7 +207,7 @@ msgstr ""
 #: ../src/admin/partials/help_menu.php:33
 msgid "general_hlp_news1"
 msgstr ""
-"Créé un plan de site \"actualités\" qui permettra aux robots de moteur de "
+"Créé un plan de site \"news\" qui permettra aux robots de moteur de "
 "recherche de recenser les contenus liés à l'actualité sur votre site."
 
 #: ../src/admin/partials/help_menu.php:33
@@ -243,7 +243,7 @@ msgstr "Bing"
 
 #: ../src/admin/partials/options-page.php:38
 msgid "opt.tab.news"
-msgstr "News"
+msgstr "Actualités"
 
 #: ../src/admin/partials/options-page.php:54
 msgid "hlp.sitemap_info"
@@ -322,31 +322,44 @@ msgstr ""
 "Ajoute des liens pointant vers les images à la une et les images jointes aux "
 "articles."
 
-#: ../src/admin/partials/options-page.php:149
+#: ../src/admin/partials/options-page.php:144
+msgid "opt.hlp.images1"
+msgstr ""
+"Les balises image du plan de site XML contiennent des champs titre et "
+"légende dont les valeurs reprendront les informations saisies dans Wordpress."
+
+#: ../src/admin/partials/options-page.php:145
+msgid "opt.hlp.images2"
+msgstr ""
+"Si une adresse web est saisie dans le champ description de l'image, nous "
+"l'utiliserons pour remplir le champ 'licence' (une adresse du type 'http://"
+"creativecommons.org/licenses/by/4.0/' est attendue)."
+
+#: ../src/admin/partials/options-page.php:151
 msgid "opt.group.change_frequency"
 msgstr "Périodicité"
 
-#: ../src/admin/partials/options-page.php:153
+#: ../src/admin/partials/options-page.php:155
 msgid "opt.change_frequency_frontpage"
 msgstr "Page d'accueil"
 
-#: ../src/admin/partials/options-page.php:157
+#: ../src/admin/partials/options-page.php:159
 msgid "opt.change_frequency_posts"
 msgstr "Articles"
 
-#: ../src/admin/partials/options-page.php:161
+#: ../src/admin/partials/options-page.php:163
 msgid "opt.change_frequency_pages"
 msgstr "Pages"
 
-#: ../src/admin/partials/options-page.php:165
+#: ../src/admin/partials/options-page.php:167
 msgid "opt.change_frequency_authors"
 msgstr "Auteurs"
 
-#: ../src/admin/partials/options-page.php:169
+#: ../src/admin/partials/options-page.php:171
 msgid "opt.change_frequency_user_defined"
 msgstr "Personnalisé"
 
-#: ../src/admin/partials/options-page.php:176
+#: ../src/admin/partials/options-page.php:178
 msgid "opt.hlp.change_frequency1"
 msgstr ""
 "Une estimation de la fréquence avec laquelle vos contenus sont modifiés. Ce "
@@ -354,37 +367,37 @@ msgstr ""
 "propres méthodes pour déterminer la fréquence avec laquelle ils parcourent "
 "les contenus."
 
-#: ../src/admin/partials/options-page.php:178
+#: ../src/admin/partials/options-page.php:180
 msgid "opt.hlp.change_frequency2"
 msgstr ""
 "La console de recherche Google devrait vous donner une bonne indication "
 "lorsqu'il s'agit de la manière dont Google répertorie vos contenus."
 
-#: ../src/admin/partials/options-page.php:184
+#: ../src/admin/partials/options-page.php:186
 msgid "opt.group.priorities"
 msgstr "Priorités"
 
-#: ../src/admin/partials/options-page.php:187
+#: ../src/admin/partials/options-page.php:189
 msgid "opt.priority_frontpage"
 msgstr "Page d'accueil"
 
-#: ../src/admin/partials/options-page.php:190
+#: ../src/admin/partials/options-page.php:192
 msgid "opt.priority_posts"
 msgstr "Articles"
 
-#: ../src/admin/partials/options-page.php:193
+#: ../src/admin/partials/options-page.php:195
 msgid "opt.priority_pages"
 msgstr "Pages"
 
-#: ../src/admin/partials/options-page.php:196
+#: ../src/admin/partials/options-page.php:198
 msgid "opt.priority_authors"
 msgstr "Auteurs"
 
-#: ../src/admin/partials/options-page.php:199
+#: ../src/admin/partials/options-page.php:201
 msgid "opt.priority_user_defined"
 msgstr "Personnalisé"
 
-#: ../src/admin/partials/options-page.php:206
+#: ../src/admin/partials/options-page.php:208
 msgid "opt.hlp.priority1"
 msgstr ""
 "Les priorités sont assignées relativement à d'autres contenus sur le même "
@@ -392,42 +405,42 @@ msgstr ""
 "être évaluées en comparant l'importance des contenus au sein de votre site "
 "seulement."
 
-#: ../src/admin/partials/options-page.php:208
+#: ../src/admin/partials/options-page.php:210
 msgid "opt.hlp.priority2"
 msgstr ""
 "Tout comme pour les périodicités, les robots pourraient utiliser cette "
 "information pour répertorier les contenus, mais elle n'a qu'une valeur "
 "informative."
 
-#: ../src/admin/partials/options-page.php:214
+#: ../src/admin/partials/options-page.php:216
 msgid "opt.group.extra_pages"
 msgstr "Pages personnalisées"
 
-#: ../src/admin/partials/options-page.php:221
+#: ../src/admin/partials/options-page.php:223
 msgid "opt.extra_pages.url"
 msgstr "URL"
 
-#: ../src/admin/partials/options-page.php:222
+#: ../src/admin/partials/options-page.php:224
 msgid "opt.extra_pages.date"
 msgstr "Dernière modification"
 
-#: ../src/admin/partials/options-page.php:243
+#: ../src/admin/partials/options-page.php:245
 msgid "opt.hlp.extra_pages"
 msgstr "Adresses web supplémentaires à ajouter au plan de site."
 
-#: ../src/admin/partials/options-page.php:263
+#: ../src/admin/partials/options-page.php:265
 msgid "btn.google.get_auth"
 msgstr "Obtenir code d'authentification"
 
-#: ../src/admin/partials/options-page.php:271
+#: ../src/admin/partials/options-page.php:273
 msgid "in.google.cp_token"
 msgstr "Copier/Coller le code ici."
 
-#: ../src/admin/partials/options-page.php:274
+#: ../src/admin/partials/options-page.php:276
 msgid "btn.google.log_in"
 msgstr "Connexion"
 
-#: ../src/admin/partials/options-page.php:279
+#: ../src/admin/partials/options-page.php:281
 msgid "hlp.google.log_in"
 msgstr ""
 "Nous supposons que vous avez déjà utilisé la console de recherche Google, et "
@@ -435,29 +448,29 @@ msgstr ""
 "cas, vous pouvez vous rendre sur la console directement ou installer et "
 "activer notre extension LTI SEO."
 
-#: ../src/admin/partials/options-page.php:283
-#: ../src/admin/partials/options-page.php:376
+#: ../src/admin/partials/options-page.php:285
+#: ../src/admin/partials/options-page.php:378
 msgid "msg.google.info4"
 msgstr "Extension LTI SEO"
 
-#: ../src/admin/partials/options-page.php:286
-#: ../src/admin/partials/options-page.php:379
+#: ../src/admin/partials/options-page.php:288
+#: ../src/admin/partials/options-page.php:381
 msgid "msg.google.info3"
 msgstr "Console de recherche Google"
 
-#: ../src/admin/partials/options-page.php:289
+#: ../src/admin/partials/options-page.php:291
 msgid "hlp.google.log_in1"
 msgstr ""
 "Merci de suivre les étapes suivantes afin d'intéragir avec Google à travers "
 "Wordpress :"
 
-#: ../src/admin/partials/options-page.php:291
+#: ../src/admin/partials/options-page.php:293
 msgid "hlp.google.log_in2"
 msgstr ""
 "Cliquez sur \"Obtenir code d'authentification\". Une fenêtre popup s'ouvrira "
 "et Google se chargera de vous authentifier. "
 
-#: ../src/admin/partials/options-page.php:292
+#: ../src/admin/partials/options-page.php:294
 msgid "hlp.google.log_in3"
 msgstr ""
 "Google affichera une longue série de chiffres et de lettres qui constituent "
@@ -466,159 +479,159 @@ msgstr ""
 "\"Connexion\". Cliquez sur \"Connexion\". La page s'actualise, et Wordpress "
 "peut désormais interagir avec Google."
 
-#: ../src/admin/partials/options-page.php:311
+#: ../src/admin/partials/options-page.php:313
 msgid "google.table.hindicator"
 msgstr "Indicateur"
 
-#: ../src/admin/partials/options-page.php:312
+#: ../src/admin/partials/options-page.php:314
 msgid "google.table.hvalue"
 msgstr "Valeur"
 
-#: ../src/admin/partials/options-page.php:317
+#: ../src/admin/partials/options-page.php:319
 msgid "google.table_last_submitted"
 msgstr "Première transmission"
 
-#: ../src/admin/partials/options-page.php:321
+#: ../src/admin/partials/options-page.php:323
 msgid "google.table_last_downloaded"
 msgstr "Dernière analyse"
 
-#: ../src/admin/partials/options-page.php:325
+#: ../src/admin/partials/options-page.php:327
 msgid "google.table_is_processed"
 msgstr "Analyse terminée"
 
-#: ../src/admin/partials/options-page.php:326
+#: ../src/admin/partials/options-page.php:328
 msgid "general.no"
 msgstr "Non"
 
-#: ../src/admin/partials/options-page.php:326
+#: ../src/admin/partials/options-page.php:328
 msgid "general.yes"
 msgstr "Oui"
 
-#: ../src/admin/partials/options-page.php:329
+#: ../src/admin/partials/options-page.php:331
 msgid "google.table_nb_pages_submitted"
 msgstr "Total de pages transmises"
 
-#: ../src/admin/partials/options-page.php:333
+#: ../src/admin/partials/options-page.php:335
 msgid "google.table_nb_pages_indexed"
 msgstr "Total de pages indexées"
 
-#: ../src/admin/partials/options-page.php:343
+#: ../src/admin/partials/options-page.php:345
 msgid "btn.google.resubmit"
 msgstr "Transmettre le plan de site à nouveau"
 
-#: ../src/admin/partials/options-page.php:350
+#: ../src/admin/partials/options-page.php:352
 msgid "btn.google.delete"
 msgstr "Supprimer le plan de site"
 
-#: ../src/admin/partials/options-page.php:354
-#: ../src/admin/partials/options-page.php:364
-#: ../src/admin/partials/options-page.php:385
+#: ../src/admin/partials/options-page.php:356
+#: ../src/admin/partials/options-page.php:366
+#: ../src/admin/partials/options-page.php:387
 msgid "btn.google.log-out"
 msgstr "Déconnexion"
 
-#: ../src/admin/partials/options-page.php:361
+#: ../src/admin/partials/options-page.php:363
 msgid "btn.google.submit"
 msgstr "Transmettre le plan de site"
 
-#: ../src/admin/partials/options-page.php:370
+#: ../src/admin/partials/options-page.php:372
 msgid "msg.google.info1"
 msgstr ""
 "Le site courant n'a pas été trouvé dans la console de recherche. Le site a-t-"
 "il été verifié ?"
 
-#: ../src/admin/partials/options-page.php:372
+#: ../src/admin/partials/options-page.php:374
 msgid "msg.google.info2"
 msgstr ""
 "Vous pouvez vous rendre sur la console de recherche Google ou installer et "
 "activer notre extension LTI SEO pour activer votre site depuis Wordpress."
 
-#: ../src/admin/partials/options-page.php:398
+#: ../src/admin/partials/options-page.php:400
 msgid "hlp.google.logged_in"
 msgstr ""
 "En fonction du statut de votre site, vous pourrez effectuer les "
 "manipulations suivantes :"
 
-#: ../src/admin/partials/options-page.php:400
+#: ../src/admin/partials/options-page.php:402
 msgid "hlp.google.logged_in1"
 msgstr ""
 "Transmettre le plan de site : notifie Google de la présence de ce plan de "
 "site."
 
-#: ../src/admin/partials/options-page.php:402
+#: ../src/admin/partials/options-page.php:404
 msgid "hlp.google.logged_in1-1"
 msgstr ""
 "Si un plan de site est trouvé dans la console Google, les informations "
 "suivantes sont collectées :"
 
-#: ../src/admin/partials/options-page.php:404
+#: ../src/admin/partials/options-page.php:406
 msgid "hlp.google.logged_in1-2"
 msgstr ""
 "Première transmission : la date à laquelle le plan de site a été transmis "
 "pour la première fois."
 
-#: ../src/admin/partials/options-page.php:405
+#: ../src/admin/partials/options-page.php:407
 msgid "hlp.google.logged_in1-3"
 msgstr ""
 "Dernière analyse : date à laquelle Google a parcouru les liens du plan de "
 "site."
 
-#: ../src/admin/partials/options-page.php:406
+#: ../src/admin/partials/options-page.php:408
 msgid "hlp.google.logged_in1-4"
 msgstr "Analyse terminée : indique si Google a déjà parcouru le plan de site."
 
-#: ../src/admin/partials/options-page.php:407
+#: ../src/admin/partials/options-page.php:409
 msgid "hlp.google.logged_in1-5"
 msgstr ""
 "Total de pages transmises : le nombre de liens du plan de site parcourus"
 
-#: ../src/admin/partials/options-page.php:408
+#: ../src/admin/partials/options-page.php:410
 msgid "hlp.google.logged_in1-6"
 msgstr ""
 "Total de pages indexées : le nombre de ressources qui apparaitront dans les "
 "résultats de recherche."
 
-#: ../src/admin/partials/options-page.php:410
+#: ../src/admin/partials/options-page.php:412
 msgid "hlp.google.logged_in1-7"
 msgstr ""
 "Note : le parcours de tous les liens répertoriés de votre site peuvent "
 "prendre un certain temps ; il n'est pas surprenant que les statistiques ne "
 "se mettent pas à jour tout de suite."
 
-#: ../src/admin/partials/options-page.php:413
+#: ../src/admin/partials/options-page.php:415
 msgid "hlp.google.logged_in2"
 msgstr ""
 "Transmettre le plan de site à nouveau : demande à Google de parcourir le "
 "plan de site une nouvelle fois."
 
-#: ../src/admin/partials/options-page.php:414
+#: ../src/admin/partials/options-page.php:416
 msgid "hlp.google.logged_in3"
 msgstr ""
 "Supprimer le plan de site : enlève le lien vers le plan de site de la "
 "console Google."
 
-#: ../src/admin/partials/options-page.php:415
+#: ../src/admin/partials/options-page.php:417
 msgid "hlp.google.logged_in4"
 msgstr "Déconnexion : terminer cette session auprès de Google."
 
-#: ../src/admin/partials/options-page.php:417
+#: ../src/admin/partials/options-page.php:419
 msgid "hlp.google.logged_in5"
 msgstr ""
 "Note : cette opération ne vous déconnecte pas de votre compte Google, elle "
 "permet simplement de clore la session ouverte lorsque nous avons copié/collé "
 "le code d'authentification."
 
-#: ../src/admin/partials/options-page.php:420
+#: ../src/admin/partials/options-page.php:422
 msgid "hlp.google.logged_in6"
 msgstr ""
 "Lorsque cette page se charge, il se peut que vous constatiez des lenteurs du "
 "fait du processus d'authentification auprès de Google ; au quel cas, nous "
 "vous conseillons de vous déconnecter dès que le site a été vérifié."
 
-#: ../src/admin/partials/options-page.php:437
+#: ../src/admin/partials/options-page.php:439
 msgid "btn.bing.sitemap_submit"
 msgstr "Transmettre le plan de site"
 
-#: ../src/admin/partials/options-page.php:448
+#: ../src/admin/partials/options-page.php:450
 msgid "bing.help1"
 msgstr ""
 "En utilisant le bouton \"Transmettre le plan de site\", le service \"ping\" "
@@ -626,103 +639,103 @@ msgstr ""
 "méthode ne retournant pas de réponse spécifique, nous ne pouvons pas "
 "garantir que le plan de site sera parcouru par Bing."
 
-#: ../src/admin/partials/options-page.php:449
+#: ../src/admin/partials/options-page.php:451
 msgid "bing.help2"
 msgstr "Service Bing webmaster tools"
 
-#: ../src/admin/partials/options-page.php:463
+#: ../src/admin/partials/options-page.php:465
 msgid "opt.content_news_support"
 msgstr "Plan de site actualités"
 
-#: ../src/admin/partials/options-page.php:472
+#: ../src/admin/partials/options-page.php:474
 msgid "opt.news_publication"
 msgstr "Nom de la publication"
 
-#: ../src/admin/partials/options-page.php:478
+#: ../src/admin/partials/options-page.php:480
 msgid "opt.news_language"
 msgstr "Langue"
 
-#: ../src/admin/partials/options-page.php:482
+#: ../src/admin/partials/options-page.php:484
 #: ../src/admin/partials/postbox.php:53
 msgid "opt.news_access"
 msgstr "Accès"
 
-#: ../src/admin/partials/options-page.php:491
+#: ../src/admin/partials/options-page.php:493
 #: ../src/admin/partials/postbox.php:62
 msgid "opt.news_access_type_full"
 msgstr "Total"
 
-#: ../src/admin/partials/options-page.php:499
+#: ../src/admin/partials/options-page.php:501
 #: ../src/admin/partials/postbox.php:70
 msgid "opt.news_access_type_subscription"
 msgstr "Abonnement"
 
-#: ../src/admin/partials/options-page.php:507
+#: ../src/admin/partials/options-page.php:509
 #: ../src/admin/partials/postbox.php:78
 msgid "opt.news_access_type_registration"
 msgstr "Inscription"
 
-#: ../src/admin/partials/options-page.php:510
+#: ../src/admin/partials/options-page.php:512
 #: ../src/admin/partials/postbox.php:35
 msgid "opt.news_keywords"
 msgstr "Mots clés"
 
-#: ../src/admin/partials/options-page.php:513
+#: ../src/admin/partials/options-page.php:515
 msgid "opt.news_keywords_cat_based"
 msgstr "Utilisant les catégories"
 
-#: ../src/admin/partials/options-page.php:517
+#: ../src/admin/partials/options-page.php:519
 msgid "opt.news_keywords_tag_based"
 msgstr "Utilisant les étiquettes"
 
-#: ../src/admin/partials/options-page.php:522
+#: ../src/admin/partials/options-page.php:524
 #: ../src/admin/partials/postbox.php:83
 msgid "opt.news_genre"
 msgstr "Genre"
 
-#: ../src/admin/partials/options-page.php:525
+#: ../src/admin/partials/options-page.php:527
 #: ../src/admin/partials/postbox.php:86
 msgid "opt.news_genre_press_release"
 msgstr "Communiqué de presse"
 
-#: ../src/admin/partials/options-page.php:529
+#: ../src/admin/partials/options-page.php:531
 #: ../src/admin/partials/postbox.php:90
 msgid "opt.news_genre_satire"
 msgstr "Satire"
 
-#: ../src/admin/partials/options-page.php:533
+#: ../src/admin/partials/options-page.php:535
 #: ../src/admin/partials/postbox.php:94
 msgid "opt.news_genre_blog"
 msgstr "Blog"
 
-#: ../src/admin/partials/options-page.php:537
+#: ../src/admin/partials/options-page.php:539
 #: ../src/admin/partials/postbox.php:98
 msgid "opt.news_genre_oped"
 msgstr "Editorial"
 
-#: ../src/admin/partials/options-page.php:541
+#: ../src/admin/partials/options-page.php:543
 #: ../src/admin/partials/postbox.php:102
 msgid "opt.news_genre_opinion"
 msgstr "Opinion"
 
-#: ../src/admin/partials/options-page.php:545
+#: ../src/admin/partials/options-page.php:547
 #: ../src/admin/partials/postbox.php:106
 msgid "opt.news_genre_user_generated"
 msgstr "Personnalisé"
 
-#: ../src/admin/partials/options-page.php:556
+#: ../src/admin/partials/options-page.php:558
 msgid "opt.hlp.news0"
 msgstr ""
 "Ajoute une section dans la page d'édition des articles permettant de "
 "déterminer que l'article est une actualité et d'en remplir les attributs."
 
-#: ../src/admin/partials/options-page.php:557
+#: ../src/admin/partials/options-page.php:559
 msgid "opt.hlp.news1"
 msgstr ""
-"Créé un plan de site actualités qui permettra aux robots de moteur de "
+"Créé un plan de site \"news\" qui permettra aux robots de moteur de "
 "recherche de se tenir à jour des actualités publiées sur votre site."
 
-#: ../src/admin/partials/options-page.php:559
+#: ../src/admin/partials/options-page.php:561
 msgid "opt.hlp.news2"
 msgstr ""
 "Nom de la publication : d'après Google : ce nom doit correspondre exactement "
@@ -731,7 +744,7 @@ msgstr ""
 "publication dans Google Actualités est \"Journal L'Exemple (abonnement)\", "
 "vous devrez utiliser le nom \"Journal L'Exemple\"."
 
-#: ../src/admin/partials/options-page.php:560
+#: ../src/admin/partials/options-page.php:562
 msgid "opt.hlp.news3"
 msgstr ""
 "Accès : deux choix existent pour cette valeur, abonnement ou inscription. On "
@@ -739,7 +752,7 @@ msgstr ""
 "articles, c'est pourquoi cette information est optionnelle dans le plan de "
 "site et nous ne l'ajouterons que si vous choisissez l'une des deux options."
 
-#: ../src/admin/partials/options-page.php:561
+#: ../src/admin/partials/options-page.php:563
 msgid "opt.hlp.news4"
 msgstr ""
 "Mots clés : selon Google : liste de mots clés séparés par des virgules "
@@ -747,22 +760,22 @@ msgstr ""
 "de la liste des mots clés Google Actualités existants sans toutefois s'y "
 "limiter."
 
-#: ../src/admin/partials/options-page.php:563
+#: ../src/admin/partials/options-page.php:565
 msgid "google.keyword_list_url"
 msgstr "(Liste)"
 
-#: ../src/admin/partials/options-page.php:564
+#: ../src/admin/partials/options-page.php:566
 msgid "opt.hlp.news5"
 msgstr ""
 "Genre : d'après Google : liste de propriétés séparées par des virgules "
 "décrivant le contenu de l'article. Pour assurer aux internautes une certaine "
 "cohérence, vous devez appliquer les bons libellés à votre contenu."
 
-#: ../src/admin/partials/options-page.php:574
+#: ../src/admin/partials/options-page.php:576
 msgid "general.save_changes"
 msgstr "Mettre à jour"
 
-#: ../src/admin/partials/options-page.php:576
+#: ../src/admin/partials/options-page.php:578
 msgid "general.reset_defaults"
 msgstr "Reinitialiser"
 

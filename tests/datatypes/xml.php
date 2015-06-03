@@ -3,15 +3,13 @@
 use \DOMDocument;
 use \DOMXPath;
 
-class DOM {
+class XML {
 
 	private $content;
 	/**
 	 * @var DOMDocument
 	 */
 	private $dom;
-
-	private $baseXPath = "/html/head/";
 
 	public function __construct($content){
 		$this->content = $content;
@@ -24,39 +22,15 @@ class DOM {
 		return $dom;
 	}
 
-	public function has($query){
-		$xpath = new DOMXPath($this->dom);
-		$tags = $xpath->query($this->baseXPath.$query)->length;
 
-		if($tags>0){
-			return true;
-		}
-		return false;
-	}
-
-	public function get($query){
-		$xpath = new DOMXPath($this->dom);
-		return $xpath->query($this->baseXPath.$query);
-	}
-
-	public function hasTagWithContent($node,$attribute,$attributeName,$content, $contentName){
-		$xpath = new DOMXPath($this->dom);
-		$tags = $xpath->query(sprintf('%s%s[@%s="%s"][@%s="%s"]',$this->baseXPath,$node,$attribute,$attributeName,$content, $contentName))->length;
-
-		if($tags>0){
-			return true;
-		}
-		return false;
-	}
-
-	public function hasTag($node,$attribute,$attributeName,$content){
-		$xpath = new DOMXPath($this->dom);
-		$tags = $xpath->query(sprintf('%s%s[@%s="%s"][@%s]',$this->baseXPath,$node,$attribute,$attributeName,$content))->length;
-
-		if($tags>0){
-			return true;
-		}
-		return false;
+	public function query($query){
+		$xp = new DOMXPath($this->dom);
+		$xp->registerNamespace('sitemapindex',"http://www.sitemaps.org/schemas/sitemap/0.9");
+		$xp->registerNamespace('sitemap',"http://www.sitemaps.org/schemas/sitemap/0.9");
+		$xp->registerNamespace('urlset',"http://www.sitemaps.org/schemas/sitemap/0.9");
+		$xp->registerNamespace('image',"http://www.google.com/schemas/sitemap-image/1.1");
+		$xp->registerNamespace('news',"http://www.google.com/schemas/sitemap-news/0.9");
+		return $xp->query($query);
 	}
 
 	/**
@@ -78,11 +52,5 @@ class DOM {
 	public function set( $content ) {
 		$this->content = $content;
 	}
-
-	public function count(){
-		$xpath = new DOMXPath($this->dom);
-		return $xpath->query('/html/head/*')->length;
-	}
-
 
 }

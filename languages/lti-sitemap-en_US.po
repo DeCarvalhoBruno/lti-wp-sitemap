@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: lti-sitemap\n"
-"POT-Creation-Date: 2015-06-02 12:12+0100\n"
-"PO-Revision-Date: 2015-06-02 12:35+0100\n"
+"POT-Creation-Date: 2015-06-03 20:10+0100\n"
+"PO-Revision-Date: 2015-06-03 20:10+0100\n"
 "Last-Translator: \n"
 "Language-Team: LTI <linguisticteam@gmail.com>\n"
 "Language: en_US\n"
@@ -50,23 +50,23 @@ msgstr "News tab"
 msgid "general.settings"
 msgstr "Settings"
 
-#: ../src/admin/admin.php:281
+#: ../src/admin/admin.php:245
 msgid "opt.msg.update_ok"
 msgstr "Plugin options have been updated."
 
-#: ../src/admin/admin.php:287
+#: ../src/admin/admin.php:251
 msgid "opt.msg.error_token"
 msgstr "Plugin options could not be saved (session error)."
 
-#: ../src/admin/admin.php:301
+#: ../src/admin/admin.php:265
 msgid "admin.meta_box"
 msgstr "LTI Sitemap"
 
-#: ../src/admin/admin.php:427
+#: ../src/admin/admin.php:393
 msgid "opt.msg.reset"
 msgstr "Plugin options have been reset."
 
-#: ../src/admin/admin.php:468
+#: ../src/admin/admin.php:452
 msgid "admin.contribute"
 msgstr "Contribute"
 
@@ -321,68 +321,81 @@ msgid "opt.hlp.images"
 msgstr ""
 "Adds links to attachment images and the featured image to the posts sitemap."
 
-#: ../src/admin/partials/options-page.php:149
+#: ../src/admin/partials/options-page.php:144
+msgid "opt.hlp.images1"
+msgstr ""
+"Image sitemap tags contain title and caption fields whose values will be "
+"drawn from existing media library information in Wordpress."
+
+#: ../src/admin/partials/options-page.php:145
+msgid "opt.hlp.images2"
+msgstr ""
+"If a lone URL is found in the image description field, it will be used as "
+"the license URL (expecting a value such as 'http://creativecommons.org/"
+"licenses/by/4.0/')."
+
+#: ../src/admin/partials/options-page.php:151
 msgid "opt.group.change_frequency"
 msgstr "Change frequency"
 
-#: ../src/admin/partials/options-page.php:153
+#: ../src/admin/partials/options-page.php:155
 msgid "opt.change_frequency_frontpage"
 msgstr "Front page"
 
-#: ../src/admin/partials/options-page.php:157
+#: ../src/admin/partials/options-page.php:159
 msgid "opt.change_frequency_posts"
 msgstr "Posts"
 
-#: ../src/admin/partials/options-page.php:161
+#: ../src/admin/partials/options-page.php:163
 msgid "opt.change_frequency_pages"
 msgstr "Pages"
 
-#: ../src/admin/partials/options-page.php:165
+#: ../src/admin/partials/options-page.php:167
 msgid "opt.change_frequency_authors"
 msgstr "Authors"
 
-#: ../src/admin/partials/options-page.php:169
+#: ../src/admin/partials/options-page.php:171
 msgid "opt.change_frequency_user_defined"
 msgstr "User defined"
 
-#: ../src/admin/partials/options-page.php:176
+#: ../src/admin/partials/options-page.php:178
 msgid "opt.hlp.change_frequency1"
 msgstr ""
 "Provides an estimation of how often certain types of content change on your "
 "site. It is merely a suggestion, however, as search engines may or may not "
 "use these values to determine how often they crawl content."
 
-#: ../src/admin/partials/options-page.php:178
+#: ../src/admin/partials/options-page.php:180
 msgid "opt.hlp.change_frequency2"
 msgstr ""
 "The Google Search console should give you a good indication of how regularly "
 "Google indexes pages on your site."
 
-#: ../src/admin/partials/options-page.php:184
+#: ../src/admin/partials/options-page.php:186
 msgid "opt.group.priorities"
 msgstr "Priorities"
 
-#: ../src/admin/partials/options-page.php:187
+#: ../src/admin/partials/options-page.php:189
 msgid "opt.priority_frontpage"
 msgstr "Front page"
 
-#: ../src/admin/partials/options-page.php:190
+#: ../src/admin/partials/options-page.php:192
 msgid "opt.priority_posts"
 msgstr "Posts"
 
-#: ../src/admin/partials/options-page.php:193
+#: ../src/admin/partials/options-page.php:195
 msgid "opt.priority_pages"
 msgstr "Pages"
 
-#: ../src/admin/partials/options-page.php:196
+#: ../src/admin/partials/options-page.php:198
 msgid "opt.priority_authors"
 msgstr "Authors"
 
-#: ../src/admin/partials/options-page.php:199
+#: ../src/admin/partials/options-page.php:201
 msgid "opt.priority_user_defined"
 msgstr "User defined"
 
-#: ../src/admin/partials/options-page.php:206
+#: ../src/admin/partials/options-page.php:208
 msgid "opt.hlp.priority1"
 msgstr ""
 "Priorities to be assigned relative to other content on your site. The phrase "
@@ -390,41 +403,41 @@ msgstr ""
 "between content on your site, and not how important your site should be "
 "compared to others."
 
-#: ../src/admin/partials/options-page.php:208
+#: ../src/admin/partials/options-page.php:210
 msgid "opt.hlp.priority2"
 msgstr ""
 "Just like with change frequencies, crawlers may use this information to "
 "prioritize their indexing, but this is merely a hint, not a command."
 
-#: ../src/admin/partials/options-page.php:214
+#: ../src/admin/partials/options-page.php:216
 msgid "opt.group.extra_pages"
 msgstr "User defined pages"
 
-#: ../src/admin/partials/options-page.php:221
+#: ../src/admin/partials/options-page.php:223
 msgid "opt.extra_pages.url"
 msgstr "URL"
 
-#: ../src/admin/partials/options-page.php:222
+#: ../src/admin/partials/options-page.php:224
 msgid "opt.extra_pages.date"
 msgstr "Change date"
 
-#: ../src/admin/partials/options-page.php:243
+#: ../src/admin/partials/options-page.php:245
 msgid "opt.hlp.extra_pages"
 msgstr "Extra links to be added to the main sitemap."
 
-#: ../src/admin/partials/options-page.php:263
+#: ../src/admin/partials/options-page.php:265
 msgid "btn.google.get_auth"
 msgstr "Get authentication code"
 
-#: ../src/admin/partials/options-page.php:271
+#: ../src/admin/partials/options-page.php:273
 msgid "in.google.cp_token"
 msgstr "Copy/Paste the code here."
 
-#: ../src/admin/partials/options-page.php:274
+#: ../src/admin/partials/options-page.php:276
 msgid "btn.google.log_in"
 msgstr "Log in"
 
-#: ../src/admin/partials/options-page.php:279
+#: ../src/admin/partials/options-page.php:281
 msgid "hlp.google.log_in"
 msgstr ""
 "We assume that you've already had a run into Google search console, and that "
@@ -432,29 +445,29 @@ msgstr ""
 "Google search console directly or install and activate our LTI SEO plugin to "
 "activate your site from Wordpress."
 
-#: ../src/admin/partials/options-page.php:283
-#: ../src/admin/partials/options-page.php:376
+#: ../src/admin/partials/options-page.php:285
+#: ../src/admin/partials/options-page.php:378
 msgid "msg.google.info4"
 msgstr "LTI SEO Plugin"
 
-#: ../src/admin/partials/options-page.php:286
-#: ../src/admin/partials/options-page.php:379
+#: ../src/admin/partials/options-page.php:288
+#: ../src/admin/partials/options-page.php:381
 msgid "msg.google.info3"
 msgstr "Google Search Console"
 
-#: ../src/admin/partials/options-page.php:289
+#: ../src/admin/partials/options-page.php:291
 msgid "hlp.google.log_in1"
 msgstr ""
 "To interact with the google search console via Wordpress, please follow "
 "these steps:"
 
-#: ../src/admin/partials/options-page.php:291
+#: ../src/admin/partials/options-page.php:293
 msgid "hlp.google.log_in2"
 msgstr ""
 "Click on \"get authentication code\". A popup opens and Google takes care of "
 "logging you in."
 
-#: ../src/admin/partials/options-page.php:292
+#: ../src/admin/partials/options-page.php:294
 msgid "hlp.google.log_in3"
 msgstr ""
 "Google will display a long string of digits and letters that makes up our "
@@ -462,252 +475,252 @@ msgstr ""
 "into the text field next to the \"Log In\" button. Click on the \"Log In\" "
 "button. The page refreshes, and Wordpress can now interact with Google."
 
-#: ../src/admin/partials/options-page.php:311
+#: ../src/admin/partials/options-page.php:313
 msgid "google.table.hindicator"
 msgstr "Indicator"
 
-#: ../src/admin/partials/options-page.php:312
+#: ../src/admin/partials/options-page.php:314
 msgid "google.table.hvalue"
 msgstr "Value"
 
-#: ../src/admin/partials/options-page.php:317
+#: ../src/admin/partials/options-page.php:319
 msgid "google.table_last_submitted"
 msgstr "First submitted"
 
-#: ../src/admin/partials/options-page.php:321
+#: ../src/admin/partials/options-page.php:323
 msgid "google.table_last_downloaded"
 msgstr "Last processed"
 
-#: ../src/admin/partials/options-page.php:325
+#: ../src/admin/partials/options-page.php:327
 msgid "google.table_is_processed"
 msgstr "Was processed"
 
-#: ../src/admin/partials/options-page.php:326
+#: ../src/admin/partials/options-page.php:328
 msgid "general.no"
 msgstr "No"
 
-#: ../src/admin/partials/options-page.php:326
+#: ../src/admin/partials/options-page.php:328
 msgid "general.yes"
 msgstr "Yes"
 
-#: ../src/admin/partials/options-page.php:329
+#: ../src/admin/partials/options-page.php:331
 msgid "google.table_nb_pages_submitted"
 msgstr "Total pages submitted"
 
-#: ../src/admin/partials/options-page.php:333
+#: ../src/admin/partials/options-page.php:335
 msgid "google.table_nb_pages_indexed"
 msgstr "Total pages indexed"
 
-#: ../src/admin/partials/options-page.php:343
+#: ../src/admin/partials/options-page.php:345
 msgid "btn.google.resubmit"
 msgstr "Resubmit sitemap"
 
-#: ../src/admin/partials/options-page.php:350
+#: ../src/admin/partials/options-page.php:352
 msgid "btn.google.delete"
 msgstr "Delete sitemap"
 
-#: ../src/admin/partials/options-page.php:354
-#: ../src/admin/partials/options-page.php:364
-#: ../src/admin/partials/options-page.php:385
+#: ../src/admin/partials/options-page.php:356
+#: ../src/admin/partials/options-page.php:366
+#: ../src/admin/partials/options-page.php:387
 msgid "btn.google.log-out"
 msgstr "Log out"
 
-#: ../src/admin/partials/options-page.php:361
+#: ../src/admin/partials/options-page.php:363
 msgid "btn.google.submit"
 msgstr "Submit sitemap"
 
-#: ../src/admin/partials/options-page.php:370
+#: ../src/admin/partials/options-page.php:372
 msgid "msg.google.info1"
 msgstr ""
 "The current site couldn't be found in Google's search console. Has it been "
 "verified yet?"
 
-#: ../src/admin/partials/options-page.php:372
+#: ../src/admin/partials/options-page.php:374
 msgid "msg.google.info2"
 msgstr ""
 "You can head over to the Google search console or install and activate our "
 "LTI SEO plugin to activate your site from Wordpress."
 
-#: ../src/admin/partials/options-page.php:398
+#: ../src/admin/partials/options-page.php:400
 msgid "hlp.google.logged_in"
 msgstr ""
 "Depending on your Wordpress site's status, you'll be able to accomplish the "
 "following:"
 
-#: ../src/admin/partials/options-page.php:400
+#: ../src/admin/partials/options-page.php:402
 msgid "hlp.google.logged_in1"
 msgstr "Submit sitemap: notifies Google of the existence of this sitemap."
 
-#: ../src/admin/partials/options-page.php:402
+#: ../src/admin/partials/options-page.php:404
 msgid "hlp.google.logged_in1-1"
 msgstr ""
 "If we find a matching sitemap in the console, the following information is "
 "collected:"
 
-#: ../src/admin/partials/options-page.php:404
+#: ../src/admin/partials/options-page.php:406
 msgid "hlp.google.logged_in1-2"
 msgstr ""
 "First submitted: the time at which the sitemap was initially submitted."
 
-#: ../src/admin/partials/options-page.php:405
+#: ../src/admin/partials/options-page.php:407
 msgid "hlp.google.logged_in1-3"
 msgstr "Last processed: the last time Google crawled the sitemap's links."
 
-#: ../src/admin/partials/options-page.php:406
+#: ../src/admin/partials/options-page.php:408
 msgid "hlp.google.logged_in1-4"
 msgstr ""
 "Was processed : whether Google had time to look through the sitemap yet."
 
-#: ../src/admin/partials/options-page.php:407
+#: ../src/admin/partials/options-page.php:409
 msgid "hlp.google.logged_in1-5"
 msgstr "Total pages submitted: the number of links crawled within the sitemap."
 
-#: ../src/admin/partials/options-page.php:408
+#: ../src/admin/partials/options-page.php:410
 msgid "hlp.google.logged_in1-6"
 msgstr ""
 "Total pages indexed: the number of resources that will appear in search "
 "results."
 
-#: ../src/admin/partials/options-page.php:410
+#: ../src/admin/partials/options-page.php:412
 msgid "hlp.google.logged_in1-7"
 msgstr ""
 "Note: the whole process of crawling through all the links on your site might "
 "take a while, so don't be alarmed if the numbers on screen aren't being "
 "updated."
 
-#: ../src/admin/partials/options-page.php:413
+#: ../src/admin/partials/options-page.php:415
 msgid "hlp.google.logged_in2"
 msgstr "Resubmit sitemap: asks Google to crawl the sitemap once more."
 
-#: ../src/admin/partials/options-page.php:414
+#: ../src/admin/partials/options-page.php:416
 msgid "hlp.google.logged_in3"
 msgstr "Delete sitemap: removes the current site's sitemap from the console."
 
-#: ../src/admin/partials/options-page.php:415
+#: ../src/admin/partials/options-page.php:417
 msgid "hlp.google.logged_in4"
 msgstr "Log out: end this Google session."
 
-#: ../src/admin/partials/options-page.php:417
+#: ../src/admin/partials/options-page.php:419
 msgid "hlp.google.logged_in5"
 msgstr ""
 "Note: this doesn't disconnect you from your Google account, it only closes "
 "the session we initiated earlier by providing an authentication code."
 
-#: ../src/admin/partials/options-page.php:420
+#: ../src/admin/partials/options-page.php:422
 msgid "hlp.google.logged_in6"
 msgstr ""
 "When you load this admin page, the plugin initiates an authentication "
 "process with Google which may slow things down, so we recommend you log out "
 "if you're not using this functionality."
 
-#: ../src/admin/partials/options-page.php:437
+#: ../src/admin/partials/options-page.php:439
 msgid "btn.bing.sitemap_submit"
 msgstr "Send sitemap"
 
-#: ../src/admin/partials/options-page.php:448
+#: ../src/admin/partials/options-page.php:450
 msgid "bing.help1"
 msgstr ""
 "Using the \"Send sitemap\" button, you can notify the Bing ping service of "
 "the existence of your sitemap. We don't receive feeback from Bing using this "
 "method, so there's no guarantee that the sitemap will be processed."
 
-#: ../src/admin/partials/options-page.php:449
+#: ../src/admin/partials/options-page.php:451
 msgid "bing.help2"
 msgstr "Bing webmaster tools service"
 
-#: ../src/admin/partials/options-page.php:463
+#: ../src/admin/partials/options-page.php:465
 msgid "opt.content_news_support"
 msgstr "News sitemap"
 
-#: ../src/admin/partials/options-page.php:472
+#: ../src/admin/partials/options-page.php:474
 msgid "opt.news_publication"
 msgstr "Publication name"
 
-#: ../src/admin/partials/options-page.php:478
+#: ../src/admin/partials/options-page.php:480
 msgid "opt.news_language"
 msgstr "Language"
 
-#: ../src/admin/partials/options-page.php:482
+#: ../src/admin/partials/options-page.php:484
 #: ../src/admin/partials/postbox.php:53
 msgid "opt.news_access"
 msgstr "Access"
 
-#: ../src/admin/partials/options-page.php:491
+#: ../src/admin/partials/options-page.php:493
 #: ../src/admin/partials/postbox.php:62
 msgid "opt.news_access_type_full"
 msgstr "Full"
 
-#: ../src/admin/partials/options-page.php:499
+#: ../src/admin/partials/options-page.php:501
 #: ../src/admin/partials/postbox.php:70
 msgid "opt.news_access_type_subscription"
 msgstr "Subscription"
 
-#: ../src/admin/partials/options-page.php:507
+#: ../src/admin/partials/options-page.php:509
 #: ../src/admin/partials/postbox.php:78
 msgid "opt.news_access_type_registration"
 msgstr "Registration"
 
-#: ../src/admin/partials/options-page.php:510
+#: ../src/admin/partials/options-page.php:512
 #: ../src/admin/partials/postbox.php:35
 msgid "opt.news_keywords"
 msgstr "Keywords"
 
-#: ../src/admin/partials/options-page.php:513
+#: ../src/admin/partials/options-page.php:515
 msgid "opt.news_keywords_cat_based"
 msgstr "Based on categories"
 
-#: ../src/admin/partials/options-page.php:517
+#: ../src/admin/partials/options-page.php:519
 msgid "opt.news_keywords_tag_based"
 msgstr "Based on tags"
 
-#: ../src/admin/partials/options-page.php:522
+#: ../src/admin/partials/options-page.php:524
 #: ../src/admin/partials/postbox.php:83
 msgid "opt.news_genre"
 msgstr "Genre"
 
-#: ../src/admin/partials/options-page.php:525
+#: ../src/admin/partials/options-page.php:527
 #: ../src/admin/partials/postbox.php:86
 msgid "opt.news_genre_press_release"
 msgstr "Press release"
 
-#: ../src/admin/partials/options-page.php:529
+#: ../src/admin/partials/options-page.php:531
 #: ../src/admin/partials/postbox.php:90
 msgid "opt.news_genre_satire"
 msgstr "Satire"
 
-#: ../src/admin/partials/options-page.php:533
+#: ../src/admin/partials/options-page.php:535
 #: ../src/admin/partials/postbox.php:94
 msgid "opt.news_genre_blog"
 msgstr "Blog"
 
-#: ../src/admin/partials/options-page.php:537
+#: ../src/admin/partials/options-page.php:539
 #: ../src/admin/partials/postbox.php:98
 msgid "opt.news_genre_oped"
 msgstr "Op ed"
 
-#: ../src/admin/partials/options-page.php:541
+#: ../src/admin/partials/options-page.php:543
 #: ../src/admin/partials/postbox.php:102
 msgid "opt.news_genre_opinion"
 msgstr "Opinion"
 
-#: ../src/admin/partials/options-page.php:545
+#: ../src/admin/partials/options-page.php:547
 #: ../src/admin/partials/postbox.php:106
 msgid "opt.news_genre_user_generated"
 msgstr "User generated"
 
-#: ../src/admin/partials/options-page.php:556
+#: ../src/admin/partials/options-page.php:558
 msgid "opt.hlp.news0"
 msgstr ""
 "Adds a postbox in the post editing area to determine whether the post is a "
 "news item and to fill in details."
 
-#: ../src/admin/partials/options-page.php:557
+#: ../src/admin/partials/options-page.php:559
 msgid "opt.hlp.news1"
 msgstr ""
 "Creates a news sitemap that'll help crawlers keep track of news related "
 "media on your site."
 
-#: ../src/admin/partials/options-page.php:559
+#: ../src/admin/partials/options-page.php:561
 msgid "opt.hlp.news2"
 msgstr ""
 "Publication name: as per Google: it must exactly match the name as it "
@@ -716,7 +729,7 @@ msgstr ""
 "Example Times (subscription)\", you should use the name, \"The Example Times"
 "\"."
 
-#: ../src/admin/partials/options-page.php:560
+#: ../src/admin/partials/options-page.php:562
 msgid "opt.hlp.news3"
 msgstr ""
 "Access: this option has two options: \"subscription\" or \"registration\". "
@@ -724,29 +737,29 @@ msgstr ""
 "information is optional in news sitemaps and will be added only if you "
 "select an option other than \"Full\"."
 
-#: ../src/admin/partials/options-page.php:561
+#: ../src/admin/partials/options-page.php:563
 msgid "opt.hlp.news4"
 msgstr ""
 "Keywords: as per Google: A comma-separated list of keywords describing the "
 "topic of the article. Keywords may be drawn from, but are not limited to, "
 "the list of existing Google News keywords."
 
-#: ../src/admin/partials/options-page.php:563
+#: ../src/admin/partials/options-page.php:565
 msgid "google.keyword_list_url"
 msgstr "(Keyword List)"
 
-#: ../src/admin/partials/options-page.php:564
+#: ../src/admin/partials/options-page.php:566
 msgid "opt.hlp.news5"
 msgstr ""
 "Genre: as per Google: A comma-separated list of properties characterizing "
 "the content of the article. Your content must be labeled accurately, in "
 "order to provide a consistent experience for our users."
 
-#: ../src/admin/partials/options-page.php:574
+#: ../src/admin/partials/options-page.php:576
 msgid "general.save_changes"
 msgstr "Save changes"
 
-#: ../src/admin/partials/options-page.php:576
+#: ../src/admin/partials/options-page.php:578
 msgid "general.reset_defaults"
 msgstr "Reset to defaults"
 
@@ -784,21 +797,26 @@ msgid ""
 "the rest!"
 msgstr ""
 
-#: ../src/lti-sitemap.php:226
+#: ../src/lti-sitemap.php:224
 msgid "admin.footer.feedback"
 msgstr "Some feedback would be greatly appreciated!"
 
-#: ../src/lti-sitemap.php:227
+#: ../src/lti-sitemap.php:225
 msgid "admin.footer.review"
 msgstr "Write a review."
 
-#: ../src/lti-sitemap.php:232
+#: ../src/lti-sitemap.php:230
 msgid "general.changelog"
 msgstr "Changelog"
 
-#: ../src/lti-sitemap.php:233
+#: ../src/lti-sitemap.php:231
 msgid "general.version"
 msgstr "Plugin version"
+
+#~ msgid "err.no_permalink"
+#~ msgstr ""
+#~ "LTI Sitemap can't activate. Pretty permalinks have to be turned on so "
+#~ "sitemaps can be rendered."
 
 #~ msgid "admin.help"
 #~ msgstr "Help page"

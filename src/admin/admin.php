@@ -384,6 +384,8 @@ class Admin {
 			 */
 			case isset( $post_variables['lti_sitemap_reset'] ):
 				$this->settings = new Plugin_Settings();
+
+				$this->settings->set('news_language',substr(get_locale(), 0, 2));
 				update_option( 'lti_sitemap_options', $this->settings );
 				$this->update_global_post_fields( array(), true );
 

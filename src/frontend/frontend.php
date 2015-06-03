@@ -1,11 +1,6 @@
 <?php namespace Lti\Sitemap;
 
-use Lti\Sitemap\Generators\Sitemap_Generator_Authors;
 use Lti\Sitemap\Generators\Sitemap_Generator_Index;
-use Lti\Sitemap\Generators\Sitemap_Generator_Main;
-use Lti\Sitemap\Generators\Sitemap_Generator_News;
-use Lti\Sitemap\Generators\Sitemap_Generator_Pages;
-use Lti\Sitemap\Generators\Sitemap_Generator_Posts;
 use Lti\Sitemap\Helpers\ICanHelp;
 use Lti\Sitemap\Plugin\Plugin_Settings;
 
@@ -53,19 +48,12 @@ class Frontend {
 	public function build_sitemap( $type = null ) {
 		switch ( $type ) {
 			case 'main':
-				$sitemap = new Sitemap_Generator_Main( $this->settings, $this->helper );
-				break;
 			case 'posts':
-				$sitemap = new Sitemap_Generator_Posts( $this->settings, $this->helper );
-				break;
 			case 'pages':
-				$sitemap = new Sitemap_Generator_Pages( $this->settings, $this->helper );
-				break;
 			case 'authors':
-				$sitemap = new Sitemap_Generator_Authors( $this->settings, $this->helper );
-				break;
 			case 'news':
-				$sitemap = new Sitemap_Generator_News( $this->settings, $this->helper );
+				$class   = sprintf( 'Lti\Sitemap\Generators\Sitemap_Generator_%s', ucfirst( $type ) );
+				$sitemap = new $class( $this->settings, $this->helper );
 				break;
 			default:
 				$sitemap = new Sitemap_Generator_Index( $this->settings, $this->helper );
@@ -73,6 +61,14 @@ class Frontend {
 
 		return $sitemap->get();
 
+	}
+
+	public function remove_setting( $setting ) {
+		$this->settings->remove( $setting );
+	}
+
+	public function set_setting( $setting, $value, $type = 'Text' ) {
+		$this->settings->set( $setting, $value, $type );
 	}
 
 }

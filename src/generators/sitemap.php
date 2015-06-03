@@ -3,6 +3,7 @@
 use Lti\Sitemap\Helpers\ICanHelp;
 use Lti\Sitemap\Helpers\Plugin_Query;
 use Lti\Sitemap\Plugin\Plugin_Settings;
+use Lti\Sitemap\Plugin\Postbox_Values;
 use Lti\Sitemap\Sitemap;
 use Lti\Sitemap\SiteMapIndex;
 use Lti\Sitemap\SitemapNews;
@@ -43,7 +44,8 @@ abstract class Sitemap_Generator implements ICanGenerateSitemaps {
 		 *
 		 * @api string The XSL stylesheet URL
 		 */
-		return apply_filters( 'lti_xsl_sitemap_url', plugin_dir_url( LTI_SITEMAP_PLUGIN_DIR.'assets/dist/xsl/sitemap.xsl' ) . 'sitemap.xsl' );
+		return apply_filters( 'lti_xsl_sitemap_url',
+			plugin_dir_url( LTI_SITEMAP_PLUGIN_DIR . 'assets/dist/xsl/sitemap.xsl' ) . 'sitemap.xsl' );
 	}
 
 }
@@ -182,7 +184,7 @@ class Sitemap_Generator_Index extends Sitemap_Generator {
 
 		if ( $this->settings->get( 'content_news_support' ) === true ) {
 			$result = $this->query->get_news_info();
-			if ( ! empty( $result ) ) {
+			if ( ! empty( $result ) && ( !is_null( $result[0]->lastmod ) ) ) {
 				$sitemap_index->add( new Sitemap( $this->filename . 'news.xml',
 					lti_iso8601_date( $result[0]->lastmod ) ) );
 
@@ -323,7 +325,8 @@ class Sitemap_Generator_News extends Sitemap_Generator {
 		 *
 		 * @api string The XSL stylesheet URL
 		 */
-		return apply_filters( 'lti_xsl_sitemap_news_url', plugin_dir_url( LTI_SITEMAP_PLUGIN_DIR.'assets/dist/xsl/sitemap-news.xsl' ) . 'sitemap-news.xsl' );
+		return apply_filters( 'lti_xsl_sitemap_news_url',
+			plugin_dir_url( LTI_SITEMAP_PLUGIN_DIR . 'assets/dist/xsl/sitemap-news.xsl' ) . 'sitemap-news.xsl' );
 	}
 
 	public function get() {
@@ -340,6 +343,9 @@ class Sitemap_Generator_News extends Sitemap_Generator {
 				 */
 				$news = unserialize( $entry->meta_value );
 
+				if ( ( $news instanceof Postbox_Values ) === false ) {
+					continue;
+				}
 				$postsIndex[ $entry->ID ] = $sitemap_news->add( new SitemapUrl( get_permalink( $entry->ID ) ) );
 
 				$newsNode = new SitemapNews( $this->settings->get( 'news_publication' ),
@@ -361,7 +367,7 @@ class Sitemap_Generator_News extends Sitemap_Generator {
 				if ( ! is_null( $title ) ) {
 					$newsNode->set_title( $title );
 				} else {
-					$newsNode->set_title( $entry->post_title);
+					$newsNode->set_title( $entry->post_title );
 				}
 
 				$keywords = $news->get( 'news_keywords' );
@@ -375,6 +381,7 @@ class Sitemap_Generator_News extends Sitemap_Generator {
 				}
 				$sitemap_news->addNewsNode( $postsIndex[ $entry->ID ], $newsNode );
 			}
+
 		}
 
 		return $sitemap_news->output();

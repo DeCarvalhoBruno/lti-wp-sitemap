@@ -12,4 +12,4 @@ tests_add_filter( 'muplugins_loaded', '_manually_load_plugin' );
 
 require $_tests_dir . '/includes/bootstrap.php';
 require_once dirname( __FILE__ ) . '/testcase-lti-sitemap.php';
-
+require_once dirname( __FILE__ ) . '/datatypes/xml.php';

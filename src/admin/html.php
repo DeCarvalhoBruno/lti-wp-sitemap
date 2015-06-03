@@ -4,7 +4,7 @@
 use Lti\Sitemap\Plugin\Plugin_Settings;
 use Symfony\Component\Intl\Intl as Languages;
 
-class Html_Elements{
+class Html_Elements {
 
 	private $settings;
 	private $priorities;
@@ -14,7 +14,7 @@ class Html_Elements{
 	/**
 	 * @param \Lti\Sitemap\Plugin\Plugin_Settings $settings
 	 */
-	public function __construct(Plugin_Settings $settings) {
+	public function __construct( Plugin_Settings $settings ) {
 		$this->settings = $settings;
 
 		$this->changeFrequencies = array(
@@ -27,7 +27,7 @@ class Html_Elements{
 			"never"   => lsmint( 'opt.change_frequency.never' )
 		);
 
-		$this->priorities                       = array(
+		$this->priorities = array(
 			"1"   => "100%",
 			"0.9" => "90%",
 			"0.8" => "80%",
@@ -40,7 +40,7 @@ class Html_Elements{
 			"0.1" => "10%",
 		);
 
-		$this->languages = Languages::getLanguageBundle()->getLanguageNames(get_locale());
+		$this->languages = Languages::getLanguageBundle()->getLanguageNames( get_locale() );
 
 		$this->extraPages = "";
 
@@ -66,12 +66,12 @@ class Html_Elements{
 		}
 	}
 
-	public function select($type,$name, $selectSelected = '', $selectID = '', $selectClass = '' ){
-		if(empty($selectSelected)){
-			$selectID = $name;
-			$selectSelected = lsmopt($name);
+	public function select( $type, $name, $selectSelected = '', $selectID = '', $selectClass = '' ) {
+		if ( empty( $selectSelected ) ) {
+			$selectID       = $name;
+			$selectSelected = lsmopt( $name );
 		}
-		switch($type){
+		switch ( $type ) {
 			case 'priority':
 				$type = $this->priorities;
 				break;
@@ -80,8 +80,12 @@ class Html_Elements{
 				break;
 			case 'language':
 				$type = $this->languages;
+				break;
+			default:
+				return null;
+
 		}
-		$select =  new htmlSelect($type,$name, $selectSelected , $selectID , $selectClass );
+		$select = new htmlSelect( $type, $name, $selectSelected, $selectID, $selectClass );
 
 		echo $select->html;
 	}

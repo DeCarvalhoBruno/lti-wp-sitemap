@@ -141,6 +141,8 @@ $google_console_url = $this->google->get_console_url();
 						<div class="form-help-container">
 							<div class="form-help">
 								<p><?php echo lsmint( 'opt.hlp.images' ); ?></p>
+								<p><?php echo lsmint( 'opt.hlp.images1' ); ?></p>
+								<p><?php echo lsmint( 'opt.hlp.images2' ); ?></p>
 							</div>
 						</div>
 					</div>

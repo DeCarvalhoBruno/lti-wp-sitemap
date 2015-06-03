@@ -352,12 +352,12 @@ class Plugin_Query {
 
 		$this->q->select( array( 'MAX(p.post_modified_gmt) as `lastmod`' ) );
 		$this->q->from( array( $this->wpdb->posts . ' p' ) );
-		$this->q->join( 'wp_ldb_postmeta pm',
+		$this->q->join( $this->wpdb->postmeta. ' pm',
 			array(
 				array( 'p.ID', '=', 'pm.post_id' ),
 				array( 'pm.meta_key', '=', 'lti_sitemap' )
 			) );
-		$this->q->join( 'wp_ldb_postmeta pm2',
+		$this->q->join( $this->wpdb->postmeta.' pm2',
 			array(
 				array( 'p.ID', '=', 'pm2.post_id' ),
 				array( 'pm2.meta_key', '=', 'lti_sitemap_post_is_news' )
@@ -378,12 +378,12 @@ class Plugin_Query {
 
 		$this->q->select( array( 'p.ID','p.post_date_gmt as `creation_date`', 'pm.meta_value', 'p.post_title' ) );
 		$this->q->from( array( $this->wpdb->posts . ' p' ) );
-		$this->q->join( 'wp_ldb_postmeta pm',
+		$this->q->join( $this->wpdb->postmeta.' pm',
 			array(
 				array( 'p.ID', '=', 'pm.post_id' ),
 				array( 'pm.meta_key', '=', 'lti_sitemap' )
 			) );
-		$this->q->join( 'wp_ldb_postmeta pm2',
+		$this->q->join( $this->wpdb->postmeta.' pm2',
 			array(
 				array( 'p.ID', '=', 'pm2.post_id' ),
 				array( 'pm2.meta_key', '=', 'lti_sitemap_post_is_news' )
