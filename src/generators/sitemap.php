@@ -243,7 +243,7 @@ class Sitemap_Generator_Posts extends Sitemap_Generator {
 			foreach ( $image_data as $image ) {
 				if ( isset( $postsIndex[ $image->post_id ] ) ) {
 					$license_url = $image_url = '';
-					if ( preg_match( '#^http\://[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(?:/\S*)?$#',
+					if ( preg_match( '#^http(s?)\://[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(?:/\S*)?$#',
 						$image->license,
 						$matches ) ) {
 						$license_url = $matches[0];
