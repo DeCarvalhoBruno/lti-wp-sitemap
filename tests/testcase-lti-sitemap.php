@@ -17,6 +17,7 @@ class Lti_Sitemap_UnitTestCase extends \WP_UnitTestCase {
 
 	public function setUp() {
 		parent::setUp();
+		update_option('permalink_structure','/%year%/%monthnum%/%postname%/');
 		$this->instance = Lti_Sitemap::get_instance();
 	}
 

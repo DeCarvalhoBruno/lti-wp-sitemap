@@ -52,8 +52,8 @@ $google_console_url = $this->google->get_console_url();
 				<div role="tabpanel" class="tab-pane active" id="tab_general">
 					<div id="sitemap-info">
 						<h3><?php echo lsmint( 'hlp.sitemap_info' ); ?> <em><a
-								href="<?php echo $this->get_sitemap_url(); ?>"
-								target="_blank"><?php echo $this->get_sitemap_url(); ?></a></em></h3>
+									href="<?php echo $this->get_sitemap_url(); ?>"
+									target="_blank"><?php echo $this->get_sitemap_url(); ?></a></em></h3>
 					</div>
 					<div class="form-group">
 						<div class="input-group">
@@ -141,7 +141,9 @@ $google_console_url = $this->google->get_console_url();
 						<div class="form-help-container">
 							<div class="form-help">
 								<p><?php echo lsmint( 'opt.hlp.images' ); ?></p>
+
 								<p><?php echo lsmint( 'opt.hlp.images1' ); ?></p>
+
 								<p><?php echo lsmint( 'opt.hlp.images2' ); ?></p>
 							</div>
 						</div>
@@ -307,6 +309,12 @@ $google_console_url = $this->google->get_console_url();
 								<div class="input-group">
 									<?php if ( $site->is_listed ): ?>
 										<?php if ( $site->sitemap->has_sitemap() ): ?>
+											<div class="input-group">
+												<p style="text-align: center;"><a
+														href="<?php echo $google_console_url; ?>"
+														target="_blank"><?php echo lsmint( 'msg.google.info3' ); ?></a>
+												</p>
+											</div>
 											<table class="table">
 												<thead>
 												<tr>
@@ -409,7 +417,8 @@ $google_console_url = $this->google->get_console_url();
 													<li><?php echo lsmint( 'hlp.google.logged_in1-5' ); ?></li>
 													<li><?php echo lsmint( 'hlp.google.logged_in1-6' ); ?></li>
 												</ul>
-											<p><strong><?php echo lsmint( 'hlp.google.logged_in1-7' ); ?></strong></p>
+												<p><strong><?php echo lsmint( 'hlp.google.logged_in1-7' ); ?></strong>
+												</p>
 											</li>
 
 											<li><?php echo lsmint( 'hlp.google.logged_in2' ); ?></li>
@@ -448,7 +457,10 @@ $google_console_url = $this->google->get_console_url();
 							<div class="form-help-container">
 								<div class="form-help">
 									<p><?php echo lsmint( 'bing.help1' ); ?></p>
-									<p style="text-align: center"><a href="https://www.bing.com/webmaster/home/mysites" target="_blank"><?php echo lsmint( 'bing.help2' ); ?></a></p>
+
+									<p style="text-align: center"><a href="https://www.bing.com/webmaster/home/mysites"
+									                                 target="_blank"><?php echo lsmint( 'bing.help2' ); ?></a>
+									</p>
 								</div>
 							</div>
 						</div>
@@ -556,6 +568,7 @@ $google_console_url = $this->google->get_console_url();
 						<div class="form-help-container">
 							<div class="form-help">
 								<p><?php echo lsmint( 'opt.hlp.news0' ); ?></p>
+
 								<p><?php echo lsmint( 'opt.hlp.news1' ); ?></p>
 								<ul>
 									<li><?php echo lsmint( 'opt.hlp.news2' ); ?></li>
