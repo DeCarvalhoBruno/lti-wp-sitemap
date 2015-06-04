@@ -2,6 +2,7 @@
 
 
 use Lti\Sitemap\Plugin\Plugin_Settings;
+use Symfony\Component\Intl\Exception\MissingResourceException;
 use Symfony\Component\Intl\Intl as Languages;
 
 class Html_Elements {
@@ -40,7 +41,13 @@ class Html_Elements {
 			"0.1" => "10%",
 		);
 
-		$this->languages = Languages::getLanguageBundle()->getLanguageNames( get_locale() );
+		//Getting a list of language names in the user's locale
+		//Defaulting to a list of language names in English if the user's locale can't be found.
+		try {
+			$this->languages = Languages::getLanguageBundle()->getLanguageNames( $settings->get( 'news_language' ) );
+		} catch ( MissingResourceException $e ) {
+			$this->languages = Languages::getLanguageBundle()->getLanguageNames( 'en' );
+		}
 
 		$this->extraPages = "";
 
