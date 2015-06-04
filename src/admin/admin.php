@@ -458,12 +458,11 @@ class Admin {
 				update_post_meta( $post_ID, 'lti_sitemap', new Postbox_Values( (object) $post_variables ) );
 			}
 
-			//If the post is a news item, we set a special post meta to make sitemap queries easier.
-			$post_variables = $this->helper->filter_var_array( $_POST['lti_sitemap_news'] );
-			if ( ! is_null( $post_variables ) && ! empty( $post_variables ) && $post_variables !== false ) {
+			if ( isset( $_POST['lti_sitemap_news'] ) ) {
+				//If the post is a news item, we set a special post meta to make sitemap queries easier.
 				update_post_meta( $post_ID, 'lti_sitemap_post_is_news', true );
 			} else {
-				delete_post_meta( $post_ID, 'lti_sitemap_post_is_news', true );
+				delete_post_meta( $post_ID, 'lti_sitemap_post_is_news' );
 			}
 		}
 	}

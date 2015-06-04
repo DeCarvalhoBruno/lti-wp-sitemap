@@ -1,6 +1,6 @@
 === LTI Sitemap ===
 Contributors: lti, decarvalho_bruno
-Tags: SEO, XML, google, site, map, sitemap, webmaster, search engine optimization, moteur, recherche, optimisation, search console, plan de site, open-source
+Tags: xml sitemap, XML, google, site, map, SEO, webmaster, search engine optimization, moteur, recherche, optimisation, search console, plan de site, admin, plugin, Linguistic Team International, LTI
 Requires at least: 4
 Tested up to: 4.2.2
 Stable tag: 0.5.0
@@ -48,7 +48,7 @@ A postbox is added to the post editor to specify whether a post is classified as
 
 = Taking advantage of the Google Search Console =
 
-LTI SEO wants to make sure Wordpress users know about the Search console by facilitating the process of managing the main sitemap directly from Wordpress. Without these types of tools, it would be hard to assess whether our SEO efforts are worth putting time and effort into!
+We want to make sure Wordpress users know about the Search console by facilitating the process of managing the main sitemap directly from Wordpress. Without these types of tools, it would be hard to assess whether our SEO efforts are worth putting time and effort into!
 
 = Contribution =
 
