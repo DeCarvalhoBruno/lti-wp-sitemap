@@ -204,8 +204,11 @@ class Admin {
 
 	/**
 	 * User input validation
+	 * Compares old values with new because some fields have a global impact,
+	 * including values that users set in postboxes
 	 *
 	 * @param array $post_variables
+	 * @param string $update_type the method to execute so the purpose of the submit button is fulfilled
 	 */
 	public function validate_input( $post_variables, $update_type ) {
 		if ( wp_verify_nonce( $post_variables['lti_sitemap_token'], 'lti_sitemap_options' ) !== false ) {
@@ -302,6 +305,14 @@ class Admin {
 		include $this->admin_dir . '/partials/postbox.php';
 	}
 
+	/**
+	 * We need to update every post if the plugin setting affects post settings.
+	 *
+	 * @see \Lti\Sitemap\Plugin\Def::$impacts_user_settings
+	 *
+	 * @param array $changed
+	 * @param bool $reset
+	 */
 	public function update_global_post_fields( $changed = array(), $reset = false ) {
 		/**
 		 * @var \wpdb $wpdb
@@ -333,12 +344,17 @@ class Admin {
 		}
 	}
 
+	/**
+	 * Simplistic way of dealing with supported post types, but works for our purposes
+	 *
+	 * @return array
+	 */
 	public function get_supported_post_types() {
 		return array( 'post' );
 	}
 
 	/**
-	 * Renders the admin view
+	 * Renders the admin view and handles form posting
 	 *
 	 */
 	public function options_page() {
@@ -357,8 +373,11 @@ class Admin {
 
 		$post_variables = $this->helper->filter_var_array( $_POST );
 		$update_type    = '';
+
 		/**
-		 * Form submission handler
+		 * Each submit button in the form has a particular name
+		 * helping us figure out what kind of processing to do (if any)
+		 * on top of saving settings
 		 */
 		switch ( true ) {
 			case isset( $post_variables['lti_sitemap_update'] ):
@@ -385,7 +404,7 @@ class Admin {
 			case isset( $post_variables['lti_sitemap_reset'] ):
 				$this->settings = new Plugin_Settings();
 
-				$this->settings->set('news_language',substr(get_locale(), 0, 2));
+				$this->settings->set( 'news_language', substr( get_locale(), 0, 2 ) );
 				update_option( 'lti_sitemap_options', $this->settings );
 				$this->update_global_post_fields( array(), true );
 
@@ -420,6 +439,7 @@ class Admin {
 				$stock_tickers = array_slice(
 					explode( ",", $post_variables['news_stock_tickers'] ), 0, 5 );
 
+				//Stock tickers have a format "STOCK_EXCHANGE:VALUE", so we need to filter them
 				$post_variables['news_stock_tickers'] = null;
 				if ( ! empty( $stock_tickers ) ) {
 					$tickers = array();
@@ -438,6 +458,7 @@ class Admin {
 				update_post_meta( $post_ID, 'lti_sitemap', new Postbox_Values( (object) $post_variables ) );
 			}
 
+			//If the post is a news item, we set a special post meta to make sitemap queries easier.
 			$post_variables = $this->helper->filter_var_array( $_POST['lti_sitemap_news'] );
 			if ( ! is_null( $post_variables ) && ! empty( $post_variables ) && $post_variables !== false ) {
 				update_post_meta( $post_ID, 'lti_sitemap_post_is_news', true );
@@ -447,6 +468,14 @@ class Admin {
 		}
 	}
 
+	/**
+	 * Adding extra links to the LTI Sitemap entry in plugins.php
+	 *
+	 * @param $links
+	 * @param $file
+	 *
+	 * @return array
+	 */
 	public function plugin_row_meta( $links, $file ) {
 		if ( $file == $this->plugin_basename ) {
 			$links[] = '<a href="https://github.com/DeCarvalhoBruno/lti-wp-sitemap" target="_blank">' . lsmint( 'admin.contribute' ) . '</a>';
@@ -518,11 +547,18 @@ class Admin {
 		return $this->sitemap_url;
 	}
 
+	/**
+	 * Validation for URLs entered in General > User defined pages
+	 *
+	 * @param $post_variables
+	 *
+	 * @return mixed
+	 */
 	private function validate_extra_urls( $post_variables ) {
 		$urls = $post_variables['extra_pages_url'];
 
 		if ( ! empty( $urls ) ) {
-
+			//If the URL filter doesn't pass, we remove the whole entry
 			foreach ( $urls as $key => $url ) {
 				if ( filter_var( $url, FILTER_VALIDATE_URL ) === false ) {
 					unset( $post_variables['extra_pages_url'][ $key ] );

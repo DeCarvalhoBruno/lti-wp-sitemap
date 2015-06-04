@@ -45,6 +45,14 @@ class Frontend {
 		$this->helper      = $helper;
 	}
 
+	/**
+	 * Sitemap building class, takes in a type
+	 * and returns a string containing the sitemap's XML
+	 *
+	 * @param null $type
+	 *
+	 * @return string
+	 */
 	public function build_sitemap( $type = null ) {
 		switch ( $type ) {
 			case 'main':

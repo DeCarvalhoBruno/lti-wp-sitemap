@@ -1,10 +1,16 @@
 <?php namespace Lti\Sitemap;
 
-
 use Lti\Sitemap\Plugin\Plugin_Settings;
 use Symfony\Component\Intl\Exception\MissingResourceException;
 use Symfony\Component\Intl\Intl as Languages;
 
+/**
+ * Class Html_Elements
+ * @package Lti\Sitemap
+ *
+ * Adds some common html elements to options-page.php
+ *
+ */
 class Html_Elements {
 
 	private $settings;
@@ -51,6 +57,7 @@ class Html_Elements {
 
 		$this->extraPages = "";
 
+		//Filling in the table in General > User defined pages
 		$extra_urls = $this->settings->get( "extra_pages_url" );
 		if ( ! empty( $extra_urls ) ) {
 			$extra_dates = $this->settings->get( "extra_pages_date" );
@@ -73,6 +80,17 @@ class Html_Elements {
 		}
 	}
 
+	/**
+	 * Generating html lists
+	 *
+	 * @param string $type
+	 * @param string $name attribute "name" of the html element
+	 * @param string $selectSelected ID of selected element
+	 * @param string $selectID ID of the html select
+	 * @param string $selectClass Class of the html select
+	 *
+	 * @return null
+	 */
 	public function select( $type, $name, $selectSelected = '', $selectID = '', $selectClass = '' ) {
 		if ( empty( $selectSelected ) ) {
 			$selectID       = $name;
@@ -99,6 +117,13 @@ class Html_Elements {
 
 }
 
+/**
+ * Class htmlSelect
+ * @package Lti\Sitemap
+ *
+ * Little class to generate html lists
+ *
+ */
 class htmlSelect {
 
 	public $html;

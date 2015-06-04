@@ -1,5 +1,12 @@
 <?php namespace Lti\Sitemap\Helpers;
 
+/**
+ * Class Query_Manager
+ *
+ * Builds SQL queries
+ *
+ * @package Lti\Sitemap\Helpers
+ */
 class Query_Manager {
 
 	private $columns = array();

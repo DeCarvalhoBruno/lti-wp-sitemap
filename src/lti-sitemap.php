@@ -74,7 +74,6 @@ class LTI_Sitemap {
 			$this->settings = new Plugin_Settings();
 		}
 
-
 		$this->load_dependencies();
 		$this->set_locale();
 	}
@@ -96,7 +95,6 @@ class LTI_Sitemap {
 	public function get_helper() {
 		return $this->helper;
 	}
-
 
 	private function load_dependencies() {
 		require_once $this->plugin_path . 'src/helper.php';
@@ -194,6 +192,7 @@ class LTI_Sitemap {
 			if ( isset( $parsedOptions["params"] ) ) {
 				$sitemapFileNameSuffix = $parsedOptions["params"];
 
+				//We grab the month and year out of the filename so we can build date based sitemaps if needed
 				if ( preg_match( '#([\w-_]+)\-([0-9]{4})\-?([0-9]{2})?$#', $sitemapFileNameSuffix, $matches ) ) {
 					$type = $matches[1];
 					$this->settings->set( 'year', $matches[2] );
@@ -211,8 +210,9 @@ class LTI_Sitemap {
 				//No need for pingbacks here
 				header_remove( 'X-Pingback' );
 			}
-			if ( empty( $type ) || in_array( $type, $this->sitemap_types ) ) {
 
+			//If we have a type matching the filename, we echo it and bail, otherwise we go 404
+			if ( empty( $type ) || in_array( $type, $this->sitemap_types ) ) {
 				echo $this->frontend->build_sitemap( $type );
 				exit;
 			} else {
@@ -221,12 +221,26 @@ class LTI_Sitemap {
 		}
 	}
 
+	/**
+	 * Displays a text asking for people's feedback
+	 *
+	 * @param $text
+	 *
+	 * @return string
+	 */
 	public function admin_footer_text( $text ) {
 		return sprintf( '<em>%s <a target="_blank" href="%s">%s</a></em>',
 			lsmint( 'admin.footer.feedback' ), sprintf( static::$review_url, LTI_SITEMAP_NAME ),
 			lsmint( 'admin.footer.review' ) );
 	}
 
+	/**
+	 * Displays plugin versions
+	 *
+	 * @param $text
+	 *
+	 * @return string
+	 */
 	public function update_footer( $text ) {
 		return sprintf( '<a target="_blank" title="%s" href="%s">%s %s</a>, %s',
 			lsmint( 'general.changelog' ), sprintf( static::$changelog_url, LTI_SITEMAP_NAME ),

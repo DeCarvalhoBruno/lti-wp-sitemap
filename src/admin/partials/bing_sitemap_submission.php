@@ -114,9 +114,11 @@
 
 $url = filter_input( INPUT_GET, 'bing_url' );
 if ( $url === false || is_null( $url ) ) {
+	//No URL, no sending
 	die( lsmint( 'err.bing.popup' ) );
 }
 
+//Doing a simple CURL request
 $result = \Lti\Sitemap\Helpers\Bing_Helper::http_request( $url );
 
 if ( array_key_exists( 'http_code', $result ) ) {

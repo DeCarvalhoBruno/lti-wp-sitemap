@@ -1,6 +1,10 @@
 <?php namespace Lti\Sitemap\Helpers;
 
-
+/**
+ * Class Bing_Helper
+ *
+ * @package Lti\Sitemap\Helpers
+ */
 class Bing_Helper {
 
 

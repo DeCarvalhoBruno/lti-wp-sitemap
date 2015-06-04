@@ -14,6 +14,10 @@ interface ICanGenerateSitemaps {
 	public function get();
 }
 
+/**
+ * Class Sitemap_Generator
+ * @package Lti\Sitemap\Generators
+ */
 abstract class Sitemap_Generator implements ICanGenerateSitemaps {
 
 	/**
@@ -50,6 +54,10 @@ abstract class Sitemap_Generator implements ICanGenerateSitemaps {
 
 }
 
+/**
+ * Class Sitemap_Generator_Authors
+ * @package Lti\Sitemap\Generators
+ */
 class Sitemap_Generator_Authors extends Sitemap_Generator {
 	public function get() {
 		$sitemap_pages = new SiteMapUrlSet();
@@ -71,6 +79,10 @@ class Sitemap_Generator_Authors extends Sitemap_Generator {
 	}
 }
 
+/**
+ * Class Sitemap_Generator_Pages
+ * @package Lti\Sitemap\Generators
+ */
 class Sitemap_Generator_Pages extends Sitemap_Generator {
 	public function get() {
 		$sitemap_pages = new SiteMapUrlSet();
@@ -91,6 +103,10 @@ class Sitemap_Generator_Pages extends Sitemap_Generator {
 	}
 }
 
+/**
+ * Class Sitemap_Generator_Main
+ * @package Lti\Sitemap\Generators
+ */
 class Sitemap_Generator_Main extends Sitemap_Generator {
 	public function get() {
 		$sitemap_main = new SiteMapUrlSet();
@@ -121,6 +137,10 @@ class Sitemap_Generator_Main extends Sitemap_Generator {
 
 }
 
+/**
+ * Class Sitemap_Generator_Index
+ * @package Lti\Sitemap\Generators
+ */
 class Sitemap_Generator_Index extends Sitemap_Generator {
 
 	public function get() {
@@ -196,6 +216,10 @@ class Sitemap_Generator_Index extends Sitemap_Generator {
 
 }
 
+/**
+ * Class Sitemap_Generator_Posts
+ * @package Lti\Sitemap\Generators
+ */
 class Sitemap_Generator_Posts extends Sitemap_Generator {
 
 	public function get() {
@@ -317,6 +341,10 @@ class Sitemap_Generator_Posts extends Sitemap_Generator {
 
 }
 
+/**
+ * Class Sitemap_Generator_News
+ * @package Lti\Sitemap\Generators
+ */
 class Sitemap_Generator_News extends Sitemap_Generator {
 
 	public function get_stylesheet_url() {
