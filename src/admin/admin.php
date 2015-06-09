@@ -260,18 +260,16 @@ class Admin {
 	 *
 	 */
 	public function add_meta_boxes() {
-		if ( $this->settings->get( 'content_news_support' ) == true ) {
-			$supported_post_types = $this->get_supported_post_types();
-			foreach ( $supported_post_types as $supported_post_type ) {
-				add_meta_box(
-					'lti-sitemap-metadata-box',
-					lsmint( 'admin.meta_box' ),
-					array( $this, 'metadata_box' ),
-					$supported_post_type,
-					'advanced',
-					'high'
-				);
-			}
+		$supported_post_types = $this->get_supported_post_types();
+		foreach ( $supported_post_types as $supported_post_type ) {
+			add_meta_box(
+				'lti-sitemap-metadata-box',
+				lsmint( 'admin.meta_box' ),
+				array( $this, 'metadata_box' ),
+				$supported_post_type,
+				'advanced',
+				'high'
+			);
 		}
 	}
 
