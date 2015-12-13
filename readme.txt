@@ -2,7 +2,7 @@
 Contributors: lti, decarvalho_bruno
 Tags: xml sitemap, XML, google, site, map, SEO, webmaster, search engine optimization, moteur, recherche, optimisation, search console, plan de site, admin, plugin, Linguistic Team International, LTI
 Requires at least: 4
-Tested up to: 4.2.2
+Tested up to: 4.4
 Stable tag: 0.5.1
 License: GNU General Public License, version 2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html

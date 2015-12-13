@@ -114,6 +114,10 @@
         margin-left: 10px;
     }
 
+    #flsm .input-group input {
+        text-shadow: none;
+    }
+
     #flsm .input-group input[type="button"] {
         margin: 10px auto;
         background-color: #1aa55f;
